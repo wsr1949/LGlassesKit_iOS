@@ -21,7 +21,7 @@
 </p>
 
 
-# LGlassesKit_iOS
+# LGlassesKit_iOS👓
 
 LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。
 
@@ -75,16 +75,12 @@ Extended Virtual Addressing
 Uses Bluetooth LE accessories
 ```
 
-## 导入头文件
+## 🎉开始使用，导入头文件
 ```objective-c 
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
 
-
-
-## 初始化SDK，注册委托代理
-
-### 注册委托代理
+### 初始化SDK，注册委托代理
 ```ruby 
 /**
  注册委托代理
@@ -94,8 +90,9 @@ Uses Bluetooth LE accessories
 + (void)registerDelegate:(id<LDelegate>)delegate enableLog:(BOOL)enableLog;
 ```
 
-## 委托代理方法
+#### 委托代理方法
 
+```ruby
 /// 中心蓝牙状态
 - (void)centralBluetoothStatus:(CBManagerState)status;
 
@@ -133,16 +130,9 @@ Uses Bluetooth LE accessories
 
 /// 通知停止语音播报
 - (void)notifyStopVoicePlayback;
-
-
- # 版本记录🚀
-```objective-c
- project    2025-10-13  Version:1.0.0   Build:2025091901
-            1.首版
 ```
 
- project    2025-10-13  Version:1.0.0   Build:2025091901
- 
+ # 版本记录🚀
 ```ruby
  project    2025-10-13  Version:1.0.0   Build:2025091901
             1.首版
