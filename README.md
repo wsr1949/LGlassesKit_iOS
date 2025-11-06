@@ -21,4 +21,15 @@
 </p>
 
 # LGlassesKit_iOS
-LGlassesKit 为 iOS 应用程序提供眼镜交互功能。
+LGlassesKit 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。
+
+## 兼容性（XCFramework）
+支持模拟器、真机iOS 14.0 及以上操作系统
+
+## 安装（CocoaPods）
+1. 在 `Podfile` 中添加
+```ruby
+pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
+```
+
+2. 运行 `pod install` 或 `pod update`
