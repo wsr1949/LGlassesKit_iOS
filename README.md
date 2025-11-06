@@ -31,31 +31,31 @@ LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信�
 
 ## 安装（CocoaPods）
 
-1. 在 `Podfile` 中添加
+### 1. 在 `Podfile` 中添加
 ```ruby
 pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
 ```
 
-2. 终端执行 
+### 2. 终端执行 
 ```ruby
 pod install
 ```
 
 ## Info.plist 添加隐私权限描述
 
-1. 蓝牙权限
+### 1. 蓝牙权限
 ```objective-c
 Privacy - Bluetooth Always Usage Description
 ```
 
-2. 本地网络权限
+### 2. 本地网络权限
 ```objective-c
 Privacy - Local Network Usage Description
 ```
 
 ## TARGRTS 添加 Capability
 
-1. 访问Wi-Fi信息 
+### 1. 访问Wi-Fi信息 
 ```objective-c
 Access Wi-Fi Information
 ```
@@ -65,7 +65,7 @@ Access Wi-Fi Information
 Hotspot
 ```
 
-3. 扩展虚拟地址（可选）
+### 3. 扩展虚拟地址（可选）
 ```objective-c
 Extended Virtual Addressing
 ```
