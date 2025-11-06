@@ -32,4 +32,7 @@ LGlassesKit 为智能眼镜的iOS框架，负责与智能眼镜设备通信等�
 pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
 ```
 
-2. 运行 `pod install` 或 `pod update`
+2. 终端执行 
+```ruby
+pod install
+```
