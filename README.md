@@ -20,13 +20,13 @@
 
 </p>
 
-#LGlassesKit_iOS
+# LGlassesKit_iOS
 LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。
 
-#兼容性（XCFramework）
+# 兼容性（XCFramework）
 支持模拟器、真机（注意模拟器不支持蓝牙）`iOS 14.0 及以上操作系统`
 
-#安装（CocoaPods）
+# 安装（CocoaPods）
 1. 在 `Podfile` 中添加
 ```ruby
 pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
@@ -36,7 +36,7 @@ pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
 pod install
 ```
 
-#Info.plist 添加隐私权限描述
+# Info.plist 添加隐私权限描述
 1. 蓝牙权限
 ```ruby
 Privacy - Bluetooth Always Usage Description
@@ -46,7 +46,7 @@ Privacy - Bluetooth Always Usage Description
 Privacy - Local Network Usage Description
 ```
 
-#TARGRTS 添加 Capability
+# TARGRTS 添加 Capability
 1. 访问Wi-Fi信息 
 ```ruby
 Access Wi-Fi Information
