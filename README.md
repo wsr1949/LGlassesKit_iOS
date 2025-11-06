@@ -110,7 +110,7 @@ Uses Bluetooth LE accessories
 ## 三、实现委托代理方法
 
 ##### 中心蓝牙状态
-```ruby
+```objective-c
 /**
  中心蓝牙状态
  @param status      蓝牙状态
