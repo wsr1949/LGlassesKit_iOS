@@ -55,7 +55,7 @@ Privacy - Local Network Usage Description
 
 ## TARGRTS 添加 Capability
 
-### 1. 访问Wi-Fi信息 
+#### 1. 访问Wi-Fi信息 
 ```objective-c
 Access Wi-Fi Information
 ```
