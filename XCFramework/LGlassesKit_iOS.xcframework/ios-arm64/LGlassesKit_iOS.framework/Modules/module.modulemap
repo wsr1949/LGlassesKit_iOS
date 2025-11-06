@@ -1,0 +1,6 @@
+framework module LGlassesKit_iOS {
+  umbrella header "LGlassesKit_iOS.h"
+  export *
+
+  module * { export * }
+}
