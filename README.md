@@ -21,7 +21,7 @@
 </p>
 
 
-# LGlassesKit_iOS👓
+# 👓LGlassesKit_iOS
 
 LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。
 
@@ -29,7 +29,7 @@ LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信�
 
 支持模拟器、真机（注意模拟器不支持蓝牙）`iOS 14.0 及以上操作系统`
 
-## 安装（CocoaPods）
+## 一、安装（CocoaPods）
 
 ##### 1. 在 `Podfile` 中添加
 ```ruby
@@ -41,7 +41,7 @@ pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
 pod install
 ```
 
-## Info.plist 添加隐私权限描述
+## 二、Info.plist 添加隐私权限描述
 
 ##### 1. 蓝牙权限
 ```objective-c
@@ -53,7 +53,7 @@ Privacy - Bluetooth Always Usage Description
 Privacy - Local Network Usage Description
 ```
 
-## TARGRTS 添加 Capability
+## 三、TARGRTS 添加 Capability
 
 ##### 1. 访问Wi-Fi信息 
 ```objective-c
@@ -75,12 +75,15 @@ Extended Virtual Addressing
 Uses Bluetooth LE accessories
 ```
 
-# 🎉开始使用，导入头文件
+
+# 🎉开始使用
+
+## 一、导入头文件
 ```objective-c 
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
 
-## 初始化SDK，注册委托代理
+## 二、初始化SDK，注册委托代理
 
 ##### 注册委托代理
 ```ruby 
@@ -92,7 +95,7 @@ Uses Bluetooth LE accessories
 + (void)registerDelegate:(id<LDelegate>)delegate enableLog:(BOOL)enableLog;
 ```
 
-## 实现委托代理方法
+## 三、实现委托代理方法
 
 ##### 中心蓝牙状态
 ```ruby
@@ -203,8 +206,271 @@ Uses Bluetooth LE accessories
 - (void)notifyStopVoicePlayback;
 ```
 
-## 其他命令
+## 四、其他方法
 
+##### 开始扫描设备
+```ruby
+/**
+ 开始扫描设备
+ @param callback    设备扫描回调
+ @param timeout     扫描超时时间，秒
+ */
++ (void)startScanningWithCallback:(LDiscoverPeripheralCallback)callback timeout:(int)timeout;
+```
+
+##### 停止扫描设备
+```ruby
+/**
+ 停止扫描设备
+ */
++ (void)stopScanning;
+```
+
+##### 连接设备
+```ruby
+/**
+ 连接设备
+ @param uuid        设备UUID
+ @param timeout     连接超时时间，秒
+ @note  连接结果通过委托代理LDelegate返回 详@link bleConnectionStatus:error:
+ */
++ (void)connectingDevice:(NSString *)uuid timeout:(int)timeout;
+```
+
+##### 断开设备连接
+```ruby
+/**
+ 断开设备连接
+ */
++ (void)disconnectDevice;
+```
+
+##### 中心蓝牙状态
+```ruby
+/**
+ 中心蓝牙状态
+ @return    中心蓝牙状态
+*/
++ (CBManagerState)centralManagerState;
+```
+
+##### BLE连接状态
+```ruby
+/**
+ BLE连接状态
+ @return    BLE连接状态
+ */
++ (LBleStatus)bleConnectStatus;
+```
+
+##### 设置系统时间
+```ruby
+/**
+ 设置系统时间
+ */
++ (void)setSystemTimeWithCallback:(LResultCallback)callback;
+```
+
+##### 设置LED亮度
+```ruby
+/**
+ 设置LED亮度
+ @param brightness  led亮度
+ */
++ (void)setLEDBrightness:(LLedBrightness)brightness callback:(LResultCallback)callback;
+```
+
+##### 设置录像时长
+```ruby
+/**
+ 设置录像时长
+ @param duration    录制时长，秒
+ */
++ (void)setVideoRecordingDuration:(NSInteger)duration callback:(LResultCallback)callback;
+```
+
+##### 设置录音时长
+```ruby
+/**
+ 设置录音时长
+ @param duration    录制时长，秒
+ */
++ (void)setAudioRecordingDuration:(NSInteger)duration callback:(LResultCallback)callback;
+```
+
+##### 设置佩戴检测
+```ruby
+/**
+ 设置佩戴检测
+ @param open    是否开启佩戴检测
+ */
++ (void)setWearDetection:(BOOL)open callback:(LResultCallback)callback;
+```
+
+##### 设置语音唤醒
+```ruby
+/**
+ 设置语音唤醒
+ @param open    是否开启语音唤醒
+ */
++ (void)setVoiceWakeUp:(BOOL)open callback:(LResultCallback)callback;
+```
+
+##### 设置快捷手势功能
+```ruby
+/**
+ 设置快捷手势功能
+ @param action  快捷手势
+ @param event   手势功能
+ */
++ (void)setGesturesAction:(LGestureActions)action event:(LGestureEvents)event callback:(LResultCallback)callback;
+```
+
+##### 设置久坐提醒
+```ruby
+/**
+ 设置久坐提醒
+ @param duration    久坐时长，分钟
+ */
++ (void)setSedentaryReminderTime:(NSInteger)duration callback:(LResultCallback)callback;
+```
+
+##### 重启设备
+```ruby
+/**
+ 重启设备
+ */
++ (void)setRestartDeviceWithCallback:(LResultCallback)callback;
+```
+
+##### 恢复出厂设置
+```ruby
+/**
+ 恢复出厂设置
+ */
++ (void)setFactoryResetWithCallback:(LResultCallback)callback;
+```
+
+##### 获取设备电池电量
+```ruby
+/**
+ 获取设备电池电量
+ */
++ (void)getDeviceBatteryWithCallback:(LResultNumberCallback)callback;
+```
+
+##### 开启拍照
+```ruby
+/**
+ 开启拍照
+ @param type    拍照类型，当类型为LPhotoType_PhotoRecognition时，成功拍照后图片会通过委托代理LDelegate返回 详@link notifyAIRecognizePhotoData:
+ */
++ (void)startTakingPhotos:(LPhotoType)type callback:(LResultCallback)callback;
+```
+
+##### 开启录像
+```ruby
+/**
+ 开启录像
+ */
++ (void)startVideoRecordingWithCallback:(LResultCallback)callback;
+```
+
+##### 停止录像
+```ruby
+/**
+ 停止录像
+ */
++ (void)stopVideoRecordingWithCallback:(LResultCallback)callback;
+```
+
+##### 停止录音
+```ruby
+/**
+ 停止录音
+ */
++ (void)stopAudioRecordingWithCallback:(LResultCallback)callback;
+```
+
+##### 获取当前文件(缩略图)数量
+```ruby
+/**
+ 获取当前文件(缩略图)数量
+ @note 获取成功后数量会通过委托代理LDelegate返回 详@link notifyThumbnailsCount:
+ */
++ (void)getThumbnailsCountWithCallback:(LResultCallback)callback;
+```
+
+##### 打开Wi-Fi热点
+```ruby
+/**
+ 打开Wi-Fi热点
+ @note Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
+ */
++ (void)openWifiHotspotWithCallback:(LResultCallback)callback;
+```
+
+##### 连接Wi-Fi热点
+```ruby
+/**
+ 连接Wi-Fi热点
+ @param wifiHotspotName    Wi-Fi热点名称
+ @note  连接结果通过委托代理LDelegate返回 详@link wifiHotspotConnectionStatus:error:
+ */
++ (void)connectingWiFiHotspot:(NSString * _Nonnull)wifiHotspotName;
+```
+
+##### 断开Wi-Fi热点连接
+```ruby
+/**
+ 断开Wi-Fi热点连接
+ */
++ (void)disconnectWiFiHotspot;
+```
+
+##### Wi-Fi热点连接状态
+```ruby
+/**
+ Wi-Fi热点连接状态
+ @return    Wi-Fi热点连接状态
+ */
++ (LWiFiHotspotStatus)wifiHotspotStatus;
+```
+
+##### 请求文件列表
+```ruby
+/**
+ 请求文件列表
+ */
++ (void)requestFileListWithCallback:(LFileListCallback)callback;
+```
+
+##### 文件下载
+```ruby
+/**
+ 文件下载
+ @param fileName    文件名称
+ */
++ (void)downloadFile:(NSString *)fileName progressCallback:(LProgressCallback)progressCallback completeCallback:(LDownloadCallback)completeCallback;
+```
+
+##### 文件删除
+```ruby
+/**
+ 文件删除
+ @param filePath    文件路径
+ */
++ (void)deleteFile:(NSString *)filePath callback:(LResultCallback)callback;
+```
+
+##### 上报文件下载个数
+```ruby
+/**
+ 上报文件下载个数
+ @param count    已下载个数
+ */
++ (void)reportFileDownloadsCount:(NSInteger)count callback:(LResultCallback)callback;
+```
 
 
 # 版本记录🚀
