@@ -31,46 +31,46 @@ LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信�
 
 ## 安装（CocoaPods）
 
-#### 1. 在 `Podfile` 中添加
+##### 1. 在 `Podfile` 中添加
 ```ruby
 pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
 ```
 
-#### 2. 终端执行 
+##### 2. 终端执行 
 ```ruby
 pod install
 ```
 
 ## Info.plist 添加隐私权限描述
 
-#### 1. 蓝牙权限
+##### 1. 蓝牙权限
 ```objective-c
 Privacy - Bluetooth Always Usage Description
 ```
 
-#### 2. 本地网络权限
+##### 2. 本地网络权限
 ```objective-c
 Privacy - Local Network Usage Description
 ```
 
 ## TARGRTS 添加 Capability
 
-#### 1. 访问Wi-Fi信息 
+##### 1. 访问Wi-Fi信息 
 ```objective-c
 Access Wi-Fi Information
 ```
 
-#### 2. 热点
+##### 2. 热点
 ```objective-c
 Hotspot
 ```
 
-#### 3. 扩展虚拟地址（可选）
+##### 3. 扩展虚拟地址（可选）
 ```objective-c
 Extended Virtual Addressing
 ```
 
-#### 4. 后台模式`Background Modes`勾选
+##### 4. 后台模式`Background Modes`勾选
 ```objective-c 
 Uses Bluetooth LE accessories
 ```
@@ -80,7 +80,9 @@ Uses Bluetooth LE accessories
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
 
-### 初始化SDK，注册委托代理
+## 初始化SDK，注册委托代理
+
+##### 注册委托代理
 ```ruby 
 /**
  注册委托代理
@@ -90,7 +92,7 @@ Uses Bluetooth LE accessories
 + (void)registerDelegate:(id<LDelegate>)delegate enableLog:(BOOL)enableLog;
 ```
 
-### 实现委托代理方法
+## 实现委托代理方法
 
 ##### 中心蓝牙状态
 ```ruby
@@ -111,7 +113,7 @@ Uses Bluetooth LE accessories
 - (void)bleConnectionStatus:(LBleStatus)status error:(NSError * _Nullable)error;
 ```
 
-#### SDK日志，enableLog需要设置开启
+##### SDK日志，enableLog需要设置开启
 ```ruby
 /**
  SDK日志，enableLog需要设置开启
@@ -120,7 +122,7 @@ Uses Bluetooth LE accessories
 - (void)notifySdkLog:(NSString * _Nullable)logText;
 ```
 
-#### 每次拍照或录像成功，通知缩略图数量
+##### 每次拍照或录像成功，通知缩略图数量
 ```ruby
 /**
  每次拍照或录像成功，通知缩略图数量
@@ -129,6 +131,7 @@ Uses Bluetooth LE accessories
 - (void)notifyThumbnailsCount:(NSInteger)count;
 ```
 
+##### 通知Wi-Fi热点名称
 ```ruby
 /**
  通知Wi-Fi热点名称
@@ -137,6 +140,7 @@ Uses Bluetooth LE accessories
 - (void)notifyWifiHotspotName:(NSString * _Nullable)wifiHotspotName;
 ```
 
+##### Wi-Fi热点连接状态
 ```ruby
 /**
  Wi-Fi热点连接状态
@@ -146,6 +150,7 @@ Uses Bluetooth LE accessories
 - (void)wifiHotspotConnectionStatus:(LWiFiHotspotStatus)status error:(NSError * _Nullable)error;
 ```
 
+##### 通知设备电池电量信息
 ```ruby
 /**
  通知设备电池电量信息
@@ -154,6 +159,7 @@ Uses Bluetooth LE accessories
 - (void)notifyDeviceBatteryInfo:(LBatteryModel * _Nonnull)batteryModel;
 ```
 
+##### 通知AI语音助手状态
 ```ruby
 /**
  通知AI语音助手状态
@@ -162,6 +168,7 @@ Uses Bluetooth LE accessories
 - (void)notifyAIVoiceAssistantStatus:(BOOL)activated;
 ```
 
+##### 通知语音数据
 ```ruby
 /**
  通知语音数据
@@ -170,6 +177,7 @@ Uses Bluetooth LE accessories
 - (void)notifyVoiceData:(NSData * _Nullable)voiceData;
 ```
 
+##### 通知AI识图照片数据
 ```ruby
 /**
  通知AI识图照片数据
@@ -179,6 +187,7 @@ Uses Bluetooth LE accessories
 - (void)notifyAIRecognizePhotoData:(NSData * _Nullable)photoData error:(NSError * _Nullable)error;
 ```
 
+##### 通知停止语音识别
 ```ruby
 /**
  通知停止语音识别
@@ -186,15 +195,19 @@ Uses Bluetooth LE accessories
 - (void)notifyStopSpeechRecognition;
 ```
 
+##### 通知停止语音播报
 ```ruby
 /**
  通知停止语音播报
  */
 - (void)notifyStopVoicePlayback;
-
 ```
 
- # 版本记录🚀
+## 其他命令
+
+
+
+# 版本记录🚀
 ```ruby
  project    2025-10-13  Version:1.0.0   Build:2025091901
             1.首版
