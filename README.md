@@ -1,6 +1,6 @@
 ![LOGO](https://github.com/wsr1949/LGlassesKit_iOS/blob/main/Resources/000.png)
 
-<p align="right">
+<p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Release-1.0.0 -Green.svg">
