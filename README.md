@@ -81,7 +81,7 @@ Uses Bluetooth LE accessories
 ```
 
 ## 初始化SDK，注册委托代理
-```objective-c 
+```ruby 
 /**
  注册委托代理
  @param delegate    委托代理
