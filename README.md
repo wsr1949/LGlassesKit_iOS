@@ -31,24 +31,24 @@ LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信�
 
 ## 安装（CocoaPods）
 
-### 1. 在 `Podfile` 中添加
+#### 1. 在 `Podfile` 中添加
 ```ruby
 pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
 ```
 
-### 2. 终端执行 
+#### 2. 终端执行 
 ```ruby
 pod install
 ```
 
 ## Info.plist 添加隐私权限描述
 
-### 1. 蓝牙权限
+#### 1. 蓝牙权限
 ```objective-c
 Privacy - Bluetooth Always Usage Description
 ```
 
-### 2. 本地网络权限
+#### 2. 本地网络权限
 ```objective-c
 Privacy - Local Network Usage Description
 ```
@@ -60,17 +60,17 @@ Privacy - Local Network Usage Description
 Access Wi-Fi Information
 ```
 
-2. 热点
+#### 2. 热点
 ```objective-c
 Hotspot
 ```
 
-### 3. 扩展虚拟地址（可选）
+#### 3. 扩展虚拟地址（可选）
 ```objective-c
 Extended Virtual Addressing
 ```
 
-4. 后台模式`Background Modes`勾选
+#### 4. 后台模式`Background Modes`勾选
 ```objective-c 
 Uses Bluetooth LE accessories
 ```
@@ -79,6 +79,8 @@ Uses Bluetooth LE accessories
 ```objective-c 
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
+
+
 
 ## 初始化SDK，注册委托代理
 
@@ -131,3 +133,17 @@ Uses Bluetooth LE accessories
 
 /// 通知停止语音播报
 - (void)notifyStopVoicePlayback;
+
+
+ # 版本记录🚀
+```objective-c
+ project    2025-10-13  Version:1.0.0   Build:2025091901
+            1.首版
+```
+
+ project    2025-10-13  Version:1.0.0   Build:2025091901
+ 
+```ruby
+ project    2025-10-13  Version:1.0.0   Build:2025091901
+            1.首版
+```
