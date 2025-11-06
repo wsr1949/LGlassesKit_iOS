@@ -44,44 +44,44 @@ pod install
 ## Info.plist 添加隐私权限描述
 
 1. 蓝牙权限
-```ruby
+```objective-c
 Privacy - Bluetooth Always Usage Description
 ```
 
 2. 本地网络权限
-```ruby
+```objective-c
 Privacy - Local Network Usage Description
 ```
 
 ## TARGRTS 添加 Capability
 
 1. 访问Wi-Fi信息 
-```ruby
+```objective-c
 Access Wi-Fi Information
 ```
 
 2. 热点
-```ruby
+```objective-c
 Hotspot
 ```
 
 3. 扩展虚拟地址（可选）
-```ruby
+```objective-c
 Extended Virtual Addressing
 ```
 
 4. 后台模式`Background Modes`勾选
-```ruby 
+```objective-c 
 Uses Bluetooth LE accessories
 ```
 
 ## 导入头文件
-```ruby 
+```objective-c 
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
 
 ## 初始化SDK，注册委托代理
-```ruby 
+```objective-c 
 /**
  注册委托代理
  @param delegate    委托代理
