@@ -1,0 +1,66 @@
+PODS:
+  - iOS_LWAIGCKit (1.0.0):
+    - MJExtension
+    - SocketRocket
+    - SSZipArchive
+  - LGlassesKit_iOS (1.0.0)
+  - libopus (1.1):
+    - libopus/float (= 1.1)
+  - libopus/float (1.1)
+  - Masonry (1.1.0)
+  - MJExtension (3.4.2)
+  - Realm (20.0.3):
+    - Realm/Headers (= 20.0.3)
+  - Realm/Headers (20.0.3)
+  - SocketRocket (0.7.1)
+  - SSZipArchive (2.4.3)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
+
+DEPENDENCIES:
+  - iOS_LWAIGCKit (from `https://github.com/wsr1949/iOS_LWAIGCKit.git`)
+  - LGlassesKit_iOS (from `https://github.com/wsr1949/LGlassesKit_iOS.git`)
+  - libopus
+  - Masonry
+  - Realm
+  - SVProgressHUD
+
+SPEC REPOS:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - libopus
+    - Masonry
+    - MJExtension
+    - Realm
+    - SocketRocket
+    - SSZipArchive
+    - SVProgressHUD
+
+EXTERNAL SOURCES:
+  iOS_LWAIGCKit:
+    :git: https://github.com/wsr1949/iOS_LWAIGCKit.git
+  LGlassesKit_iOS:
+    :git: https://github.com/wsr1949/LGlassesKit_iOS.git
+
+CHECKOUT OPTIONS:
+  iOS_LWAIGCKit:
+    :commit: 96a5fd251f7e8491f91d615c1cec6ccc0f955f74
+    :git: https://github.com/wsr1949/iOS_LWAIGCKit.git
+  LGlassesKit_iOS:
+    :commit: f63e8a005143cab01bb8666ed3f19dc00ad0bbb0
+    :git: https://github.com/wsr1949/LGlassesKit_iOS.git
+
+SPEC CHECKSUMS:
+  iOS_LWAIGCKit: 3a3636174512f8d615d11529ff9da6813ba8b6b9
+  LGlassesKit_iOS: fc49bae7487ddbc90ea7920530b5e97af9c36cf6
+  libopus: ad5f060dcb8f30f139777244d70f9111f1c80863
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
+  Realm: 853e5089d6042dff807bda000277eadfe2da93d2
+  SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
+  SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
+
+PODFILE CHECKSUM: eb96d0388f6a12e4f0ba186065a0fe9687793b36
+
+COCOAPODS: 1.16.2

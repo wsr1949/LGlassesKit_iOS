@@ -1,0 +1,6 @@
+framework module iOS_LWAIGCKit {
+  umbrella header "iOS_LWAIGCKit.h"
+  export *
+
+  module * { export * }
+}
