@@ -45,10 +45,10 @@
 + (void)registerAIGC
 {
     RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
-    
+#warning - 请联系服务商提供
     LWAIGCModel *aigcModel = [LWAIGCModel new];
-    aigcModel.clientId = @"FqN8ObrRfdhROlvkNJnoV9fZQ0G5Cxs3";
-    aigcModel.clientSk = @"P6koemmROicVyGcR";
+    aigcModel.clientId = @"请联系服务商提供";
+    aigcModel.clientSk = @"请联系服务商提供";
     aigcModel.deviceId = deviceModel.deviceMac;
     aigcModel.deviceName = deviceModel.deviceName;
     aigcModel.deviceModel = deviceModel.deviceMode;
@@ -60,11 +60,14 @@
 /// 连接智能体
 + (void)connectAgentWebSocket
 {
+#warning - 根据设备录音信息设置音频参数
+    // 根据设备录音信息设置音频参数
     LWAIGCAudioInfoModel *audioInfo = [LWAIGCAudioInfoModel new];
     audioInfo.format = @"opus";
     audioInfo.sample_rate = 16000;
     audioInfo.channels = 1;
     audioInfo.frame_duration = 40;
+    
     // 设置音频参数，连接AI语音智能体
     [LWAIGCKit requestConnectAiVoiceAgentWebSocket:audioInfo sttCallback:^(NSString * _Nullable stt, NSTimeInterval timeInterval) {
         // 语音转文本回调
@@ -114,9 +117,9 @@
         
     } stopCallback:^{
         // 停止回调
-        // 停止录音
-        [LGlassesKit stopAudioRecordingWithCallback:^(NSError * _Nullable error) {
-            NSLog(@"停止录音: %@", error);
+        // 中断语音传输
+        [LGlassesKit abortVoiceTransmissionWithCallback:^(NSError * _Nullable error) {
+            NSLog(@"中断语音: %@", error);
         }];
         
     }];
@@ -131,6 +134,7 @@
 /// 开始录音
 + (void)startRecording
 {
+#warning - 实际请根据需要的语言设置
     [LWAIGCKit startSpeechRecognition:STT_AUTO lang:@"zh"]; // 中文
 }
 

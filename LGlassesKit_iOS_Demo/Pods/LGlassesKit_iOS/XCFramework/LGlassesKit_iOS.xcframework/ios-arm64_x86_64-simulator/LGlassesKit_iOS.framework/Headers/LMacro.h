@@ -113,4 +113,26 @@ typedef NS_ENUM(NSInteger, LPhotoType)
 } NS_SWIFT_NAME(LPhotoType);
 
 
+/// 拍照模式
+typedef NS_ENUM(NSInteger, LPhotoMode)
+{
+    /// 标准
+    LPhotoMode_Standard = 0,
+    /// 经典
+    LPhotoMode_Classic  = 1,
+    
+} NS_SWIFT_NAME(LPhotoMode);
+
+
+/// 拍摄方向
+typedef NS_ENUM(NSInteger, LShootingDirection)
+{
+    /// 竖向
+    LShootingDirection_Vertical     = 0,
+    /// 横向
+    LShootingDirection_Horizontal   = 1,
+    
+} NS_SWIFT_NAME(LCameraDirection);
+
+
 #endif /* LMacro_h */

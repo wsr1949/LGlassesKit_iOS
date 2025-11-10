@@ -135,15 +135,24 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
         @"设置系统时间",
         @"设置LED亮度",
         @"设置录像时长",
-        @"设置录音时长",
         @"佩戴检测设置",
         @"设置语音唤醒",
+        @"设置快捷手势功能",
+        @"重置快捷手势功能",
+        @"设置久坐提醒",
+        @"重启设备",
         @"恢复出厂设置",
         @"获取设备电量",
         @"开启拍照（只拍照）",
         @"开启拍照（拍照并返回）",
+        @"照片拍摄模式",
+        @"设置拍摄方向",
         @"开启录像",
         @"停止录像",
+        @"开启录音",
+        @"停止录音",
+        @"获取设备控制参数",
+        @"获取设备版本",
         @"打开Wi-Fi热点",
         @"获取当前文件(缩略图)数量",
         @"🤖AI语音助手",
@@ -212,18 +221,13 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
         }];
     }
     else if ([title isEqualToString:@"设置LED亮度"]) {
-        [LGlassesKit setLEDBrightness:LLedBrightnessHigh callback:^(NSError * _Nullable error) {
+        [LGlassesKit setLEDBrightness:LLedBrightnessMedium callback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"设置LED亮度 %@", error]];
         }];
     }
     else if ([title isEqualToString:@"设置录像时长"]) {
-        [LGlassesKit setVideoRecordingDuration:30 callback:^(NSError * _Nullable error) {
+        [LGlassesKit setVideoRecordingDuration:60 callback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"设置录像时长 %@", error]];
-        }];
-    }
-    else if ([title isEqualToString:@"设置录音时长"]) {
-        [LGlassesKit setAudioRecordingDuration:30 callback:^(NSError * _Nullable error) {
-            [LHUD showText:[NSString stringWithFormat:@"设置录音时长 %@", error]];
         }];
     }
     else if ([title isEqualToString:@"佩戴检测设置"]) {
@@ -234,6 +238,26 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
     else if ([title isEqualToString:@"设置语音唤醒"]) {
         [LGlassesKit setVoiceWakeUp:YES callback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"设置语音唤醒 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"设置快捷手势功能"]) {
+        [LGlassesKit setGesturesAction:LGestureActionSwipeBackward event:LGestureEventVolumeUp callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"设置快捷手势功能 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"重置快捷手势功能"]) {
+        [LGlassesKit resetGesturesActionWithCallback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"重置快捷手势功能 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"设置久坐提醒"]) {
+        [LGlassesKit setSedentaryReminderTime:10 callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"设置久坐提醒 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"重启设备"]) {
+        [LGlassesKit setRestartDeviceWithCallback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"重启设备 %@", error]];
         }];
     }
     else if ([title isEqualToString:@"恢复出厂设置"]) {
@@ -260,6 +284,16 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
             [LHUD showText:[NSString stringWithFormat:@"开启拍照 %@", error]];
         }];
     }
+    else if ([title isEqualToString:@"照片拍摄模式"]) {
+        [LGlassesKit setPhotoShootingMode:LPhotoMode_Standard callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"照片拍摄模式 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"设置拍摄方向"]) {
+        [LGlassesKit setShootingDirection:LShootingDirection_Horizontal callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"设置拍摄方向 %@", error]];
+        }];
+    }
     else if ([title isEqualToString:@"开启录像"]) {
         [LGlassesKit startVideoRecordingWithCallback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"开启录像 %@", error]];
@@ -268,6 +302,26 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
     else if ([title isEqualToString:@"停止录像"]) {
         [LGlassesKit stopVideoRecordingWithCallback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"停止录像 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"开启录音"]) {
+        [LGlassesKit startAudioRecordingWithCallback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"开启录音 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"停止录音"]) {
+        [LGlassesKit stopAudioRecordingWithCallback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"停止录音 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"获取设备控制参数"]) {
+        [LGlassesKit getDeviceControlParamWithCallback:^(LDeviceControlParamModel * _Nullable deviceModel, NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"获取设备控制参数 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"获取设备版本"]) {
+        [LGlassesKit getDeviceVersionWithCallback:^(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"获取设备版本 %@", error]];
         }];
     }
     else if ([title isEqualToString:@"打开Wi-Fi热点"]) {
@@ -314,6 +368,7 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
     
     // 通知连接状态
     [NSNotificationCenter.defaultCenter postNotificationName:LScanDeviceConnectionStatusNotifi object:@(status)];
+    
     if (error) {
         [LHUD showText:error.localizedDescription];
     }
@@ -325,17 +380,25 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
         [LGlassesKit setSystemTimeWithCallback:^(NSError * _Nullable error) {
             // do something...
         }];
+        
         // 2.获取设备电量
         [LGlassesKit getDeviceBatteryWithCallback:^(NSNumber * _Nullable number, NSError * _Nullable error) {
             if (!error) {
                 [weakSelf.batteryButton setTitle:number.stringValue forState:UIControlStateNormal];
             }
         }];
+        
         // 3.获取当前文件(缩略图)数量
         // @note 获取成功后数量会通过委托代理LDelegate返回 详@link notifyThumbnailsCount:
         [LGlassesKit getThumbnailsCountWithCallback:^(NSError * _Nullable error) {
             // do something...
         }];
+        
+        // 4.获取设备版本
+        [LGlassesKit getDeviceVersionWithCallback:^(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error) {
+            // do something...
+        }];
+        
         // 其他需要的业务...
         
         

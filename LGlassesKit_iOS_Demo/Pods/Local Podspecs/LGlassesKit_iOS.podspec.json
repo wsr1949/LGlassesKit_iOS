@@ -22,5 +22,8 @@
     "Foundation",
     "CoreBluetooth"
   ],
-  "vendored_frameworks": "XCFramework/LGlassesKit_iOS.xcframework"
+  "vendored_frameworks": "XCFramework/LGlassesKit_iOS.xcframework",
+  "pod_target_xcconfig": {
+    "OTHER_LDFLAGS": "-lObjC"
+  }
 }

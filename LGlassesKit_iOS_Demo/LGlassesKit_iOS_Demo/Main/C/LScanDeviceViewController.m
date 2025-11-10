@@ -111,6 +111,7 @@ static NSString *const LScanDeviceCellID = @"LScanDeviceCell";
 - (void)deviceConnectionStatusNotifi:(NSNotification *)notifi
 {
     LBleStatus status = (LBleStatus)[notifi.object integerValue];
+    
     if (status == LBleStatusConnecting) {
         [LHUD showLoading:@"连接中"];
     }
