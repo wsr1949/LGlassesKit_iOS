@@ -301,15 +301,6 @@ Uses Bluetooth LE accessories
 + (void)setVideoRecordingDuration:(NSInteger)duration callback:(LResultCallback)callback;
 ```
 
-##### 设置录音时长
-```ruby
-/**
- 设置录音时长
- @param duration    录制时长，秒
- */
-+ (void)setAudioRecordingDuration:(NSInteger)duration callback:(LResultCallback)callback;
-```
-
 ##### 设置佩戴检测
 ```ruby
 /**
@@ -336,6 +327,14 @@ Uses Bluetooth LE accessories
  @param event   手势功能
  */
 + (void)setGesturesAction:(LGestureActions)action event:(LGestureEvents)event callback:(LResultCallback)callback;
+```
+
+#### 重置快捷手势功能
+```ruby
+/**
+ 重置快捷手势功能
+ */
++ (void)resetGesturesActionWithCallback:(LResultCallback)callback;
 ```
 
 ##### 设置久坐提醒
@@ -380,6 +379,24 @@ Uses Bluetooth LE accessories
 + (void)startTakingPhotos:(LPhotoType)type callback:(LResultCallback)callback;
 ```
 
+##### 照片拍摄模式
+```ruby
+/**
+ 照片拍摄模式
+ @param mode    拍照模式
+ */
++ (void)setPhotoShootingMode:(LPhotoMode)mode callback:(LResultCallback)callback;
+```
+
+##### 设置拍摄方向
+```ruby
+/**
+ 设置拍摄方向
+ @param direction    拍摄方向
+ */
++ (void)setShootingDirection:(LShootingDirection)direction callback:(LResultCallback)callback;
+```
+
 ##### 开启录像
 ```ruby
 /**
@@ -396,12 +413,52 @@ Uses Bluetooth LE accessories
 + (void)stopVideoRecordingWithCallback:(LResultCallback)callback;
 ```
 
+##### 开启录音
+```ruby
+/**
+ 开启录音
+ */
++ (void)startAudioRecordingWithCallback:(LResultCallback)callback;
+```
+
 ##### 停止录音
 ```ruby
 /**
  停止录音
  */
 + (void)stopAudioRecordingWithCallback:(LResultCallback)callback;
+```
+
+##### 获取设备控制参数
+```ruby
+/**
+ 获取设备控制参数
+ */
++ (void)getDeviceControlParamWithCallback:(LDeviceControlParamCallback)callback;
+```
+
+##### 获取设备版本
+```ruby
+/**
+ 获取设备版本
+ */
++ (void)getDeviceVersionWithCallback:(LDeviceVersionCallback)callback;
+```
+
+##### 中断语音传输
+```ruby
+/**
+ 中断语音传输
+ */
++ (void)abortVoiceTransmissionWithCallback:(LResultCallback)callback;
+```
+
+##### 恢复语音传输
+```ruby
+/**
+ 恢复语音传输
+ */
++ (void)resumeVoiceTransmissionWithCallback:(LResultCallback)callback;
 ```
 
 ##### 获取当前文件(缩略图)数量
