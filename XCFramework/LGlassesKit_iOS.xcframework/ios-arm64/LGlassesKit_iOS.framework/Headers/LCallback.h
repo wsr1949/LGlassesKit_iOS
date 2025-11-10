@@ -48,8 +48,17 @@ typedef void(^LProgressCallback)(double progress, double speed);
  */
 typedef void(^LDownloadCallback)(NSData * _Nullable data, NSError * _Nullable error);
 
-///// 电池电量回调
-//typedef void(^LBatteryCallback)(LBatteryModel * _Nullable batteryModel, NSError * _Nullable error);
+/**
+ 设备控制参数回调
+ */
+typedef void(^LDeviceControlParamCallback)(LDeviceControlParamModel * _Nullable deviceModel, NSError * _Nullable error);
+
+/**
+ 设备版本回调
+ @param deviceModel         设备版本
+ @param error               错误
+ */
+typedef void(^LDeviceVersionCallback)(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error);
 
 
 #endif /* LCallback_h */
