@@ -62,6 +62,8 @@ Privacy - Bluetooth Always Usage Description
 Privacy - Local Network Usage Description
 ```
 
+![001](https://github.com/wsr1949/LGlassesKit_iOS/blob/main/Resources/001.png)
+
 ## 三、TARGRTS 添加 Capability
 
 ##### 1. 访问Wi-Fi信息 
@@ -83,6 +85,8 @@ Extended Virtual Addressing
 ```objective-c 
 Uses Bluetooth LE accessories
 ```
+
+![002](https://github.com/wsr1949/LGlassesKit_iOS/blob/main/Resources/002.png)
 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
