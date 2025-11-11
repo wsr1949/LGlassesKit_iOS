@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  获取设备电池电量
  */
-+ (void)getDeviceBatteryWithCallback:(LResultNumberCallback _Nonnull)callback;
++ (void)getDeviceBatteryWithCallback:(LBatteryCallback _Nonnull)callback;
 
 /**
  开启拍照
