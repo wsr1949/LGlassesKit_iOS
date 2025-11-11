@@ -66,7 +66,7 @@
     CGFloat height = scale * LUserImageWidth;
     self.mainImage.image = img;
     [self.mainImage mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(isnan(height)).priority(MASLayoutPriorityDefaultHigh); // 更新
+        make.height.mas_equalTo(isnan(height) ? 0 : height).priority(MASLayoutPriorityDefaultHigh); // 更新
     }];
 }
 
