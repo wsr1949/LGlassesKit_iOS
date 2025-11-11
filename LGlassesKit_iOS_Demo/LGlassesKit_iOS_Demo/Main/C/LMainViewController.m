@@ -18,15 +18,18 @@
 
 /// 连接
 @property (nonatomic, strong) UIButton *connectButton;
-/// 电池
-@property (nonatomic, strong) UIButton *batteryButton;
 /// 媒体数量
 @property (nonatomic, assign) NSInteger mediaCount;
+
+@property (nonatomic, assign) BOOL charging;
+@property (nonatomic, assign) int battery;
+@property (nonatomic, copy) NSString *version;
 
 @end
 
 static NSString *const LMainCellID = @"UITableViewCell";
 static NSString *const LMainHeaderID = @"LMainHeaderView";
+static NSString *const LMainFooterID = @"LMainFooterView";
 
 @implementation LMainViewController
 
@@ -58,21 +61,6 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
     self.navigationItem.titleView = titleView;
     
     
-    UIView *leftView = UIView.new;
-    UIButton *batteryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [batteryButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
-    [batteryButton setImage:UIImageMake(@"ic_battery_normal") forState:UIControlStateNormal];
-    [batteryButton setImage:UIImageMake(@"ic_battery_charging") forState:UIControlStateSelected];
-    [leftView addSubview:batteryButton];
-    [batteryButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-    }];
-    self.batteryButton = batteryButton;
-    // 电池电量状态
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
-    
     // 扫描/断开
     LWEAKSELF
     [self addRightBarButtonItem:@"扫描/断开" itemEvent:^{
@@ -97,7 +85,7 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
     
     
     // 列表
-    UITableView *tableView = [ATools mainTableView:self style:UITableViewStylePlain cellIds:@[LMainCellID] headerFooterIds:@[LMainHeaderID]];
+    UITableView *tableView = [ATools mainTableView:self style:UITableViewStylePlain cellIds:@[LMainCellID] headerFooterIds:@[LMainHeaderID, LMainFooterID]];
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
@@ -119,11 +107,6 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
     NSString *deviceName = [RLMDeviceModel.allObjects.lastObject deviceName];
     [self.connectButton setTitle:IF_NULL(deviceName) ? @"无设备" : deviceName  forState:UIControlStateNormal];
     self.connectButton.selected = [LGlassesKit bleConnectStatus] == LBleStatusConnected;
-    
-    self.batteryButton.hidden = !self.connectButton.selected;
-    if (!self.connectButton.selected) {
-        self.batteryButton.selected = NO; // 断开的，重置电池状态
-    }
     
     [self.tableView reloadData];
 }
@@ -201,6 +184,24 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
     return 0.1;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (LGlassesKit.bleConnectStatus == LBleStatusConnected) {
+        LMainFooterView *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:LMainFooterID];
+        [footer reloadBattery:self.battery charging:self.charging version:self.version];
+        return footer;
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (LGlassesKit.bleConnectStatus == LBleStatusConnected) {
+        return UITableViewAutomaticDimension;
+    }
+    return 0.1;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LMainCellID forIndexPath:indexPath];
@@ -266,11 +267,8 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
         }];
     }
     else if ([title isEqualToString:@"获取设备电量"]) {
-        [LGlassesKit getDeviceBatteryWithCallback:^(NSNumber * _Nullable number, NSError * _Nullable error) {
-            [LHUD showText:[NSString stringWithFormat:@"获取设备电量 %@（%@）", number, error]];
-            if (!error) {
-                [weakSelf.batteryButton setTitle:number.stringValue forState:UIControlStateNormal];
-            }
+        [LGlassesKit getDeviceBatteryWithCallback:^(LBatteryModel * _Nullable batteryModel, NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"获取设备电量 %d（%@）", batteryModel.battery, error]]; // 仅电量
         }];
     }
     else if ([title isEqualToString:@"开启拍照（只拍照）"]) {
@@ -355,7 +353,7 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
 {
     if (status == CBManagerStatePoweredOn) {
         RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
-        if (deviceModel) { // 有连接记录主动连接一下
+        if (!IF_NULL(deviceModel.deviceUUID)) { // 有连接记录主动连接一下
             [LGlassesKit connectingDevice:deviceModel.deviceUUID timeout:60];
         }
     }
@@ -382,9 +380,10 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
         }];
         
         // 2.获取设备电量
-        [LGlassesKit getDeviceBatteryWithCallback:^(NSNumber * _Nullable number, NSError * _Nullable error) {
-            if (!error) {
-                [weakSelf.batteryButton setTitle:number.stringValue forState:UIControlStateNormal];
+        [LGlassesKit getDeviceBatteryWithCallback:^(LBatteryModel * _Nullable batteryModel, NSError * _Nullable error) {
+            if (!error) { // 仅电量
+                weakSelf.battery = batteryModel.battery;
+                [weakSelf.tableView reloadData];
             }
         }];
         
@@ -397,6 +396,10 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
         // 4.获取设备版本
         [LGlassesKit getDeviceVersionWithCallback:^(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error) {
             // do something...
+            if (!error) {
+                weakSelf.version = deviceModel.ispVersion;
+                [weakSelf.tableView reloadData];
+            }
         }];
         
         // 其他需要的业务...
@@ -452,8 +455,9 @@ static NSString *const LMainHeaderID = @"LMainHeaderView";
 /// 通知设备电池电量信息
 - (void)notifyDeviceBatteryInfo:(LBatteryModel *)batteryModel
 {
-    self.batteryButton.selected = batteryModel.charging;
-    [self.batteryButton setTitle:@(batteryModel.battery).stringValue forState:UIControlStateNormal];
+    self.charging = batteryModel.charging;
+    self.battery = batteryModel.battery;
+    [self.tableView reloadData];
 }
 
 /// 通知AI语音助手状态

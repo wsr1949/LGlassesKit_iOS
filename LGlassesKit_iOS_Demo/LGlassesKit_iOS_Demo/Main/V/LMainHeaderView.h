@@ -17,4 +17,11 @@ typedef void(^LMainHeaderViewCallback)(void);
 
 @end
 
+
+@interface LMainFooterView : UITableViewHeaderFooterView
+
+- (void)reloadBattery:(int)battery charging:(BOOL)charging version:(NSString *)version;
+
+@end
+
 NS_ASSUME_NONNULL_END

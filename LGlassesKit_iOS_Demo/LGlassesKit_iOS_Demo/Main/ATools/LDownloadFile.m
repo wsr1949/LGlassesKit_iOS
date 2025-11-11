@@ -63,12 +63,17 @@
                 speedString = [NSString stringWithFormat:@"%.1f MB/s", speed / (1024 * 1024)];
             }
             
-            [LHUD showProgress:progress/100.0 text:[NSString stringWithFormat:@"%.0f%% - %@", progress, speedString]];
+            [LHUD showProgress:progress/100.0 text:[NSString stringWithFormat:@"第%ld共%ld\n%.0f%%\n%@", index+1, total, progress, speedString]];
             
         } completeCallback:^(NSData * _Nullable data, NSError * _Nullable error) {
             
-            if (!error && data.length)
-            { // 下载成功
+            if (error)
+            {
+                // 失败，跳过...下载下一个
+                [LDownloadFile downloadFile:list index:index+1 downloadCount:downloadCount files:files callback:callback];
+            }
+            else {
+                // 下载成功
                 NSURL *cachesDirectoryUrl = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
                 NSURL *fileUrl = [cachesDirectoryUrl URLByAppendingPathComponent:[NSString stringWithFormat:@"%ld_%@", fileModel.timecode, fileModel.name]];
                 
@@ -90,10 +95,6 @@
                     // 失败，跳过...下载下一个
                     [LDownloadFile downloadFile:list index:index+1 downloadCount:downloadCount files:files callback:callback];
                 }
-            }
-            else {
-                // 失败，跳过...下载下一个
-                [LDownloadFile downloadFile:list index:index+1 downloadCount:downloadCount files:files callback:callback];
             }
         }];
     }
