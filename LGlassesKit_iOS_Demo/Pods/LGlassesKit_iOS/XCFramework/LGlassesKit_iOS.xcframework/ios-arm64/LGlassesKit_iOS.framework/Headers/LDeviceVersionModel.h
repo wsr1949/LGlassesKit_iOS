@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LDeviceVersionModel : NSObject
 
 /// 蓝牙版本号
-@property (nonatomic, assign) int bleVersion;
+@property (nonatomic, copy) NSString *bleVersion;
 
 /// ISP版本号
-@property (nonatomic, assign) int ispVersion;
+@property (nonatomic, copy) NSString *ispVersion;
 
 /// 硬件版本号
-@property (nonatomic, assign) int hwVersion;
+@property (nonatomic, copy) NSString *hwVersion;
 
 @end
 

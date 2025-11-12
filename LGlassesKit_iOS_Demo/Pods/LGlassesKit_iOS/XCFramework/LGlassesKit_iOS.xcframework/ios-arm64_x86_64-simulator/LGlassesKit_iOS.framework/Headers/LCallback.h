@@ -21,11 +21,11 @@ typedef void(^LDiscoverPeripheralCallback)(LPeripheralModel * _Nonnull periphera
 typedef void(^LResultCallback)(NSError * _Nullable error);
 
 /**
- 数值结果回调
- @param number              数值
+ 设备电池电量回调
+ @param batteryModel        电池电量信息
  @param error               错误
  */
-typedef void(^LResultNumberCallback)(NSNumber * _Nullable number, NSError * _Nullable error);
+typedef void(^LBatteryCallback)(LBatteryModel * _Nullable batteryModel, NSError * _Nullable error);
 
 /**
  文件列表回调

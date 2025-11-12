@@ -95,7 +95,7 @@ static NSString *const LScanDeviceCellID = @"LScanDeviceCell";
     if (indexPath.row < self.dataSource.count) {
         LPeripheralModel *model = self.dataSource[indexPath.row];
         cell.titLabel.text = model.deviceName;
-        cell.detLabel.text = model.deviceMac;
+        cell.detLabel.text = [NSString stringWithFormat:@"%@「适配号%@」", model.deviceMac, model.deviceMode];
     }
     return cell;
 }
