@@ -15,7 +15,10 @@ Pod::Spec.new do |spec|
   spec.documentation_url        = 'https://github.com/wsr1949/LGlassesKit_iOS/blob/main/README.md'
   spec.requires_arc             = true
   spec.frameworks               = 'Foundation', 'CoreBluetooth'
-  spec.vendored_frameworks      = 'XCFramework/LGlassesKit_iOS.xcframework'
+
+  spec.subspec 'Basic' do |basicSpec|
+    basicSpec.vendored_frameworks   = 'XCFramework/LGlassesKit_iOS.xcframework'
+  end
 
   spec.subspec 'JL_OTA' do |jlOtaSpec|
     jlOtaSpec.vendored_frameworks   = 'XCFramework/JL_OTA/JL_OTALib.xcframework', 'XCFramework/JL_OTA/JL_AdvParse.xcframework', 'XCFramework/JL_OTA/JL_HashPair.xcframework', 'XCFramework/JL_OTA/JLLogHelper.xcframework'
