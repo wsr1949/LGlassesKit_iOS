@@ -14,7 +14,8 @@ Pod::Spec.new do |spec|
   spec.source                   = { :git => "https://github.com/wsr1949/LGlassesKit_iOS.git", :tag => spec.version.to_s }
   spec.documentation_url        = 'https://github.com/wsr1949/LGlassesKit_iOS/blob/main/README.md'
   spec.requires_arc             = true
-  spec.frameworks               = 'Foundation', 'CoreBluetooth'
+  spec.frameworks               = 'CoreBluetooth'
+  spec.dependency                 'libopus'
 
   spec.subspec 'Basic' do |basicSpec|
     basicSpec.vendored_frameworks   = 'XCFramework/LGlassesKit_iOS.xcframework'
