@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name                     = "LGlassesKit_iOS"
-  spec.version                  = "1.0.0"
+  spec.version                  = "1.0.1"
   spec.summary                  = "LGlassesKit智能眼镜SDK for iOS"
   spec.description              = <<-DESC
                                   LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。
@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   spec.documentation_url        = 'https://github.com/wsr1949/LGlassesKit_iOS/blob/main/README.md'
   spec.requires_arc             = true
   spec.frameworks               = 'CoreBluetooth'
-  spec.dependency                 'libopus'
+  
 
   spec.subspec 'Basic' do |basicSpec|
     basicSpec.vendored_frameworks   = 'XCFramework/LGlassesKit_iOS.xcframework'
