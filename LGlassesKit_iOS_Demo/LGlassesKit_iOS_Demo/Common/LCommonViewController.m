@@ -7,11 +7,7 @@
 
 #import "LCommonViewController.h"
 
-typedef void(^LNavigationItemEvent)(void);
-
 @interface LCommonViewController ()
-
-@property (nonatomic, copy) LNavigationItemEvent rightItemEvent;
 
 @end
 
@@ -20,21 +16,19 @@ typedef void(^LNavigationItemEvent)(void);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = UIColor.whiteColor;
+    self.view.backgroundColor = UIColor.systemBackgroundColor;
 }
 
 /// 添加单个导航栏右按钮
 - (void)addRightBarButtonItem:(NSString *)title itemEvent:(void (^)(void))itemEvent
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(rightItemActionEvent)];
-    self.rightItemEvent = itemEvent;
-}
-/// 导航栏右按钮响应事件
-- (void)rightItemActionEvent
-{
-    if (self.rightItemEvent) {
-        self.rightItemEvent();
-    }
+    UIAction *action = [UIAction actionWithTitle:title image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        GCD_MAIN_QUEUE(^{
+            if (itemEvent) itemEvent();
+        });
+    }];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithPrimaryAction:action];
 }
 
 /// 安全区域

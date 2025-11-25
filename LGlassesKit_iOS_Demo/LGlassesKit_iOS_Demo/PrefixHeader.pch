@@ -37,6 +37,9 @@
 /// 字体-粗
 #define UIFontBoldMake(size)                [UIFont boldSystemFontOfSize:size]
 
+/// 字体颜色
+#define LTextColor                          [LColor textColor]
+
 /// 颜色RGB
 #define UIColorMakeWithRGBA(r, g, b, a)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a/1.0]
 
@@ -48,7 +51,7 @@
 #import <Masonry/Masonry.h>
 #import <Realm/Realm.h>
 #import <SVProgressHUD/SVProgressHUD.h>
-#include <opus.h>
+#include <libopus/libopus-umbrella.h>
 
 // 眼镜👓SDK
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
@@ -57,11 +60,12 @@
 
 #import "LCommonNavigationController.h"
 #import "LAIGC.h"
-#import "LDownloadFile.h"
+#import "LNetworkManage.h"
 #import "LMainViewController.h"
 #import "ATools.h"
 #import "RLMDeviceModel.h"
 #import "RLMObject+Tools.h"
 #import "LHUD.h"
+#import "LColor.h"
 
 #endif /* PrefixHeader_pch */

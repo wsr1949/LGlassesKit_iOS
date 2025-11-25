@@ -1,1 +1,6 @@
-${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/LGlassesKit_iOS.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/Basic/LGlassesKit_iOS.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_OTALib.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_AdvParse.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_HashPair.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JLLogHelper.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_BLEKit.framework

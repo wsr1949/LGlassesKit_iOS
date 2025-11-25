@@ -1,9 +1,9 @@
 {
   "name": "LGlassesKit_iOS",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "summary": "LGlassesKit智能眼镜SDK for iOS",
   "description": "LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。",
-  "homepage": "https://github.com/wsr1949/LGlassesKit_iOS/tree/1.0.0/LGlassesKit_iOS",
+  "homepage": "https://github.com/wsr1949/LGlassesKit_iOS/tree/1.0.1/LGlassesKit_iOS",
   "license": "MIT",
   "authors": {
     "wsr1949": "921903719@qq.com"
@@ -14,16 +14,31 @@
   },
   "source": {
     "git": "https://github.com/wsr1949/LGlassesKit_iOS.git",
-    "tag": "1.0.0"
+    "tag": "1.0.1"
   },
   "documentation_url": "https://github.com/wsr1949/LGlassesKit_iOS/blob/main/README.md",
   "requires_arc": true,
-  "frameworks": [
-    "Foundation",
-    "CoreBluetooth"
-  ],
-  "vendored_frameworks": "XCFramework/LGlassesKit_iOS.xcframework",
+  "frameworks": "CoreBluetooth",
   "pod_target_xcconfig": {
     "OTHER_LDFLAGS": "-lObjC"
-  }
+  },
+  "subspecs": [
+    {
+      "name": "Basic",
+      "vendored_frameworks": "XCFramework/LGlassesKit_iOS.xcframework"
+    },
+    {
+      "name": "JL_OTA",
+      "vendored_frameworks": [
+        "XCFramework/JL_OTA/JL_OTALib.xcframework",
+        "XCFramework/JL_OTA/JL_AdvParse.xcframework",
+        "XCFramework/JL_OTA/JL_HashPair.xcframework",
+        "XCFramework/JL_OTA/JLLogHelper.xcframework",
+        "XCFramework/JL_OTA/JL_BLEKit.xcframework",
+        "XCFramework/JL_OTA/JLBmpConvertKit.xcframework",
+        "XCFramework/JL_OTA/JLDialUnit.xcframework",
+        "XCFramework/JL_OTA/JLPackageResKit.xcframework"
+      ]
+    }
+  ]
 }

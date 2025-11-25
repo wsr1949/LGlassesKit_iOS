@@ -20,7 +20,7 @@
         [self.contentView addSubview:bgView];
 
         
-        UILabel *mainTitle = [ATools labelWithFont:UIFontMake(16) textColor:UIColor.blackColor];
+        UILabel *mainTitle = [ATools labelWithFont:UIFontMake(16) textColor:LTextColor];
         [self.contentView addSubview:mainTitle];
         [mainTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.mas_equalTo(36);

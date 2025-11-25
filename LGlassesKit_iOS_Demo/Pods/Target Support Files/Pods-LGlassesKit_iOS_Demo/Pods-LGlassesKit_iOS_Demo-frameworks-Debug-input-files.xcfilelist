@@ -6,3 +6,8 @@ ${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework
 ${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework
 ${BUILT_PRODUCTS_DIR}/libopus/libopus.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_OTALib.framework/JL_OTALib
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_AdvParse.framework/JL_AdvParse
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_HashPair.framework/JL_HashPair
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JLLogHelper.framework/JLLogHelper
+${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_BLEKit.framework/JL_BLEKit

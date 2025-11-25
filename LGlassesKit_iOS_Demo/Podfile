@@ -13,7 +13,7 @@ target 'LGlassesKit_iOS_Demo' do
   pod 'Realm'
   pod 'SVProgressHUD'
   pod 'libopus'
-
+  
   # 眼镜
   pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
   # AI

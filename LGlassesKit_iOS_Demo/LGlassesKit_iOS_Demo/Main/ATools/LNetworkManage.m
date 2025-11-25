@@ -1,11 +1,32 @@
 //
-//  LDownloadFile.m
+//  LNetworkManage.m
 //  LGlassesKit_iOS_Demo
 //
-//  Created by LINWEAR on 2025-11-07.
+//  Created by LINWEAR on 2025-11-25.
 //
 
-#import "LDownloadFile.h"
+#import "LNetworkManage.h"
+
+@implementation LNetworkManage
+
+/// 单例
++ (LNetworkManage *)sharedInstance {
+    static LNetworkManage *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[LNetworkManage alloc] init];
+    });
+    return instance;
+}
+
+/// 下载文件
+- (void)downloadFileWithCallback:(LDownloadFileCallback)callback
+{
+    [LDownloadFile downloadFileWithCallback:callback];
+}
+
+@end
+
 
 @implementation LDownloadFile
 
@@ -73,7 +94,7 @@
                 [LDownloadFile downloadFile:list index:index+1 downloadCount:downloadCount files:files callback:callback];
             }
             else {
-                // 下载成功
+                // 下载成功，缓存到本地
                 NSURL *cachesDirectoryUrl = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
                 NSURL *fileUrl = [cachesDirectoryUrl URLByAppendingPathComponent:[NSString stringWithFormat:@"%ld_%@", fileModel.timecode, fileModel.name]];
                 

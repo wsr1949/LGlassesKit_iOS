@@ -23,6 +23,36 @@ variant_for_slice()
   "LGlassesKit_iOS.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
     ;;
+  "JL_OTALib.xcframework/ios-arm64")
+    echo ""
+    ;;
+  "JL_OTALib.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "JL_AdvParse.xcframework/ios-arm64")
+    echo ""
+    ;;
+  "JL_AdvParse.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "JL_HashPair.xcframework/ios-arm64")
+    echo ""
+    ;;
+  "JL_HashPair.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "JLLogHelper.xcframework/ios-arm64")
+    echo ""
+    ;;
+  "JLLogHelper.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "JL_BLEKit.xcframework/ios-arm64")
+    echo ""
+    ;;
+  "JL_BLEKit.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
   esac
 }
 
@@ -33,6 +63,36 @@ archs_for_slice()
     echo "arm64"
     ;;
   "LGlassesKit_iOS.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "JL_OTALib.xcframework/ios-arm64")
+    echo "arm64"
+    ;;
+  "JL_OTALib.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "JL_AdvParse.xcframework/ios-arm64")
+    echo "arm64"
+    ;;
+  "JL_AdvParse.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "JL_HashPair.xcframework/ios-arm64")
+    echo "arm64"
+    ;;
+  "JL_HashPair.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "JLLogHelper.xcframework/ios-arm64")
+    echo "arm64"
+    ;;
+  "JLLogHelper.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "JL_BLEKit.xcframework/ios-arm64")
+    echo "arm64"
+    ;;
+  "JL_BLEKit.xcframework/ios-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
   esac
@@ -117,5 +177,10 @@ install_xcframework() {
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/LGlassesKit_iOS/XCFramework/LGlassesKit_iOS.xcframework" "LGlassesKit_iOS" "framework" "ios-arm64" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/LGlassesKit_iOS/XCFramework/LGlassesKit_iOS.xcframework" "LGlassesKit_iOS/Basic" "framework" "ios-arm64" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_OTALib.xcframework" "LGlassesKit_iOS/JL_OTA" "framework" "ios-arm64" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_AdvParse.xcframework" "LGlassesKit_iOS/JL_OTA" "framework" "ios-arm64" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_HashPair.xcframework" "LGlassesKit_iOS/JL_OTA" "framework" "ios-arm64" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JLLogHelper.xcframework" "LGlassesKit_iOS/JL_OTA" "framework" "ios-arm64" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_BLEKit.xcframework" "LGlassesKit_iOS/JL_OTA" "framework" "ios-arm64" "ios-arm64_x86_64-simulator"
 

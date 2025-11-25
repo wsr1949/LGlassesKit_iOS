@@ -1,2 +1,7 @@
 ${PODS_ROOT}/Target Support Files/LGlassesKit_iOS/LGlassesKit_iOS-xcframeworks.sh
 ${PODS_ROOT}/LGlassesKit_iOS/XCFramework/LGlassesKit_iOS.xcframework
+${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_OTALib.xcframework
+${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_AdvParse.xcframework
+${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_HashPair.xcframework
+${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JLLogHelper.xcframework
+${PODS_ROOT}/LGlassesKit_iOS/XCFramework/JL_OTA/JL_BLEKit.xcframework

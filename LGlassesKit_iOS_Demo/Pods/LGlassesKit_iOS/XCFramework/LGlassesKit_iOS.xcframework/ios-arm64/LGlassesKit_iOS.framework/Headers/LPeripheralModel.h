@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设备信号值
 @property (nonatomic, assign) NSInteger RSSI;
 
+/// 广播数据
+@property (nonatomic, strong) NSDictionary<NSString *,id> *advertisementData;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -183,6 +183,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libopus/libopus.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_OTALib.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_AdvParse.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_HashPair.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JLLogHelper.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_BLEKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework"
@@ -192,6 +197,11 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libopus/libopus.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_OTALib.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_AdvParse.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_HashPair.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JLLogHelper.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_BLEKit.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

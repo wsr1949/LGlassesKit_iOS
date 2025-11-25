@@ -10,6 +10,7 @@
 #import "LScanDeviceViewController.h"
 #import "LMediaListViewController.h"
 #import "LAIVoiceAssistantViewController.h"
+#import "LOtaUpgradeViewController.h"
 
 @interface LMainViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -23,7 +24,7 @@
 
 @property (nonatomic, assign) BOOL charging;
 @property (nonatomic, assign) int battery;
-@property (nonatomic, copy) NSString *version;
+@property (nonatomic, strong) LDeviceVersionModel *versionModel;
 
 @end
 
@@ -49,7 +50,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     
     UIView *titleView = UIView.new;
     UIButton *connectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [connectButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    [connectButton setTitleColor:LTextColor forState:UIControlStateNormal];
     [connectButton setImage:UIImageMake(@"ic_disconnect") forState:UIControlStateNormal];
     [connectButton setImage:UIImageMake(@"ic_connect") forState:UIControlStateSelected];
     [titleView addSubview:connectButton];
@@ -139,6 +140,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"打开Wi-Fi热点",
         @"获取当前文件(缩略图)数量",
         @"🤖AI语音助手",
+        @"🚀OTA升级",
     ];
 }
 
@@ -169,6 +171,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
             [LHUD showLoading:nil];
             [LGlassesKit openWifiHotspotWithCallback:^(NSError * _Nullable error) {
                 [LHUD showText:[NSString stringWithFormat:@"打开Wi-Fi热点 %@", error]];
+                LNetworkManage.sharedInstance.networkMode = LNetworkMode_Download;
             }];
         }];
         return header;
@@ -188,7 +191,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 {
     if (LGlassesKit.bleConnectStatus == LBleStatusConnected) {
         LMainFooterView *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:LMainFooterID];
-        [footer reloadBattery:self.battery charging:self.charging version:self.version];
+        [footer reloadBattery:self.battery charging:self.charging version:self.versionModel];
         return footer;
     }
     return nil;
@@ -268,7 +271,10 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     }
     else if ([title isEqualToString:@"获取设备电量"]) {
         [LGlassesKit getDeviceBatteryWithCallback:^(LBatteryModel * _Nullable batteryModel, NSError * _Nullable error) {
-            [LHUD showText:[NSString stringWithFormat:@"获取设备电量 %d（%@）", batteryModel.battery, error]]; // 仅电量
+            [LHUD showText:[NSString stringWithFormat:@"获取设备电量 %d（%@）", batteryModel.battery, error]];
+            weakSelf.charging = batteryModel.charging;
+            weakSelf.battery = batteryModel.battery;
+            [weakSelf.tableView reloadData];
         }];
     }
     else if ([title isEqualToString:@"开启拍照（只拍照）"]) {
@@ -326,6 +332,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         // @note Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
         [LGlassesKit openWifiHotspotWithCallback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"打开Wi-Fi热点 %@", error]];
+            LNetworkManage.sharedInstance.networkMode = LNetworkMode_None;
         }];
     }
     else if ([title isEqualToString:@"获取当前文件(缩略图)数量"]) {
@@ -335,6 +342,10 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     }
     else if ([title isEqualToString:@"🤖AI语音助手"]) {
         LAIVoiceAssistantViewController *vc = LAIVoiceAssistantViewController.new;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if ([title isEqualToString:@"🚀OTA升级"]) {
+        LOtaUpgradeViewController *vc = LOtaUpgradeViewController.new;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -367,11 +378,9 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     // 通知连接状态
     [NSNotificationCenter.defaultCenter postNotificationName:LScanDeviceConnectionStatusNotifi object:@(status)];
     
-    if (error) {
-        [LHUD showText:error.localizedDescription];
-    }
-    
     if (status == LBleStatusConnected) { // 已连接，所有命令交互在此回调后才可进行
+        
+        [LHUD showText:@"连接成功"];
         
         LWEAKSELF
         // 1.设置系统时间
@@ -383,6 +392,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         [LGlassesKit getDeviceBatteryWithCallback:^(LBatteryModel * _Nullable batteryModel, NSError * _Nullable error) {
             if (!error) { // 仅电量
                 weakSelf.battery = batteryModel.battery;
+                weakSelf.charging = batteryModel.charging;
                 [weakSelf.tableView reloadData];
             }
         }];
@@ -397,7 +407,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         [LGlassesKit getDeviceVersionWithCallback:^(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error) {
             // do something...
             if (!error) {
-                weakSelf.version = deviceModel.ispVersion;
+                weakSelf.versionModel = deviceModel;
                 [weakSelf.tableView reloadData];
             }
         }];
@@ -411,9 +421,12 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         [LAIGC connectAgentWebSocket];
     }
     else if (status == LBleStatusDisconnect) {
-        
+        [LHUD showText:@"连接断开"];
         // 断开智能体
         [LAIGC disconnectAgentWebSocket];
+    }
+    else if (status == LBleStatusConnectionFailed) {
+        [LHUD showText:[NSString stringWithFormat:@"连接失败：%@", error]];
     }
 }
 
@@ -429,26 +442,41 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 - (void)notifyWifiHotspotName:(NSString *)wifiHotspotName
 {
     // 连接Wi-Fi热点
+    // @note 连接结果通过委托代理LDelegate返回 详@link wifiHotspotConnectionStatus:error:
     [LGlassesKit connectingWiFiHotspot:wifiHotspotName];
 }
 
 /// Wi-Fi热点连接状态
 - (void)wifiHotspotConnectionStatus:(LWiFiHotspotStatus)status error:(NSError *)error
 {
+    LWEAKSELF
+    
     if (status == LWiFiHotspotStatusConnected) {
         [LHUD showText:@"Wi-Fi热点连接成功"];
         
-        // 开始下载文件
-        LWEAKSELF
-        [LDownloadFile downloadFileWithCallback:^(NSArray<LDownloadFile *> * _Nonnull files)
-         {
-            LMediaListViewController *vc = LMediaListViewController.new;
-            vc.files = files;
-            [weakSelf.navigationController pushViewController:vc animated:YES];
-        }];
+        LNetworkMode networkMode = LNetworkManage.sharedInstance.networkMode;
+        
+        if (networkMode == LNetworkMode_Download) {
+            // 开始下载文件
+            [LNetworkManage.sharedInstance downloadFileWithCallback:^(NSArray<LDownloadFile *> * _Nonnull files)
+             {
+                LNetworkManage.sharedInstance.networkMode = LNetworkMode_None;
+                
+                LMediaListViewController *vc = LMediaListViewController.new;
+                vc.files = files;
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }];
+        }
+        else if (networkMode == LNetworkMode_Upload) {
+            // 开始上传文件
+            [NSNotificationCenter.defaultCenter postNotificationName:LIspUpgradeNotifyKey object:nil];
+        }
     }
     else if (status == LWiFiHotspotStatusDisconnect) {
         [LHUD showText:@"Wi-Fi热点连接断开"];
+    }
+    else if (status == LWiFiHotspotStatusConnectionFailed) {
+        [LHUD showText:[NSString stringWithFormat:@"Wi-Fi热点连接失败：%@", error]];
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 #import "LAudioPlayer.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation LAudioPlayer
 
@@ -30,6 +31,9 @@
         
         // 初始化音频格式
         [self setupAudioFormat];
+        
+        // 音频会话配置
+        [self setupAudioSession];
         
         NSLog(@"PCMStreamPlayer 初始化完成，采样率: %.0f, 通道数: %u, 位深度: %u",
               sampleRate, (unsigned int)channels, (unsigned int)bitsPerSample);
@@ -122,6 +126,25 @@
         return [self initializeAudioQueue];
     }
     return YES;
+}
+
+#pragma mark - 音频会话配置
+- (void)setupAudioSession {
+    NSError *error = nil;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+    // 设置音频会话类别为播放，支持后台播放
+    [audioSession setCategory:AVAudioSessionCategoryPlayback
+                         mode:AVAudioSessionModeDefault
+                      options:AVAudioSessionCategoryOptionMixWithOthers |
+                              AVAudioSessionCategoryOptionAllowBluetoothA2DP
+                        error:&error];
+    
+    NSLog(@"播放器设置音频会话类别 %@", error);
+    
+    // 激活音频会话
+    [audioSession setActive:YES error:&error];
+    NSLog(@"播放器激活音频会话 %@", error);
 }
 
 #pragma mark - 播放控制

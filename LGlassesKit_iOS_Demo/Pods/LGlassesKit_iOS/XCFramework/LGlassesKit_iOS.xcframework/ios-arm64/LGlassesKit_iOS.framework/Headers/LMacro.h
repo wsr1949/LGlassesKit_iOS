@@ -12,17 +12,23 @@
 typedef NS_ENUM(NSInteger, LErrorCode)
 {
     /// 蓝牙未激活
-    LErrorCodeNotActivated       = 10001,
+    LErrorCodeNotActivated      = 10001,
     /// 蓝牙未连接
-    LErrorCodeNotConnected       = 10002,
+    LErrorCodeBleNotConnected   = 10002,
     /// 蓝牙连接超时
-    LErrorCodeConnectTimeout     = 10003,
+    LErrorCodeConnectTimeout    = 10003,
     /// 命令响应超时
-    LErrorCodeCmdRespTimeout     = 10004,
+    LErrorCodeCmdRespTimeout    = 10004,
     /// Wi-Fi响应超时
-    LErrorCodeWiFiRespTimeout    = 10005,
+    LErrorCodeWiFiRespTimeout   = 10005,
+    /// Wi-Fi未连接
+    LErrorCodeWiFiNotConnected  = 10006,
     /// AI图片传输失败
-    LErrorCodeAiImageFailed      = 10006,
+    LErrorCodeAiImageFailed     = 10007,
+    /// OTA认证失败
+    LErrorCodeOTAAuthenFailed   = 10008,
+    /// 文件数据错误
+    LErrorCodeFileDataError     = 10009,
     
 } NS_SWIFT_NAME(LErrorCode);
 
@@ -30,12 +36,14 @@ typedef NS_ENUM(NSInteger, LErrorCode)
 /// BLE连接状态
 typedef NS_ENUM(NSInteger, LBleStatus)
 {
-    /// 连接断开/连接失败
-    LBleStatusDisconnect    = 0,
+    /// 连接断开
+    LBleStatusDisconnect        = 0,
     /// 连接中
-    LBleStatusConnecting    = 1,
+    LBleStatusConnecting        = 1,
     /// 已连接
-    LBleStatusConnected     = 2,
+    LBleStatusConnected         = 2,
+    /// 连接失败
+    LBleStatusConnectionFailed  = 3,
     
 } NS_SWIFT_NAME(LBleStatus);
 
@@ -44,11 +52,13 @@ typedef NS_ENUM(NSInteger, LBleStatus)
 typedef NS_ENUM(NSInteger, LWiFiHotspotStatus)
 {
     /// 连接断开/连接失败
-    LWiFiHotspotStatusDisconnect    = 0,
+    LWiFiHotspotStatusDisconnect        = 0,
     /// 连接中
-    LWiFiHotspotStatusConnecting    = 1,
+    LWiFiHotspotStatusConnecting        = 1,
     /// 已连接
-    LWiFiHotspotStatusConnected     = 2,
+    LWiFiHotspotStatusConnected         = 2,
+    /// 连接失败
+    LWiFiHotspotStatusConnectionFailed  = 3,
     
 } NS_SWIFT_NAME(LWiFiHotspotStatus);
 
@@ -132,7 +142,7 @@ typedef NS_ENUM(NSInteger, LShootingDirection)
     /// 横向
     LShootingDirection_Horizontal   = 1,
     
-} NS_SWIFT_NAME(LCameraDirection);
+} NS_SWIFT_NAME(LShootingDirection);
 
 
 #endif /* LMacro_h */

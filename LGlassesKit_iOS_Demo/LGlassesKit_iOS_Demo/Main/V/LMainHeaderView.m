@@ -91,10 +91,10 @@
     return self;
 }
 
-- (void)reloadBattery:(int)battery charging:(BOOL)charging version:(NSString *)version
+- (void)reloadBattery:(int)battery charging:(BOOL)charging version:(LDeviceVersionModel *)versionModel
 {
     self.batteryButton.selected = charging;
-    [self.batteryButton setTitle:[NSString stringWithFormat:@"%d%%，版本号V%@", battery, version] forState:UIControlStateNormal];
+    [self.batteryButton setTitle:[NSString stringWithFormat:@"%d%%，ble:V%@，isp:V%@，hw:V%@", battery, versionModel.bleVersion, versionModel.ispVersion, versionModel.hwVersion] forState:UIControlStateNormal];
 }
 
 @end

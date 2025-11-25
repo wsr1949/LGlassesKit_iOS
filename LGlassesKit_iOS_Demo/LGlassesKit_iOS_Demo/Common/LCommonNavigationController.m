@@ -18,7 +18,7 @@
     // Do any additional setup after loading the view.
     
     NSDictionary *attributes = @{
-        NSForegroundColorAttributeName: UIColor.blackColor,
+        NSForegroundColorAttributeName: LTextColor,
         NSFontAttributeName: UIFontBoldMake(18)
     };
     

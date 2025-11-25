@@ -20,7 +20,7 @@ typedef void(^LMainHeaderViewCallback)(void);
 
 @interface LMainFooterView : UITableViewHeaderFooterView
 
-- (void)reloadBattery:(int)battery charging:(BOOL)charging version:(NSString *)version;
+- (void)reloadBattery:(int)battery charging:(BOOL)charging version:(LDeviceVersionModel *)versionModel;
 
 @end
 
