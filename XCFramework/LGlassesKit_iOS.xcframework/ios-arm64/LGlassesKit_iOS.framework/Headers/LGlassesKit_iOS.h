@@ -23,6 +23,12 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
 
+ project    2025-11-25  Version:1.0.1   Build:2025112501
+            1.新增区分Ble连接失败状态（LMacro）LBleStatusConnectionFailed
+            2.新增区分Wi-Fi连接失败状态（LMacro）LWiFiHotspotStatusConnectionFailed
+            3.新增OTA升级方法（LGlassesKit）startOtaUpgradeWithFilePath...
+            4.新增ISP升级方法（LGlassesKit）startIspUpgradeWithFilePath...
+ 
  project    2025-11-08  Version:1.0.0   Build:2025110801
             1.首版
  */

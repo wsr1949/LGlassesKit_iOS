@@ -35,11 +35,11 @@ typedef void(^LBatteryCallback)(LBatteryModel * _Nullable batteryModel, NSError 
 typedef void(^LFileListCallback)(NSArray <LFileModel *> * _Nullable list, NSError * _Nullable error);
 
 /**
- 进度回调
+ 文件下载进度回调
  @param progress            进度 0-100
  @param speed               速率 字节/秒
  */
-typedef void(^LProgressCallback)(double progress, double speed);
+typedef void(^LDownloadProgressCallback)(double progress, double speed);
 
 /**
  文件下载回调
@@ -59,6 +59,12 @@ typedef void(^LDeviceControlParamCallback)(LDeviceControlParamModel * _Nullable 
  @param error               错误
  */
 typedef void(^LDeviceVersionCallback)(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error);
+
+/**
+ OTA升级进度回调
+ @param progress            进度 0-100
+ */
+typedef void(^LOtaUpgradeProgressCallback)(double progress);
 
 
 #endif /* LCallback_h */

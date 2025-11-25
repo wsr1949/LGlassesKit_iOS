@@ -214,7 +214,7 @@ NS_ASSUME_NONNULL_BEGIN
  文件下载
  @param fileName    文件名称
  */
-+ (void)downloadFile:(NSString * _Nonnull)fileName progressCallback:(LProgressCallback _Nonnull)progressCallback completeCallback:(LDownloadCallback _Nonnull)completeCallback;
++ (void)downloadFile:(NSString * _Nonnull)fileName progressCallback:(LDownloadProgressCallback _Nonnull)progressCallback completeCallback:(LDownloadCallback _Nonnull)completeCallback;
 
 /**
  文件删除
@@ -227,6 +227,30 @@ NS_ASSUME_NONNULL_BEGIN
  @param count    已下载个数
  */
 + (void)reportFileDownloadsCount:(NSInteger)count callback:(LResultCallback _Nonnull)callback;
+
+
+/**
+ 🚀开始OTA升级
+ @param filePath                    ota文件本地路径
+ @param preparingProgressCallback   ota准备进度回调
+ @param upgradeProgressCallback     ota升级进度回调
+ @param upgradeResultCallback       ota升级结果回调
+ */
++ (void)startOtaUpgradeWithFilePath:(NSString * _Nonnull)filePath
+          preparingProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)preparingProgressCallback
+            upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
+              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
+
+
+/**
+ 🚀开始ISP升级（需要先打开并连接Wi-Fi热点）
+ @param filePath                    isp文件本地路径
+ @param upgradeProgressCallback     isp升级进度回调
+ @param upgradeResultCallback       isp升级结果回调
+ */
++ (void)startIspUpgradeWithFilePath:(NSString * _Nonnull)filePath
+            upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
+              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
 
 
 @end
