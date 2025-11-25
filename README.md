@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.0 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.1 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -545,12 +545,45 @@ Uses Bluetooth LE accessories
 + (void)reportFileDownloadsCount:(NSInteger)count callback:(LResultCallback _Nonnull)callback;
 ```
 
+##### 🚀开始OTA升级
+```ruby
+/**
+ 🚀开始OTA升级
+ @param filePath                    ota文件本地路径
+ @param preparingProgressCallback   ota准备进度回调
+ @param upgradeProgressCallback     ota升级进度回调
+ @param upgradeResultCallback       ota升级结果回调
+ */
++ (void)startOtaUpgradeWithFilePath:(NSString * _Nonnull)filePath
+          preparingProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)preparingProgressCallback
+            upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
+              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
+```
+
+##### 🚀开始ISP升级（需要先打开并连接Wi-Fi热点）
+```ruby
+/**
+ 🚀开始ISP升级（需要先打开并连接Wi-Fi热点）
+ @param filePath                    isp文件本地路径
+ @param upgradeProgressCallback     isp升级进度回调
+ @param upgradeResultCallback       isp升级结果回调
+ */
++ (void)startIspUpgradeWithFilePath:(NSString * _Nonnull)filePath
+            upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
+              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
+```
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 # 版本记录🚀
 ```ruby
+ project    2025-11-25  Version:1.0.1   Build:2025112501
+            1.新增区分Ble连接失败状态（LMacro）LBleStatusConnectionFailed
+            2.新增区分Wi-Fi连接失败状态（LMacro）LWiFiHotspotStatusConnectionFailed
+            3.新增OTA升级方法（LGlassesKit）startOtaUpgradeWithFilePath...
+            4.新增ISP升级方法（LGlassesKit）startIspUpgradeWithFilePath...
+
  project    2025-10-13  Version:1.0.0   Build:2025091901
             1.首版
 ```
