@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name                     = "LGlassesKit_iOS"
-  spec.version                  = "1.0.1"
+  spec.version                  = "1.0.2"
   spec.summary                  = "LGlassesKit智能眼镜SDK for iOS"
   spec.description              = <<-DESC
                                   LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。
