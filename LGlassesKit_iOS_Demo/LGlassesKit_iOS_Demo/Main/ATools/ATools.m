@@ -109,4 +109,37 @@
     return label;
 }
 
+/// 主窗口
++ (UIWindow *)keyWindow
+{
+    UIWindowScene *windowScene = nil;
+    NSSet<UIScene *> *connectedScenes = [UIApplication sharedApplication].connectedScenes;
+    
+    for (UIScene *scene in connectedScenes) {
+        if (scene.activationState == UISceneActivationStateForegroundActive) {
+            windowScene = (UIWindowScene *)scene;
+            break;
+        }
+    }
+    
+    // 如果没找到活动场景，查找前台非活跃场景
+    if (!windowScene) {
+        for (UIScene *scene in connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundInactive) {
+                windowScene = (UIWindowScene *)scene;
+                break;
+            }
+        }
+    }
+    
+    if (windowScene) {
+        for (UIWindow *window in windowScene.windows) {
+            if (window.isKeyWindow) {
+                return window;
+            }
+        }
+    }
+    return windowScene.windows.firstObject;
+}
+
 @end

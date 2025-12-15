@@ -40,6 +40,8 @@ FOUNDATION_EXPORT const unsigned char iOS_LWAIGCKitVersionString[];
 #import <iOS_LWAIGCKit/LWAIGCMTGQryStatusModel.h>
 #import <iOS_LWAIGCKit/LWAIGCAudioInfoModel.h>
 #import <iOS_LWAIGCKit/LWAIGCMcpModel.h>
+#import <iOS_LWAIGCKit/LWAIGCTranslateModel.h>
+#import <iOS_LWAIGCKit/LWAIGCTranslateTextModel.h>
 
 #import <iOS_LWAIGCKit/LWAIGCQueryListModel.h>
 #import <iOS_LWAIGCKit/LWAIGCCallback.h>

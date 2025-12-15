@@ -17,6 +17,16 @@ typedef NS_ENUM(NSInteger, LWAIGCMODETYPE) {
 } NS_SWIFT_NAME(LWAIGCMODETYPE);
 
 
+/// SDK类型
+typedef NS_ENUM(NSInteger, LWAIGCSDKTYPE) {
+    SDKTYPE_NONE,
+    SDKTYPE_TP  = 1,    //拓步
+    SDKTYPE_LY  = 2,    //LY
+    SDKTYPE_RTK = 3,    //瑞昱
+    SDKTYPE_OR  = 4,    //青橙
+} NS_SWIFT_NAME(LWAIGCSDKTYPE);
+
+
 /// 服务器节点类型
 typedef NS_ENUM(NSInteger, LWAIGCSERVERNODETYPE) {
     DEV_DOMAIN,         //开发（内部调试）

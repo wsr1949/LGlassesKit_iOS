@@ -41,14 +41,17 @@
 
 - (void)reloadModel:(LDownloadFile *)fileModel
 {
-    BOOL isVideo = [fileModel.fileModel.name hasSuffix:@"MP4"];
-    
-    self.playImg.hidden = !isVideo;
-    
-    if (isVideo) {
+    self.playImg.hidden = YES;
+        
+    if ([fileModel.fileModel.name hasSuffix:@"MP4"]) {
+        self.playImg.hidden = NO;
         self.imgView.image = [LMediaListCell videoCoverImage:fileModel.fileUrl];
-    } else {
+    }
+    else if ([fileModel.fileModel.name hasSuffix:@"JPG"]) {
         self.imgView.image = [UIImage imageWithContentsOfFile:fileModel.fileUrl.path];
+    }
+    else {
+        self.imgView.image = UIImageMake(@"ic_other_file");
     }
 }
 

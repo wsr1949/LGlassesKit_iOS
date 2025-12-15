@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设备型号
 @property (nonatomic, copy, nonnull) NSString *deviceModel;
 
+/// SDK类型
+@property (nonatomic, assign) LWAIGCSDKTYPE sdkType;
+
 /// 服务器
 @property (nonatomic, assign) LWAIGCSERVERNODETYPE serverNode;
 

@@ -39,6 +39,9 @@ typedef NS_ENUM(NSUInteger, LCorner) {
 /// 快速创建UILabel
 + (UILabel *)labelWithFont:(UIFont *)font textColor:(UIColor *)textColor;
 
+/// 主窗口
++ (UIWindow *)keyWindow;
+
 @end
 
 NS_ASSUME_NONNULL_END

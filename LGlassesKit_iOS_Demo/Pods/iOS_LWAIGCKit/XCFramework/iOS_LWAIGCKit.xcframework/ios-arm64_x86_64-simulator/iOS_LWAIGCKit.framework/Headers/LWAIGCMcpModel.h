@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 任务ID
 @property (nonatomic, copy) NSString *task_id;
 
-/// 参数1
-@property (nonatomic, copy) NSString *arguments_1;
+/// 问题
+@property (nonatomic, copy) NSString *question;
 
 @end
 

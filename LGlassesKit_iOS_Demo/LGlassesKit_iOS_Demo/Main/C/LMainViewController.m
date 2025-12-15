@@ -10,6 +10,7 @@
 #import "LScanDeviceViewController.h"
 #import "LMediaListViewController.h"
 #import "LAIVoiceAssistantViewController.h"
+#import "LAITranslationViewController.h"
 #import "LOtaUpgradeViewController.h"
 
 @interface LMainViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -140,7 +141,9 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"打开Wi-Fi热点",
         @"获取当前文件(缩略图)数量",
         @"🤖AI语音助手",
+        @"🔁AI翻译",
         @"🚀OTA升级",
+        @"设置离线语音语种",
     ];
 }
 
@@ -326,6 +329,10 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     else if ([title isEqualToString:@"获取设备版本"]) {
         [LGlassesKit getDeviceVersionWithCallback:^(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"获取设备版本 %@", error]];
+            if (!error) {
+                weakSelf.versionModel = deviceModel;
+                [weakSelf.tableView reloadData];
+            }
         }];
     }
     else if ([title isEqualToString:@"打开Wi-Fi热点"]) {
@@ -344,9 +351,18 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         LAIVoiceAssistantViewController *vc = LAIVoiceAssistantViewController.new;
         [self.navigationController pushViewController:vc animated:YES];
     }
+    else if ([title isEqualToString:@"🔁AI翻译"]) {
+        LAITranslationViewController *vc = LAITranslationViewController.new;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     else if ([title isEqualToString:@"🚀OTA升级"]) {
         LOtaUpgradeViewController *vc = LOtaUpgradeViewController.new;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if ([title isEqualToString:@"设置离线语音语种"]) {
+        [LGlassesKit setOfflineVoiceLanguage:LOfflineVoiceLanguage_zh callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"设置离线语音语种 %@", error]];
+        }];
     }
 }
 
@@ -512,6 +528,30 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     {
         [LAIGC requestUploadImageData:photoData]; // 上传图片开始识图
     }
+}
+
+/// 通知拍照状态
+- (void)notifyDevicePhotoTakingStatus:(BOOL)activated
+{
+    NSLog(@"通知拍照状态: %@", activated ? @"开始拍照" : @"结束拍照");
+}
+
+/// 通知录音状态
+- (void)notifyAudioRecordingStatus:(BOOL)activated
+{
+    NSLog(@"通知录音状态: %@", activated ? @"开始录音" : @"停止录音");
+}
+
+/// 通知录像状态
+- (void)notifyVideoRecordingStatus:(BOOL)activated
+{
+    NSLog(@"通知录像状态: %@", activated ? @"开始录像" : @"停止录像");
+}
+ 
+/// 通知设备佩戴状态
+- (void)notifyDeviceWearingStatus:(BOOL)wearing
+{
+    NSLog(@"通知设备佩戴状态: %@", wearing ? @"已佩戴" : @"未佩戴");
 }
 
 @end

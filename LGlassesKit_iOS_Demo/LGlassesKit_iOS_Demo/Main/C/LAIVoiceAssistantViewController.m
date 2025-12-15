@@ -47,7 +47,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
     self.dataSource = [NSMutableArray array];
     
     // 通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aiVoiceAssistantNotify:) name:LAIVoiceAssistantNotify object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aiVoiceAssistantNotify:) name:LAIVoiceAssistantChatNotify object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -164,9 +164,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
         LAssistantModel *model = (LAssistantModel *)notification.object;
         
         if (!model) return;
-        
-        if (!model) return;
-        
+                
         if (model.isAdd) {
             // 添加
             [weakSelf.dataSource addObject:model];

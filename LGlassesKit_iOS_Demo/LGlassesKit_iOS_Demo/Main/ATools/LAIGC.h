@@ -9,8 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 通知
-#define LAIVoiceAssistantNotify     @"LAIVoiceAssistantNotify"
+/// 对话通知
+#define LAIVoiceAssistantChatNotify         @"LAIVoiceAssistantChatNotify"
+/// 翻译通知
+#define LAIVoiceAssistantTranslationNotify  @"LAIVoiceAssistantTranslationNotify"
+
 
 @interface LAIGC : NSObject
 
@@ -31,6 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 上传图片开始识图
 + (void)requestUploadImageData:(NSData *)data;
+
+/// 开始翻译
++ (void)startTranslationFromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage;
+
+/// 结束翻译
++ (void)endTranslation;
 
 @end
 

@@ -128,8 +128,11 @@ static NSString *const LScanDeviceCellID = @"LScanDeviceCell";
             
             [self.navigationController popViewControllerAnimated:YES];
         }
+        else if (status == LBleStatusDisconnect) {
+            // 连接断开
+        }
         else if (status == LBleStatusConnectionFailed) {
-            [LHUD showLoading:@"连接失败"];
+            // 连接失败
         }
     }
 }

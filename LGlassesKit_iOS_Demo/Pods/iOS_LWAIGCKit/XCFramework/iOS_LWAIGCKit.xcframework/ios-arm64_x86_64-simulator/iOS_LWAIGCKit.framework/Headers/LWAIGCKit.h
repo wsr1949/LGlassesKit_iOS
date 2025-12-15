@@ -57,8 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  会议纪要(实时监听任务状态，连接WebSocket)
+ @param resultCallback  连接结果回调
+ @param callback        任务状态回调
  */
 + (void)requestConnectMeetingWebSocket:(NSString * _Nonnull)webSocket
+                        resultCallback:(void (^)(NSError * _Nullable error))resultCallback
                           withCallback:(LWAIGCMTGQryItemCallback _Nonnull)callback;
 
 /**
@@ -72,9 +75,19 @@ NS_ASSUME_NONNULL_BEGIN
 + (LWAIGCWEBSOCKETSTATUS)meetingWebSocketState;
 
 /**
- AI语音智能体(配置音频参数，实时监听服务状态，连接WebSocket)
+ 取消请求
+ @param convId      请求唯一会话ID
  */
-+ (void)requestConnectAiVoiceAgentWebSocket:(LWAIGCAudioInfoModel *)audioInfo sttCallback:(LWAIGCSttCallback)sttCallback ttsCallback:(LWAIGCTtsCallback)ttsCallback audioCallback:(LWAIGCAudioCallback)audioCallback mcpCmdCallback:(LWAIGCMcpCmdCallback)mcpCmdCallback stopCallback:(LWAIGCStopCallback)stopCallback;
++ (void)cancelHttpRequestWithConvId:(NSString * _Nonnull)convId;
+
+
+
+/**
+ AI语音智能体(配置音频参数，连接WebSocket)
+ @param audioInfo           音频参数
+ @param resultCallback      连接结果回调
+ */
++ (void)requestConnectAiVoiceAgentWebSocket:(LWAIGCAudioInfoModel * _Nonnull)audioInfo resultCallback:(void (^)(NSError * _Nullable error))resultCallback;
 
 /**
  AI语音智能体(实时监听服务状态，断开WebSocket)
@@ -86,10 +99,27 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (LWAIGCWEBSOCKETSTATUS)aiVoiceAgentWebSocketState;
 
+
 /**
- AI语音智能体(开始语音识别)
+ 注册智能体对话回调
+ @param chatSttCallback     语音转文本回调
+ @param chatTtsCallback     文本回复回调
+ @param chatAudioCallback   音频回复回调
+ @param chatMcpCmdCallback  mcp命令回调
+ @param chatStopCallback    停止回调
  */
-+ (void)startSpeechRecognition:(LWAIGCSTTMODE)mode lang:(NSString *)lang;
++ (void)registerChatSttCallback:(LWAIGCSttCallback)chatSttCallback
+                chatTtsCallback:(LWAIGCTtsCallback)chatTtsCallback
+              chatAudioCallback:(LWAIGCAudioCallback)chatAudioCallback
+             chatMcpCmdCallback:(LWAIGCMcpCmdCallback)chatMcpCmdCallback
+               chatStopCallback:(LWAIGCStopCallback)chatStopCallback;
+
+/**
+ AI语音智能体(开始对话语音识别)
+ @param mode     stt类型
+ @param language 语言类型
+ */
++ (void)startChatSpeechRecognition:(LWAIGCSTTMODE)mode language:(NSInteger)language;
 
 /**
  AI语音智能体(发送识别的语音数据)
@@ -97,32 +127,59 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sendRecognizedVoiceData:(NSData *)data;
 
 /**
- AI语音智能体(停止语音识别，手动模式必须调用)
+ AI语音智能体(停止对话语音识别，手动模式必须调用)
  */
-+ (void)stopSpeechRecognition;
++ (void)stopChatSpeechRecognition;
 
 /**
- AI语音智能体(停止响应)
+ AI语音智能体(中止响应)
+ @param sessionId    会话ID
  */
-+ (void)stopResponding;
++ (void)abortResponseWithSessionId:(NSString * _Nonnull)sessionId;
 
 /**
- AI语音智能体（上传图片开始识图，问题描述）
+ AI语音智能体（上传对话图片开始识图，问题描述）
+ @param data        图片数据
+ @param question    问题
  */
-+ (void)requestUploadImageData:(NSData * _Nonnull)data
-                      question:(NSString * _Nonnull)question
-                      callback:(LWAIGCImageRecognitionCallback)callback;
++ (void)requestChatUploadImageData:(NSData * _Nonnull)data
+                          question:(NSString * _Nonnull)question
+                          callback:(LWAIGCImageRecognitionCallback)callback;
 
 /**
- AI语音智能体（发送识图的结果）
+ AI语音智能体（发送对话识图的结果）
+ @param results        识别结果
+ @param task_id        任务ID
  */
-+ (void)sendImageRecognitionResults:(NSString * _Nonnull)results task_id:(NSString * _Nonnull)task_id;
++ (void)sendChatImageRecognitionResults:(NSString * _Nonnull)results task_id:(NSString * _Nonnull)task_id;
+
 
 /**
- 取消请求
- @param convId      请求唯一会话ID
+ 注册智能体翻译回调
+ @param translationTextCallback     语音转文本翻译回调
+ @param translationAudioCallback    音频翻译回调
+ @param translationTtsCallback      翻译音频tts状态回调
  */
-+ (void)cancelHttpRequestWithConvId:(NSString * _Nonnull)convId;
++ (void)registerTranslationTextCallback:(LWAIGCTranslateTextCallback)translationTextCallback
+               translationAudioCallback:(LWAIGCAudioCallback)translationAudioCallback
+                 translationTtsCallback:(LWAIGCTtsCallback)translationTtsCallback;
+
+/**
+ AI语音智能体（设置翻译语种及音频信息）
+ @param translateModel  翻译语种及音频信息
+ */
++ (void)setTranslationInfo:(LWAIGCTranslateModel * _Nonnull)translateModel;
+
+/**
+ AI语音智能体（开始翻译语音识别）
+ @param requestId   请求唯一ID
+ */
++ (void)startTranslateSpeechRecognition:(NSString * _Nonnull)requestId;
+
+/**
+ AI语音智能体（停止翻译语音识别）
+ */
++ (void)stopTranslateSpeechRecognition;
 
 @end
 

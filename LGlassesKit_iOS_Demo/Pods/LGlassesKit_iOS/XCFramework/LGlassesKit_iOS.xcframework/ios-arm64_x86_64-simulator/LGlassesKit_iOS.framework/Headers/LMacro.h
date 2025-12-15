@@ -145,4 +145,15 @@ typedef NS_ENUM(NSInteger, LShootingDirection)
 } NS_SWIFT_NAME(LShootingDirection);
 
 
+/// 离线语音语种
+typedef NS_ENUM(NSInteger, LOfflineVoiceLanguage)
+{
+    /// 中文
+    LOfflineVoiceLanguage_zh    = 0,
+    /// 英文
+    LOfflineVoiceLanguage_en    = 1,
+    
+} NS_SWIFT_NAME(LOfflineVoiceLanguage);
+
+
 #endif /* LMacro_h */

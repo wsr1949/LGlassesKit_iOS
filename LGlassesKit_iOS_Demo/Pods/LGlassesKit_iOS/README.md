@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.1 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.2 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -99,7 +99,7 @@ Uses Bluetooth LE accessories
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
 
-## 二、初始化SDK，注册委托代理
+## 二、初始化SDK（详阅LGlassesKit.h）注册委托代理
 
 ##### 注册委托代理
 ```ruby 
@@ -221,6 +221,43 @@ Uses Bluetooth LE accessories
  */
 - (void)notifyStopVoicePlayback;
 ```
+
+##### 通知拍照状态
+```ruby
+/**
+ 通知拍照状态
+ @param activated   激活状态，YES激活 NO未激活
+ */
+- (void)notifyDevicePhotoTakingStatus:(BOOL)activated;
+```
+
+##### 通知录音状态
+```ruby
+/**
+ 通知录音状态
+ @param activated   激活状态，YES激活 NO未激活
+ */
+- (void)notifyAudioRecordingStatus:(BOOL)activated;
+```
+
+##### 通知录像状态
+```ruby
+/**
+ 通知录像状态
+ @param activated   激活状态，YES激活 NO未激活
+ */
+- (void)notifyVideoRecordingStatus:(BOOL)activated;
+```
+
+##### 通知设备佩戴状态
+```ruby
+/**
+ 通知设备佩戴状态
+ @param wearing     佩戴状态，YES佩戴 NO未佩戴
+ */
+- (void)notifyDeviceWearingStatus:(BOOL)wearing;
+```
+
 
 ## 四、命令方法
 
@@ -560,17 +597,35 @@ Uses Bluetooth LE accessories
               upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
 ```
 
+##### 进入ISP升级模式🚀
+```ruby
+/**
+ 进入ISP升级模式🚀
+ @note 进入ISP升级模式会自动打开Wi-Fi热点，Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
+ */
++ (void)enableIspUpgradeModeWithCallback:(LResultCallback _Nonnull)callback;
+```
+
 ##### 🚀开始ISP升级（需要先打开并连接Wi-Fi热点）
 ```ruby
 /**
- 🚀开始ISP升级（需要先打开并连接Wi-Fi热点）
+ 🚀开始ISP升级（需要先进入ISP升级模式，并连接Wi-Fi热点）
  @param filePath                    isp文件本地路径
  @param upgradeProgressCallback     isp升级进度回调
  @param upgradeResultCallback       isp升级结果回调
+ @note 先进入ISP升级模式，成功连接Wi-Fi热点后，再开始ISP升级
  */
 + (void)startIspUpgradeWithFilePath:(NSString * _Nonnull)filePath
             upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
               upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
+```
+
+##### 设置离线语音语种
+```ruby
+/**
+ 设置离线语音语种
+ */
++ (void)setOfflineVoiceLanguage:(LOfflineVoiceLanguage)language callback:(LResultCallback _Nonnull)callback;
 ```
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -578,6 +633,18 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2025-12-15  Version:1.0.2   Build:2025121501
+            1.新增委托代理方法 @link LDelegate
+                通知拍照状态 notifyDevicePhotoTakingStatus:
+                通知录音状态 notifyAudioRecordingStatus:
+                通知录像状态 notifyVideoRecordingStatus:
+                通知设备佩戴状态 notifyDeviceWearingStatus:
+            2.新增进入ISP升级模式方法（LGlassesKit）enableIspUpgradeModeWithCallback:
+            3.更新OTA升级方法（LGlassesKit）startOtaUpgradeWithFilePath...
+            4.更新ISP升级方法（LGlassesKit）startIspUpgradeWithFilePath...
+            5.新增设置离线语音语种方法（LGlassesKit）setOfflineVoiceLanguage:
+            6.其他已知问题优化
+
  project    2025-11-25  Version:1.0.1   Build:2025112501
             1.新增区分Ble连接失败状态（LMacro）LBleStatusConnectionFailed
             2.新增区分Wi-Fi连接失败状态（LMacro）LWiFiHotspotStatusConnectionFailed

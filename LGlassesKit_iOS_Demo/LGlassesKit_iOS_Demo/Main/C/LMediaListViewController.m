@@ -82,14 +82,16 @@ static NSString *const LMediaListCellID = @"LMediaListCell";
 {
     LDownloadFile *fileModel = self.files[indexPath.row];
     
-    BOOL isVideo = [fileModel.fileModel.name hasSuffix:@"MP4"];
-    
-    if (isVideo) {
+    if ([fileModel.fileModel.name hasSuffix:@"MP4"]) {
         LVideoPreviewController *vc = [[LVideoPreviewController alloc] initWithFileUrl:fileModel.fileUrl];
         [self.navigationController pushViewController:vc animated:YES];
-    } else {
+    }
+    else if ([fileModel.fileModel.name hasSuffix:@"JPG"]) {
         LPhotoPreviewController *vc = [[LPhotoPreviewController alloc] initWithFilePath:fileModel.fileUrl.path];
         [self.navigationController pushViewController:vc animated:YES];
+    }
+    else {
+        [LHUD showText:@"其他类型文件处理"];
     }
 }
 

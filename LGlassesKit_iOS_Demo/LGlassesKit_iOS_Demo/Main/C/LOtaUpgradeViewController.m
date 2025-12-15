@@ -198,18 +198,15 @@
         
     //添加OTA按钮
     UIAlertAction *ota = [UIAlertAction actionWithTitle:@"OTA升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        /// 开始ota升级
         [weakSelf startOtaUpgradeWithFilePath:weakSelf.fileLabel.text];
     }];
     [alertController addAction:ota];
     
     //添加ISP按钮
     UIAlertAction *isp = [UIAlertAction actionWithTitle:@"ISP升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        /// 打开Wi-Fi
-        if (LGlassesKit.wifiHotspotStatus == LWiFiHotspotStatusConnected) {
-            [weakSelf startIspUpgradeWithFilePath:weakSelf.fileLabel.text];
-        } else {
-            [weakSelf openWiFi];
-        }
+        /// 进入ISP升级模式🚀
+        [weakSelf enableIspUpgradeMode];
     }];
     [alertController addAction:isp];
     
@@ -243,6 +240,8 @@
         weakSelf.statusLabel.textColor = LTextColor;
         weakSelf.statusLabel.text = @"OTA文件检验中";
         
+    } reconnectCallback:^{
+        // ⚠️设备正在回连...
     } upgradeProgressCallback:^(double progress) {
         
         weakSelf.progressView.progress = progress/100.0;
@@ -266,17 +265,20 @@
         }
         
         weakSelf.otaButton.enabled = YES;
+        
+    } restartCallback:^{
+       // ⚠️设备正在重启...
     }];
 }
 
-/// 打开Wi-Fi
-- (void)openWiFi
+/// 进入ISP升级模式🚀
+- (void)enableIspUpgradeMode
 {
-    // 打开Wi-Fi热点
-    // @note Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
     [LHUD showLoading:nil];
-    [LGlassesKit openWifiHotspotWithCallback:^(NSError * _Nullable error) {
-        [LHUD showText:[NSString stringWithFormat:@"打开Wi-Fi热点 %@", error]];
+    /// 进入ISP升级模式🚀
+    /// @note 进入ISP升级模式会自动打开Wi-Fi热点，Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
+    [LGlassesKit enableIspUpgradeModeWithCallback:^(NSError * _Nullable error) {
+        [LHUD showText:[NSString stringWithFormat:@"进入ISP升级模式🚀 %@", error]];
         LNetworkManage.sharedInstance.networkMode = LNetworkMode_Upload;
     }];
 }
@@ -313,10 +315,9 @@
             weakSelf.statusLabel.text = @"ISP升级成功";
         }
         
-        // 断开Wi-Fi
-        [LGlassesKit disconnectWiFiHotspot];
-        
         weakSelf.otaButton.enabled = YES;
+    } restartCallback:^{
+        // ⚠️设备正在重启...
     }];
 }
 
