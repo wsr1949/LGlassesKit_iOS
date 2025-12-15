@@ -90,6 +90,30 @@
  */
 - (void)notifyStopVoicePlayback;
 
+/**
+ 通知拍照状态
+ @param activated   激活状态，YES激活 NO未激活
+ */
+- (void)notifyDevicePhotoTakingStatus:(BOOL)activated;
+
+/**
+ 通知录音状态
+ @param activated   激活状态，YES激活 NO未激活
+ */
+- (void)notifyAudioRecordingStatus:(BOOL)activated;
+
+/**
+ 通知录像状态
+ @param activated   激活状态，YES激活 NO未激活
+ */
+- (void)notifyVideoRecordingStatus:(BOOL)activated;
+
+/**
+ 通知设备佩戴状态
+ @param wearing     佩戴状态，YES佩戴 NO未佩戴
+ */
+- (void)notifyDeviceWearingStatus:(BOOL)wearing;
+
 @end
 
 #endif /* LDelegate_h */

@@ -228,30 +228,45 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)reportFileDownloadsCount:(NSInteger)count callback:(LResultCallback _Nonnull)callback;
 
-
 /**
  🚀开始OTA升级
  @param filePath                    ota文件本地路径
  @param preparingProgressCallback   ota准备进度回调
+ @param reconnectCallback           ota设备回连回调
  @param upgradeProgressCallback     ota升级进度回调
  @param upgradeResultCallback       ota升级结果回调
+ @param restartCallback             ota设备重启回调
  */
 + (void)startOtaUpgradeWithFilePath:(NSString * _Nonnull)filePath
           preparingProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)preparingProgressCallback
+                  reconnectCallback:(void (^ _Nonnull)(void))reconnectCallback
             upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
-              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
-
+              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback
+                    restartCallback:(void (^ _Nonnull)(void))restartCallback;
 
 /**
- 🚀开始ISP升级（需要先打开并连接Wi-Fi热点）
+ 进入ISP升级模式🚀
+ @note 进入ISP升级模式会自动打开Wi-Fi热点，Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
+ */
++ (void)enableIspUpgradeModeWithCallback:(LResultCallback _Nonnull)callback;
+
+/**
+ 🚀开始ISP升级（需要先进入ISP升级模式，并连接Wi-Fi热点）
  @param filePath                    isp文件本地路径
  @param upgradeProgressCallback     isp升级进度回调
  @param upgradeResultCallback       isp升级结果回调
+ @param restartCallback             ota设备重启回调
+ @note 先进入ISP升级模式，成功连接Wi-Fi热点后，再开始ISP升级
  */
 + (void)startIspUpgradeWithFilePath:(NSString * _Nonnull)filePath
             upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
-              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
+              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback
+                    restartCallback:(void (^ _Nonnull)(void))restartCallback;
 
+/**
+ 设置离线语音语种
+ */
++ (void)setOfflineVoiceLanguage:(LOfflineVoiceLanguage)language callback:(LResultCallback _Nonnull)callback;
 
 @end
 

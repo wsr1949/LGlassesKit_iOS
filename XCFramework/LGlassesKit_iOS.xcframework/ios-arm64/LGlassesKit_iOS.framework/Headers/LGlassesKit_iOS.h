@@ -22,6 +22,17 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  GitHub @link https://github.com/wsr1949/LGlassesKit_iOS.git
  
  版本记录：
+ 
+ project    2025-12-15  Version:1.0.2   Build:2025121501
+            1.新增委托代理方法 @link LDelegate
+                通知拍照状态 notifyDevicePhotoTakingStatus:
+                通知录音状态 notifyAudioRecordingStatus:
+                通知录像状态 notifyVideoRecordingStatus:
+                通知设备佩戴状态 notifyDeviceWearingStatus:
+            2.新增进入ISP升级模式方法（LGlassesKit）enableIspUpgradeModeWithCallback:
+            3.更新OTA升级方法（LGlassesKit）startOtaUpgradeWithFilePath...
+            4.更新ISP升级方法（LGlassesKit）startIspUpgradeWithFilePath...
+            5.其他已知问题优化
 
  project    2025-11-25  Version:1.0.1   Build:2025112501
             1.新增区分Ble连接失败状态（LMacro）LBleStatusConnectionFailed
