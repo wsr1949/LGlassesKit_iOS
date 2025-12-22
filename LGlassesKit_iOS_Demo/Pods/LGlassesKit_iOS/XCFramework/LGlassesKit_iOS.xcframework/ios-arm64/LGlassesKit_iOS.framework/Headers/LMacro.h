@@ -156,4 +156,17 @@ typedef NS_ENUM(NSInteger, LOfflineVoiceLanguage)
 } NS_SWIFT_NAME(LOfflineVoiceLanguage);
 
 
+/// OTA升级回连方式
+typedef NS_ENUM(NSInteger, LOtaUpgradeReconnectMethod)
+{
+    /// 无
+    LOtaUpgradeReconnectMethod_None   = 0,
+    /// 设备Mac地址
+    LOtaUpgradeReconnectMethod_Mac    = 1,
+    /// 设备Uuid
+    LOtaUpgradeReconnectMethod_Uuid   = 2,
+    
+} NS_SWIFT_NAME(LOtaUpgradeReconnectMethod);
+
+
 #endif /* LMacro_h */

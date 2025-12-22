@@ -28,7 +28,7 @@
     
     // 数据库配置
     RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-    uint64_t schemaVersion = 1;
+    uint64_t schemaVersion = 2;
     configuration.schemaVersion = schemaVersion;
     NSLog(@"☀️ 当前数据库版本是 %llu", schemaVersion);
     [RLMRealmConfiguration setDefaultConfiguration:configuration];

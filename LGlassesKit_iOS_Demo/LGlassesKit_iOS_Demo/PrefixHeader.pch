@@ -64,6 +64,7 @@
 #import "LMainViewController.h"
 #import "ATools.h"
 #import "RLMDeviceModel.h"
+#import "RLMOtaDeviceModel.h"
 #import "RLMObject+Tools.h"
 #import "LHUD.h"
 #import "LColor.h"

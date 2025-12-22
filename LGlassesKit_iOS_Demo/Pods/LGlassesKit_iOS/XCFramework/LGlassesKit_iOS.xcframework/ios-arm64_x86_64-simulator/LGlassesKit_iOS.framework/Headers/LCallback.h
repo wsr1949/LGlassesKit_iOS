@@ -66,5 +66,12 @@ typedef void(^LDeviceVersionCallback)(LDeviceVersionModel * _Nullable deviceMode
  */
 typedef void(^LOtaUpgradeProgressCallback)(double progress);
 
+/**
+ OTA回连状态回调
+ @param reconnectMethod     设备回连方式
+ @param reconnectDevice     回连的设备
+ */
+typedef void(^LOtaUpgradeReconnectCallback)(LOtaUpgradeReconnectMethod reconnectMethod, NSString * _Nonnull reconnectDevice);
+
 
 #endif /* LCallback_h */

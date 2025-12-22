@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UILabel *progressLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UIButton *otaButton;
+@property (nonatomic, copy) NSString *ispVersion;
 
 @end
 
@@ -198,17 +199,79 @@
         
     //添加OTA按钮
     UIAlertAction *ota = [UIAlertAction actionWithTitle:@"OTA升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        /// 开始ota升级
-        [weakSelf startOtaUpgradeWithFilePath:weakSelf.fileLabel.text];
+        
+        RLMOtaDeviceModel *otaModel = RLMOtaDeviceModel.allObjects.lastObject;
+        if (otaModel) {
+            /// 确认是否恢复ota升级
+            [weakSelf confirmRestoreOtaUpgrade:weakSelf.fileLabel.text isRestoreUpgrade:YES restoreReconnectMethod:otaModel.reconnectMethod restoreReconnectDevice:otaModel.reconnectDevice];
+        } else {
+            /// 开始ota升级
+            [weakSelf startOtaUpgradeWithFilePath:weakSelf.fileLabel.text isRestoreUpgrade:NO restoreReconnectMethod:LOtaUpgradeReconnectMethod_None restoreReconnectDevice:nil];
+        }
     }];
     [alertController addAction:ota];
     
     //添加ISP按钮
     UIAlertAction *isp = [UIAlertAction actionWithTitle:@"ISP升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        /// 进入ISP升级模式🚀
-        [weakSelf enableIspUpgradeMode];
+        // 确定ISP版本号
+        [weakSelf confirmIspVersion];
     }];
     [alertController addAction:isp];
+    
+    //显示
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)confirmIspVersion
+{
+    LWEAKSELF
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ISP版本号" message:@"请确定此次升级的ISP版本号" preferredStyle:UIAlertControllerStyleAlert];
+    
+    //添加取消按钮
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancel];
+    
+    // 添加文本输入框
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"ISP版本号，格式如 1.2.3";
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    }];
+    
+    //添加确定按钮
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *ispVersion = alertController.textFields.firstObject.text;
+        if (IF_NULL(ispVersion)) {
+            [LHUD showText:@"请确定ISP版本号"];
+        } else {
+            weakSelf.ispVersion = ispVersion;
+            /// 进入ISP升级模式🚀
+            [weakSelf enableIspUpgradeMode];
+        }
+    }];
+    [alertController addAction:confirm];
+    
+    //显示
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)confirmRestoreOtaUpgrade:(NSString *)filePath
+                isRestoreUpgrade:(BOOL)isRestoreUpgrade
+          restoreReconnectMethod:(LOtaUpgradeReconnectMethod)restoreReconnectMethod
+          restoreReconnectDevice:(NSString *)restoreReconnectDevice
+{
+    LWEAKSELF
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"恢复OTA升级" message:@"检测到有未完成的OTA设备，是否恢复？" preferredStyle:UIAlertControllerStyleAlert];
+    
+    //添加取消按钮
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancel];
+    
+    //添加恢复按钮
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"恢复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 开始ota升级
+        [weakSelf startOtaUpgradeWithFilePath:filePath isRestoreUpgrade:isRestoreUpgrade restoreReconnectMethod:restoreReconnectMethod restoreReconnectDevice:restoreReconnectDevice];
+    }];
+    [alertController addAction:confirm];
     
     //显示
     [self presentViewController:alertController animated:YES completion:nil];
@@ -226,11 +289,14 @@
 
 /// 开始ota升级
 - (void)startOtaUpgradeWithFilePath:(NSString *)filePath
+                   isRestoreUpgrade:(BOOL)isRestoreUpgrade
+             restoreReconnectMethod:(LOtaUpgradeReconnectMethod)restoreReconnectMethod
+             restoreReconnectDevice:(NSString *)restoreReconnectDevice
 {
     self.otaButton.enabled = NO;
     
     LWEAKSELF
-    [LGlassesKit startOtaUpgradeWithFilePath:filePath preparingProgressCallback:^(double progress) {
+    [LGlassesKit startOtaUpgradeWithFilePath:filePath isRestoreUpgrade:isRestoreUpgrade restoreReconnectMethod:restoreReconnectMethod restoreReconnectDevice:restoreReconnectDevice preparingProgressCallback:^(double progress) {
         
         weakSelf.progressView.hidden = NO;
         weakSelf.progressView.progress = progress/100.0;
@@ -240,12 +306,31 @@
         weakSelf.statusLabel.textColor = LTextColor;
         weakSelf.statusLabel.text = @"OTA文件检验中";
         
-    } reconnectCallback:^{
-        // ⚠️设备正在回连...
+    } reconnectCallback:^(LOtaUpgradeReconnectMethod reconnectMethod, NSString * _Nonnull reconnectDevice) {
+        
+        // ⚠️OTA文件检验通过后，设备进入OTA模式，正在回连OTA模式的设备...
+        /**
+         ‼️由于芯片设计缘故，应用必须在此记录这个回连方式和设备，已应对一些升级异常场景：
+         ⚠️例如 升级过程中app被kill或crash，重新打开app是无法正常回连设备的，因为设备处于ota模式，需要根据这个回连方式和设备来重新恢复ota
+         ⚠️ota成功/失败：再移除记录
+         */
+        NSLog(@"回连方式 %lu 设备 %@", reconnectMethod, reconnectDevice);
+        RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
+        
+        RLMOtaDeviceModel *otaModel = [RLMOtaDeviceModel new];
+        otaModel.deviceMac = deviceModel.deviceMac;
+        otaModel.reconnectMethod = reconnectMethod;
+        otaModel.reconnectDevice = reconnectDevice;
+        [otaModel saveOrUpdateObject];
+        
     } upgradeProgressCallback:^(double progress) {
         
+        weakSelf.progressView.hidden = NO;
         weakSelf.progressView.progress = progress/100.0;
+        weakSelf.progressLabel.hidden = NO;
         weakSelf.progressLabel.text = [NSString stringWithFormat:@"%.0f%%", progress];
+        weakSelf.statusLabel.hidden = NO;
+        weakSelf.statusLabel.textColor = LTextColor;
         weakSelf.statusLabel.text = @"OTA升级中";
         
     } upgradeResultCallback:^(NSError * _Nullable error) {
@@ -262,12 +347,14 @@
             weakSelf.statusLabel.hidden = NO;
             weakSelf.statusLabel.textColor = UIColor.systemGreenColor;
             weakSelf.statusLabel.text = @"OTA升级成功";
+            
+            [RLMOtaDeviceModel.allObjects.lastObject deleteObject];
         }
         
         weakSelf.otaButton.enabled = YES;
         
     } restartCallback:^{
-       // ⚠️设备正在重启...
+        // ⚠️设备正在重启...
     }];
 }
 
@@ -289,7 +376,7 @@
     self.otaButton.enabled = NO;
     
     LWEAKSELF
-    [LGlassesKit startIspUpgradeWithFilePath:filePath upgradeProgressCallback:^(double progress) {
+    [LGlassesKit startIspUpgradeWithFilePath:filePath ispVersion:self.ispVersion upgradeProgressCallback:^(double progress) {
         
         weakSelf.progressView.hidden = NO;
         weakSelf.progressView.progress = progress/100.0;
@@ -313,11 +400,18 @@
             weakSelf.statusLabel.hidden = NO;
             weakSelf.statusLabel.textColor = UIColor.systemGreenColor;
             weakSelf.statusLabel.text = @"ISP升级成功";
+            
+            // 重新获取一下版本号
+            [LGlassesKit getDeviceVersionWithCallback:^(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error) {
+                if (!error) {
+                    NSString *string = [NSString stringWithFormat:@"isp 版本号 %@", deviceModel.ispVersion];
+                    [LHUD showText:string];
+                }
+            }];
         }
         
         weakSelf.otaButton.enabled = YES;
-    } restartCallback:^{
-        // ⚠️设备正在重启...
+        
     }];
 }
 

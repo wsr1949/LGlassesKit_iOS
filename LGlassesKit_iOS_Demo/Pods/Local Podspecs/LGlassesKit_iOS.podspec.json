@@ -1,9 +1,9 @@
 {
   "name": "LGlassesKit_iOS",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "summary": "LGlassesKit智能眼镜SDK for iOS",
   "description": "LGlassesKit_iOS 为智能眼镜的iOS框架，负责与智能眼镜设备通信等功能的封装。",
-  "homepage": "https://github.com/wsr1949/LGlassesKit_iOS/tree/1.0.2/LGlassesKit_iOS",
+  "homepage": "https://github.com/wsr1949/LGlassesKit_iOS/tree/1.0.3/LGlassesKit_iOS",
   "license": "MIT",
   "authors": {
     "wsr1949": "921903719@qq.com"
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/wsr1949/LGlassesKit_iOS.git",
-    "tag": "1.0.2"
+    "tag": "1.0.3"
   },
   "documentation_url": "https://github.com/wsr1949/LGlassesKit_iOS/blob/main/README.md",
   "requires_arc": true,

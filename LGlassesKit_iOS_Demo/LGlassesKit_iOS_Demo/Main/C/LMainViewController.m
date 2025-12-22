@@ -39,6 +39,28 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     [super viewWillAppear:animated];
     
     [self reloadConnectView];
+    
+    RLMOtaDeviceModel *otaModel = RLMOtaDeviceModel.allObjects.lastObject;
+    if (otaModel) {
+        /// 确认是否恢复ota升级
+        LWEAKSELF
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"恢复OTA升级" message:@"检测到有未完成的OTA设备，是否恢复？" preferredStyle:UIAlertControllerStyleAlert];
+        
+        //添加取消按钮
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:cancel];
+        
+        //添加恢复按钮
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"恢复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            // 前往ota升级
+            LOtaUpgradeViewController *vc = LOtaUpgradeViewController.new;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }];
+        [alertController addAction:confirm];
+        
+        //显示
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (void)viewDidLoad {
@@ -76,6 +98,8 @@ static NSString *const LMainFooterID = @"LMainFooterView";
             [LAIGC disconnectAgentWebSocket];
             // 删除设备记录
             [deviceModel deleteObject];
+            // 删除ota设备记录
+            [RLMOtaDeviceModel.allObjects.lastObject deleteObject];
             // 刷新
             [weakSelf reloadConnectView];
         } else {
