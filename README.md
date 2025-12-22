@@ -647,7 +647,13 @@ Uses Bluetooth LE accessories
 ```ruby
  project    2025-12-22  Version:1.0.3   Build:2025122201
             1.更新OTA升级方法（LGlassesKit）startOtaUpgradeWithFilePath...
+                - 增加 isRestoreUpgrade 恢复OTA升级，true恢复升级，false正常升级
+                - 增加 restoreReconnectMethod 恢复OTA升级的设备回连方式，isRestore==true时（必填）使用正确的回连方式；isRestore==false时则使用None即可
+                - 增加 restoreReconnectDevice 恢复OTA升级的设备，isRestore==true时（必填）使用正确的设备；isRestore==false时则传nil即可
+                - 修改 reconnectCallback 设备回连回调，增加 reconnectMethod 回连方式、reconnectDevice 回连设备
             2.更新ISP升级方法（LGlassesKit）startIspUpgradeWithFilePath...
+                - 增加 ispVersion 升级版本号
+                - 移除 restartCallback 重启回调，升级成功设备不会重启
 
  project    2025-12-15  Version:1.0.2   Build:2025121501
             1.新增委托代理方法 @link LDelegate
