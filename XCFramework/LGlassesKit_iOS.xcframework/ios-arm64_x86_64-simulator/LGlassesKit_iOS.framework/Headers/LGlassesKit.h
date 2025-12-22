@@ -231,6 +231,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  🚀开始OTA升级
  @param filePath                    ota文件本地路径
+ @param isRestoreUpgrade            恢复OTA升级，true恢复升级，false正常升级
+ @param restoreReconnectMethod      恢复OTA升级的设备回连方式，isRestore==true时（必填）使用正确的回连方式；isRestore==false时则使用None即可
+ @param restoreReconnectDevice      恢复OTA升级的设备，isRestore==true时（必填）使用正确的设备；isRestore==false时则传nil即可
  @param preparingProgressCallback   ota准备进度回调
  @param reconnectCallback           ota设备回连回调
  @param upgradeProgressCallback     ota升级进度回调
@@ -238,8 +241,11 @@ NS_ASSUME_NONNULL_BEGIN
  @param restartCallback             ota设备重启回调
  */
 + (void)startOtaUpgradeWithFilePath:(NSString * _Nonnull)filePath
+                   isRestoreUpgrade:(BOOL)isRestoreUpgrade
+               restoreReconnectMethod:(LOtaUpgradeReconnectMethod)restoreReconnectMethod
+             restoreReconnectDevice:(NSString * _Nullable)restoreReconnectDevice
           preparingProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)preparingProgressCallback
-                  reconnectCallback:(void (^ _Nonnull)(void))reconnectCallback
+                  reconnectCallback:(LOtaUpgradeReconnectCallback _Nonnull)reconnectCallback
             upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
               upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback
                     restartCallback:(void (^ _Nonnull)(void))restartCallback;
@@ -253,15 +259,15 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  🚀开始ISP升级（需要先进入ISP升级模式，并连接Wi-Fi热点）
  @param filePath                    isp文件本地路径
+ @param ispVersion                  isp版本号，格式x.x.x
  @param upgradeProgressCallback     isp升级进度回调
  @param upgradeResultCallback       isp升级结果回调
- @param restartCallback             ota设备重启回调
  @note 先进入ISP升级模式，成功连接Wi-Fi热点后，再开始ISP升级
  */
 + (void)startIspUpgradeWithFilePath:(NSString * _Nonnull)filePath
+                         ispVersion:(NSString * _Nonnull)ispVersion
             upgradeProgressCallback:(LOtaUpgradeProgressCallback _Nonnull)upgradeProgressCallback
-              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback
-                    restartCallback:(void (^ _Nonnull)(void))restartCallback;
+              upgradeResultCallback:(LResultCallback _Nonnull)upgradeResultCallback;
 
 /**
  设置离线语音语种
