@@ -84,18 +84,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  AI语音智能体(配置音频参数，连接WebSocket)
- @param audioInfo           音频参数
- @param resultCallback      连接结果回调
+ @param audioInfo           此音频参数参数为智能体对话输入的音频格式信息
+ @param resultCallback      连接结果回调，error参部分错误码 LWAIGCERRORCODE
  */
 + (void)requestConnectAiVoiceAgentWebSocket:(LWAIGCAudioInfoModel * _Nonnull)audioInfo resultCallback:(void (^)(NSError * _Nullable error))resultCallback;
 
 /**
- AI语音智能体(实时监听服务状态，断开WebSocket)
+ AI语音智能体(断开WebSocket)
  */
 + (void)disconnectAiVoiceAgentWebSocket;
 
 /**
- AI语音智能体(实时监听服务状态，WebSocket连接状态)
+ AI语音智能体(WebSocket连接状态)
  */
 + (LWAIGCWEBSOCKETSTATUS)aiVoiceAgentWebSocketState;
 
@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)stopChatSpeechRecognition;
 
 /**
- AI语音智能体(中止响应)
+ AI语音智能体(中止对话响应)
  @param sessionId    会话ID
  */
 + (void)abortResponseWithSessionId:(NSString * _Nonnull)sessionId;
@@ -180,6 +180,54 @@ NS_ASSUME_NONNULL_BEGIN
  AI语音智能体（停止翻译语音识别）
  */
 + (void)stopTranslateSpeechRecognition;
+
+
+/**
+ 注册智能体同声传译回调
+ @param simultaneousInterpretationTextCallback     语音转文本同声传译回调
+ @param simultaneousInterpretationAudioCallback    音频同声传译回调
+ @param simultaneousInterpretationTtsCallback      同声传译音频tts状态回调
+ */
++ (void)registerSimultaneousInterpretationTextCallback:(LWAIGCTranslateTextCallback)simultaneousInterpretationTextCallback
+               simultaneousInterpretationAudioCallback:(LWAIGCAudioCallback)simultaneousInterpretationAudioCallback
+                 simultaneousInterpretationTtsCallback:(LWAIGCTtsCallback)simultaneousInterpretationTtsCallback;
+
+/**
+ AI语音智能体（开始同声传译语音识别）
+ @param requestId   请求唯一ID
+ */
++ (void)startSimultaneousInterpretationSpeechRecognition:(NSString *)requestId;
+
+/**
+ AI语音智能体（停止同声传译语音识别）
+ */
++ (void)stopSimultaneousInterpretationSpeechRecognition;
+
+
+
+/**
+ AI语音智能体（创建房间）
+ @param queryRoomModel  房间创建参数
+ @param callback        房间信息回调
+ */
++ (void)requestCreateRoomWithModel:(LWAIGCQueryRoomModel * _Nonnull)queryRoomModel
+                      withCallback:(LWAIGCRoomQryCallback)callback;
+
+/**
+ 注册智能体通话翻译回调
+ @param callTranslationTextCallback     语音转文本通话翻译回调
+ */
++ (void)registerCallTranslationTextCallback:(LWAIGCTranslateTextCallback)callTranslationTextCallback;
+
+/**
+ 开始通话翻译语音识别
+ */
++ (void)startCallTranslationSpeechRecognition:(NSString *)requestId;
+
+ /**
+  停止通话翻译语音识别
+  */
++ (void)stopCallTranslationSpeechRecognition;
 
 @end
 

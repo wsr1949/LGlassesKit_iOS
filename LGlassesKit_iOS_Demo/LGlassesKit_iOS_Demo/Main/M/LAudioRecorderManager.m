@@ -83,9 +83,6 @@ static const NSUInteger kDefaultMaxDuration = 0;
     
     // 设置音频会话类别
     [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
-                  withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker |
-                              AVAudioSessionCategoryOptionAllowBluetoothHFP |
-                              AVAudioSessionCategoryOptionAllowAirPlay
                         error:&error];
     
     if (error) {

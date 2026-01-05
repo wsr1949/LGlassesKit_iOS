@@ -41,7 +41,7 @@ static NSString *const LScanDeviceCellID = @"LScanDeviceCell";
                 [weakSelf.tableView reloadData];
             }
             
-        } timeout:60];
+        } timeout:60 broadcastAnalysis:YES];
     }
     else {
         [LHUD showText:@"蓝牙未打开"];

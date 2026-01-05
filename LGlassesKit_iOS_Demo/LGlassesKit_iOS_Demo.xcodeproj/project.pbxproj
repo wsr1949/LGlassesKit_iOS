@@ -227,7 +227,7 @@
 				CLANG_ENABLE_OBJC_ARC_EXCEPTIONS = NO;
 				CODE_SIGN_ENTITLEMENTS = LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025121501;
+				CURRENT_PROJECT_VERSION = 2026010501;
 				DEVELOPMENT_TEAM = 45GY6NDXXV;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -235,6 +235,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LGlassesKit_iOS_Demo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "访问蓝牙";
+				INFOPLIST_KEY_NSCameraUsageDescription = "访问相机";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "访问本地网络";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "访问麦克风";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -310,7 +311,7 @@
 				CLANG_ENABLE_OBJC_ARC_EXCEPTIONS = NO;
 				CODE_SIGN_ENTITLEMENTS = LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2025121501;
+				CURRENT_PROJECT_VERSION = 2026010501;
 				DEVELOPMENT_TEAM = 45GY6NDXXV;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -321,6 +322,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LGlassesKit_iOS_Demo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "访问蓝牙";
+				INFOPLIST_KEY_NSCameraUsageDescription = "访问相机";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "访问本地网络";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "访问麦克风";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -21,6 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 唯一ID
 @property (nonatomic, copy) NSString *request_id;
 
+/// 消息ID
+@property (nonatomic, assign) NSInteger messageId;
+
+/// 动作
+@property (nonatomic, copy) NSString *action;
+
 /// 译文列表
 @property (nonatomic, strong) NSArray <LWAIGCTranslateItemModel *> *trans;
 

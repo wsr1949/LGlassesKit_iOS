@@ -47,6 +47,9 @@ typedef void(^LWAIGCImageRecognitionCallback)(NSString * _Nullable result, NSErr
 /// AI智能语音（翻译结果回调）
 typedef void(^LWAIGCTranslateTextCallback)(LWAIGCTranslateTextModel *translateTextModel);
 
+/// AI智能语音（语音房间结果回调）
+typedef void(^LWAIGCRoomQryCallback)(LWAIGCRoomQryModel * _Nullable roomQryModel);
+
 @end
 
 NS_ASSUME_NONNULL_END

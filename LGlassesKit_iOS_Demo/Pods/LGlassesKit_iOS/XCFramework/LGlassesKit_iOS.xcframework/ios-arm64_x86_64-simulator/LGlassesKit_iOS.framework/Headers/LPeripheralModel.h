@@ -11,13 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LPeripheralModel : NSObject
 
-/// 设备名称
+/// 设备名称，不解析广播时为nil
 @property (nonatomic, copy) NSString *deviceName;
 
-/// 设备MAC地址
+/// 设备MAC地址，不解析广播时为nil
 @property (nonatomic, copy) NSString *deviceMac;
 
-/// 设备适配号
+/// 设备适配号，不解析广播时为nil
 @property (nonatomic, copy) NSString *deviceMode;
 
 /// 设备对象

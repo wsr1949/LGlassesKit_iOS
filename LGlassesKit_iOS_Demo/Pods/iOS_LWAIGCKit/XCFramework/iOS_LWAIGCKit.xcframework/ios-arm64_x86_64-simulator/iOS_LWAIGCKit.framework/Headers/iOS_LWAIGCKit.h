@@ -21,6 +21,12 @@ FOUNDATION_EXPORT const unsigned char iOS_LWAIGCKitVersionString[];
  
  版本记录：
 
+ project    2026-01-05  Version:1.0.1   Build:2026010501
+            1.增加 语音助手（Chat）
+            2.增加 对话翻译
+            3.增加 同声传译
+            4.增加 音视频翻译（使用ZEGO即构 https://console.zego.im ）
+ 
  project    2025-03-03  Version:1.0.0   Build:2025030301
             1.首版
  */
@@ -42,6 +48,8 @@ FOUNDATION_EXPORT const unsigned char iOS_LWAIGCKitVersionString[];
 #import <iOS_LWAIGCKit/LWAIGCMcpModel.h>
 #import <iOS_LWAIGCKit/LWAIGCTranslateModel.h>
 #import <iOS_LWAIGCKit/LWAIGCTranslateTextModel.h>
+#import <iOS_LWAIGCKit/LWAIGCQueryRoomModel.h>
+#import <iOS_LWAIGCKit/LWAIGCRoomQryModel.h>
 
 #import <iOS_LWAIGCKit/LWAIGCQueryListModel.h>
 #import <iOS_LWAIGCKit/LWAIGCCallback.h>

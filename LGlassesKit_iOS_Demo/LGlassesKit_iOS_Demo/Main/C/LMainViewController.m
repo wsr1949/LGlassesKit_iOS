@@ -9,9 +9,8 @@
 #import "LMainHeaderView.h"
 #import "LScanDeviceViewController.h"
 #import "LMediaListViewController.h"
-#import "LAIVoiceAssistantViewController.h"
-#import "LAITranslationViewController.h"
 #import "LOtaUpgradeViewController.h"
+#import "LAIAgentViewController.h"
 
 @interface LMainViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -130,7 +129,10 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 #pragma mark - 刷新连接状态
 - (void)reloadConnectView
 {
-    NSString *deviceName = [RLMDeviceModel.allObjects.lastObject deviceName];
+    RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
+    NSString *deviceName = deviceModel.deviceName;
+    NSString *deviceMac = deviceModel.deviceMac;
+    NSLog(@"连接的设备 %@ 地址 %@", deviceName, deviceMac);
     [self.connectButton setTitle:IF_NULL(deviceName) ? @"无设备" : deviceName  forState:UIControlStateNormal];
     self.connectButton.selected = [LGlassesKit bleConnectStatus] == LBleStatusConnected;
     
@@ -164,10 +166,9 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"获取设备版本",
         @"打开Wi-Fi热点",
         @"获取当前文件(缩略图)数量",
-        @"🤖AI语音助手",
-        @"🔁AI翻译",
-        @"🚀OTA升级",
         @"设置离线语音语种",
+        @"🚀OTA升级",
+        @"🤖AI智能体",
     ];
 }
 
@@ -371,22 +372,18 @@ static NSString *const LMainFooterID = @"LMainFooterView";
             [LHUD showText:[NSString stringWithFormat:@"获取当前文件(缩略图)数量 %@", error]];
         }];
     }
-    else if ([title isEqualToString:@"🤖AI语音助手"]) {
-        LAIVoiceAssistantViewController *vc = LAIVoiceAssistantViewController.new;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if ([title isEqualToString:@"🔁AI翻译"]) {
-        LAITranslationViewController *vc = LAITranslationViewController.new;
-        [self.navigationController pushViewController:vc animated:YES];
+    else if ([title isEqualToString:@"设置离线语音语种"]) {
+        [LGlassesKit setOfflineVoiceLanguage:LOfflineVoiceLanguage_zh callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"设置离线语音语种 %@", error]];
+        }];
     }
     else if ([title isEqualToString:@"🚀OTA升级"]) {
         LOtaUpgradeViewController *vc = LOtaUpgradeViewController.new;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if ([title isEqualToString:@"设置离线语音语种"]) {
-        [LGlassesKit setOfflineVoiceLanguage:LOfflineVoiceLanguage_zh callback:^(NSError * _Nullable error) {
-            [LHUD showText:[NSString stringWithFormat:@"设置离线语音语种 %@", error]];
-        }];
+    else if ([title isEqualToString:@"🤖AI智能体"]) {
+        LAIAgentViewController *vc = LAIAgentViewController.new;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -402,11 +399,28 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 /// 中心蓝牙状态
 - (void)centralBluetoothStatus:(CBManagerState)status
 {
+    RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
+    if (IF_NULL(deviceModel.deviceUUID)) return;
+    
     if (status == CBManagerStatePoweredOn) {
-        RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
-        if (!IF_NULL(deviceModel.deviceUUID)) { // 有连接记录主动连接一下
-            [LGlassesKit connectingDevice:deviceModel.deviceUUID timeout:60];
-        }
+        // 有连接记录主动连接一下
+        [LGlassesKit connectingDevice:deviceModel.deviceUUID timeout:60];
+    }
+    
+    if (LAIGC.agentState != WEBSOCKET_CONNECTED) { //智能体未连接
+        // 注册AI🤖SDK
+        [LAIGC registerAIGC];
+        LWEAKSELF
+        // 连接智能体
+        [LAIGC connectAgentWebSocket:^(NSError * _Nonnull error) {
+            
+            if (error.code >= ERRORCODE_SAME) {
+                // 一些特殊业务错误...
+                [ATools showAlertController:weakSelf title:[NSString stringWithFormat:@"智能体错误 %ld", error.code] message:error.localizedDescription callback:^{
+                    // ...
+                }];
+            }
+        }];
     }
 }
 
@@ -455,15 +469,24 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         // 其他需要的业务...
         
         
-        // 注册AI🤖SDK
-        [LAIGC registerAIGC];
-        // 连接智能体
-        [LAIGC connectAgentWebSocket];
+        if (LAIGC.agentState != WEBSOCKET_CONNECTED) { //智能体未连接
+            // 注册AI🤖SDK
+            [LAIGC registerAIGC];
+            LWEAKSELF
+            // 连接智能体
+            [LAIGC connectAgentWebSocket:^(NSError * _Nonnull error) {
+                
+                if (error.code >= ERRORCODE_SAME) {
+                    // 一些特殊业务错误...
+                    [ATools showAlertController:weakSelf title:[NSString stringWithFormat:@"智能体错误 %ld", error.code] message:error.localizedDescription callback:^{
+                        // ...
+                    }];
+                }
+            }];
+        }
     }
     else if (status == LBleStatusDisconnect) {
         [LHUD showText:@"连接断开"];
-        // 断开智能体
-        [LAIGC disconnectAgentWebSocket];
     }
     else if (status == LBleStatusConnectionFailed) {
         [LHUD showText:[NSString stringWithFormat:@"连接失败：%@", error]];
@@ -532,14 +555,24 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 - (void)notifyAIVoiceAssistantStatus:(BOOL)activated
 {
     if (activated) { // 已唤醒
-        [LAIGC startRecording];
+        if (LAIGC.sharedManager.allowUseVoiceAssistant) { // 允许使用chat
+            [LAIGC startRecording];
+        }
+        else { // 直接关闭
+            // 中断语音传输
+            [LGlassesKit abortVoiceTransmissionWithCallback:^(NSError * _Nullable error) {
+                NSLog(@"中断语音: %@", error);
+            }];
+        }
     }
 }
 
 /// 通知语音数据
 - (void)notifyVoiceData:(NSData *)voiceData
 {
-    [LAIGC sendAudioData:voiceData]; // 发送语音
+    if (LAIGC.sharedManager.allowUseVoiceAssistant) { // 允许使用chat
+        [LAIGC sendAudioData:voiceData]; // 发送语音
+    }
 }
 
 /// 通知AI识图照片数据

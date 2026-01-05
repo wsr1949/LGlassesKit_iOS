@@ -188,6 +188,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_HashPair.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JLLogHelper.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_BLEKit.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/ZegoExpressEngine/ZegoExpressEngine.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework"
@@ -202,6 +203,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_HashPair.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JLLogHelper.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_BLEKit.framework"
+  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/ZegoExpressEngine/ZegoExpressEngine.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

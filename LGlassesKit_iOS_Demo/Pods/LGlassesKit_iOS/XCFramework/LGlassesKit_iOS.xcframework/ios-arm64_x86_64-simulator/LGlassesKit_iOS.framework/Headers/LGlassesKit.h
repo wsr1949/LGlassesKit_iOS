@@ -20,10 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  开始扫描设备
- @param callback    设备扫描回调
- @param timeout     扫描超时时间，秒
+ @param callback            设备扫描回调
+ @param timeout             扫描超时时间，秒
+ @param broadcastAnalysis   是否解析广播，YES解析成功才回调，NO不解析广播数据直接回调
  */
-+ (void)startScanningWithCallback:(LDiscoverPeripheralCallback _Nonnull)callback timeout:(int)timeout;
++ (void)startScanningWithCallback:(LDiscoverPeripheralCallback _Nonnull)callback timeout:(int)timeout broadcastAnalysis:(BOOL)broadcastAnalysis;
 
 /**
  停止扫描设备

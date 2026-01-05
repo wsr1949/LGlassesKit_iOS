@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.3 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.4 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -265,10 +265,11 @@ Uses Bluetooth LE accessories
 ```ruby
 /**
  开始扫描设备
- @param callback    设备扫描回调
- @param timeout     扫描超时时间，秒
+ @param callback            设备扫描回调
+ @param timeout             扫描超时时间，秒
+ @param broadcastAnalysis   是否解析广播，YES解析成功才回调，NO不解析广播数据直接回调
  */
-+ (void)startScanningWithCallback:(LDiscoverPeripheralCallback _Nonnull)callback timeout:(int)timeout;
++ (void)startScanningWithCallback:(LDiscoverPeripheralCallback _Nonnull)callback timeout:(int)timeout broadcastAnalysis:(BOOL)broadcastAnalysis;
 ```
 
 ##### 停止扫描设备
@@ -645,9 +646,18 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2026-01-05  Version:1.0.4   Build:2026010501
+            1.更新「开始扫描设备」方法 startScanningWithCallback:timeout:broadcastAnalysis: 新增broadcastAnalysis是否解析广播，YES解析成功才回调，NO不解析广播数据直接回调
+
  project    2025-12-22  Version:1.0.3   Build:2025122201
             1.更新OTA升级方法（LGlassesKit）startOtaUpgradeWithFilePath...
+                - 增加 isRestoreUpgrade 恢复OTA升级，true恢复升级，false正常升级
+                - 增加 restoreReconnectMethod 恢复OTA升级的设备回连方式，isRestore==true时（必填）使用正确的回连方式；isRestore==false时则使用None即可
+                - 增加 restoreReconnectDevice 恢复OTA升级的设备，isRestore==true时（必填）使用正确的设备；isRestore==false时则传nil即可
+                - 修改 reconnectCallback 设备回连回调，增加 reconnectMethod 回连方式、reconnectDevice 回连设备
             2.更新ISP升级方法（LGlassesKit）startIspUpgradeWithFilePath...
+                - 增加 ispVersion 升级版本号
+                - 移除 restartCallback 重启回调，升级成功设备不会重启
 
  project    2025-12-15  Version:1.0.2   Build:2025121501
             1.新增委托代理方法 @link LDelegate

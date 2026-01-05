@@ -11,3 +11,4 @@ ${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_AdvParse.framework/JL_A
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_HashPair.framework/JL_HashPair
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JLLogHelper.framework/JLLogHelper
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/LGlassesKit_iOS/JL_OTA/JL_BLEKit.framework/JL_BLEKit
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ZegoExpressEngine/ZegoExpressEngine.framework/ZegoExpressEngine

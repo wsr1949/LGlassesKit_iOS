@@ -31,6 +31,7 @@
     return instance;
 }
 
+
 - (instancetype)init {
     if (self = [super init]) {
         // 解码器
@@ -38,6 +39,9 @@
         // 播放器
         self.audioPlayer = [[LAudioPlayer alloc] initWithSampleRate:16000 channels:1 bitsPerSample:16];
         
+        self.allowUseVoiceAssistant = YES;
+        
+#pragma mark - 注册智能体对话回调
         // 注册智能体对话回调
         [LWAIGCKit registerChatSttCallback:^(NSString * _Nullable stt, NSTimeInterval timeInterval) {
             
@@ -46,7 +50,7 @@
             assistantModel.assistantType = LAssistantType_UserText;
             assistantModel.isAdd = YES;
             assistantModel.param = stt;
-            [[NSNotificationCenter defaultCenter] postNotificationName:LAIVoiceAssistantChatNotify object:assistantModel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
             
         } chatTtsCallback:^(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable tts, NSTimeInterval timeInterval) {
             
@@ -55,7 +59,7 @@
             assistantModel.assistantType = LAssistantType_AssistantText;
             assistantModel.param = tts;
             assistantModel.isAdd = ttsStatus == LWAIGCTTSSTATUS_START;
-            [[NSNotificationCenter defaultCenter] postNotificationName:LAIVoiceAssistantChatNotify object:assistantModel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
             
             if (ttsStatus == LWAIGCTTSSTATUS_STOP) {
                 [[LAIGC sharedManager].audioPlayer stopPlayback];
@@ -99,10 +103,11 @@
         }];
         
         
+#pragma mark - 注册智能体翻译回调
         /// 注册智能体翻译回调
         [LWAIGCKit registerTranslationTextCallback:^(LWAIGCTranslateTextModel * _Nonnull translateTextModel) {
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:LAIVoiceAssistantTranslationNotify object:translateTextModel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCTranslateNotify object:translateTextModel];
             
         } translationAudioCallback:^(NSData * _Nonnull audioData) {
             
@@ -124,6 +129,41 @@
             if (ttsStatus == LWAIGCTTSSTATUS_STOP) {
                 [[LAIGC sharedManager].audioPlayer stopPlayback];
             }
+        }];
+        
+#pragma mark - 注册智能体同声传译回调
+        // 注册智能体同声传译回调
+        [LWAIGCKit registerSimultaneousInterpretationTextCallback:^(LWAIGCTranslateTextModel * _Nonnull translateTextModel) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCSimultaneousInterpretationNotify object:translateTextModel];
+            
+        } simultaneousInterpretationAudioCallback:^(NSData * _Nonnull audioData) {
+            
+            // 音频回复回调
+            // 解码 OPUS -> PCM
+            NSError *decodeError = nil;
+            NSData *pcmData = [[LAIGC sharedManager].opusDecoder decodeOpusData:audioData error:&decodeError];
+            
+            if (pcmData) {
+                // 播放 PCM
+                NSLog(@"解码成功: %@", pcmData);
+                [[LAIGC sharedManager].audioPlayer appendPCMData:pcmData];
+            } else {
+                NSLog(@"解码失败: %@", decodeError);
+            }
+            
+        } simultaneousInterpretationTtsCallback:^(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable tts, NSTimeInterval timeInterval) {
+            
+            if (ttsStatus == LWAIGCTTSSTATUS_STOP) {
+                [[LAIGC sharedManager].audioPlayer stopPlayback];
+            }
+        }];
+        
+#pragma mark - 注册智能体通话翻译回调
+        // 注册智能体通话翻译回调
+        [LWAIGCKit registerCallTranslationTextCallback:^(LWAIGCTranslateTextModel * _Nonnull translateTextModel) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCCallTranslationNotify object:translateTextModel];
         }];
     }
     return self;
@@ -148,8 +188,14 @@
     [LAIGC sharedManager];
 }
 
+/// 智能体连接状态
++ (LWAIGCWEBSOCKETSTATUS)agentState
+{
+    return LWAIGCKit.aiVoiceAgentWebSocketState;
+}
+
 /// 连接智能体
-+ (void)connectAgentWebSocket
++ (void)connectAgentWebSocket:(void (^)(NSError * _Nonnull))callback
 {
 #warning - 根据设备录音信息设置音频参数
     // 根据设备录音信息设置音频参数
@@ -162,6 +208,15 @@
     // 设置音频参数，连接AI语音智能体
     [LWAIGCKit requestConnectAiVoiceAgentWebSocket:audioInfo resultCallback:^(NSError * _Nullable error) {
         NSLog(@"AI语音智能体连接结果 %@", error);
+        
+        if (!error) {
+            // 智能体连接成功
+            [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCConnectionSuccessfulNotify object:nil];
+        }
+        
+        if (callback) {
+            callback(error);
+        }
     }];
 }
 
@@ -202,7 +257,7 @@
         assistantModel.assistantType = LAssistantType_UserImage;
         assistantModel.param = url.path;
         assistantModel.isAdd = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:LAIVoiceAssistantChatNotify object:assistantModel];
+        [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
         
         // 识图
         [LWAIGCKit requestChatUploadImageData:data question:[LAIGC sharedManager].mcpModel.question callback:^(NSString * _Nullable result, NSError * _Nullable error) {
@@ -215,7 +270,7 @@
                 assistantModel_1.assistantType = LAssistantType_UserText;
                 assistantModel_1.param = [NSString stringWithFormat:@"图片识别内容: %@", result];
                 assistantModel_1.isAdd = YES;
-                [[NSNotificationCenter defaultCenter] postNotificationName:LAIVoiceAssistantChatNotify object:assistantModel_1];
+                [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel_1];
                 
                 // 发送识图结果
                 [LWAIGCKit sendChatImageRecognitionResults:result task_id:[LAIGC sharedManager].mcpModel.task_id];
@@ -247,6 +302,56 @@
 + (void)endTranslation
 {
     [LWAIGCKit stopTranslateSpeechRecognition];
+}
+
+/// 开始同声传译
++ (void)startSimultaneousInterpretationFromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage
+{
+    LWAIGCAudioInfoModel *audioInfo = [LWAIGCAudioInfoModel new];
+    audioInfo.format = @"pcm";
+    audioInfo.sample_rate = 16000;
+    audioInfo.channels = 1;
+    audioInfo.frame_duration = 60;
+    
+    LWAIGCTranslateModel *translateModel = [LWAIGCTranslateModel new];
+    translateModel.from_language = fromLanguage;
+    translateModel.to_language_list = @[@(toLanguage)];
+    translateModel.audioInfo = audioInfo;
+    
+    [LWAIGCKit setTranslationInfo:translateModel];
+    
+    [LWAIGCKit startSimultaneousInterpretationSpeechRecognition:@(NSDate.date.timeIntervalSince1970).stringValue];
+}
+
+/// 结束同声传译
++ (void)endSimultaneousInterpretation
+{
+    [LWAIGCKit stopSimultaneousInterpretationSpeechRecognition];
+}
+
+/// 开始通话翻译
++ (void)startCallTranslationFromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage
+{
+    LWAIGCAudioInfoModel *audioInfo = [LWAIGCAudioInfoModel new];
+    audioInfo.format = @"pcm";
+    audioInfo.sample_rate = 16000;
+    audioInfo.channels = 1;
+    audioInfo.frame_duration = 60;
+    
+    LWAIGCTranslateModel *translateModel = [LWAIGCTranslateModel new];
+    translateModel.from_language = fromLanguage;
+    translateModel.to_language_list = @[@(toLanguage)];
+    translateModel.audioInfo = audioInfo;
+    
+    [LWAIGCKit setTranslationInfo:translateModel];
+    
+    [LWAIGCKit startCallTranslationSpeechRecognition:@(NSDate.date.timeIntervalSince1970).stringValue];
+}
+
+/// 结束通话翻译
++ (void)endCallTranslation
+{
+    [LWAIGCKit stopCallTranslationSpeechRecognition];
 }
 
 @end

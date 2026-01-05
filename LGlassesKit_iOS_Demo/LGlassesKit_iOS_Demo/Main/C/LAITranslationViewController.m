@@ -7,7 +7,6 @@
 
 #import "LAITranslationViewController.h"
 #import "LUserTextCell.h"
-#import "LUserImageCell.h"
 #import "LAssistantTextCell.h"
 #import "LAssistantModel.h"
 #import "LAudioRecorderManager.h"
@@ -37,10 +36,18 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 
 @implementation LAITranslationViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    LAudioRecorderManager.sharedManager.delegate = self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"🔁AI翻译";
+    self.navigationItem.title = @"对话翻译";
+    
+    LAIGC.sharedManager.allowUseVoiceAssistant = NO;
     
     LWEAKSELF
     UIButton *englishButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,10 +91,8 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
     
     self.dataSource = [NSMutableArray array];
     
-    LAudioRecorderManager.sharedManager.delegate = self;
-    
     // 通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(translationNotify:) name:LAIVoiceAssistantTranslationNotify object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(translationNotify:) name:LAIGCTranslateNotify object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -257,17 +262,36 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
         
         if (!translateTextModel) return;
         
-        LAssistantModel *model = [LAssistantModel new];
-        model.assistantType = weakSelf.isChinese ? LAssistantType_UserText : LAssistantType_AssistantText;
-        model.param = ([NSString stringWithFormat:@"%@\n🔁\n%@", translateTextModel.text, translateTextModel.trans.firstObject.translation_text]);
-        model.isAdd = YES;
+        NSString *messageId = @(translateTextModel.messageId).stringValue;
         
-        // 添加
-        [weakSelf.dataSource addObject:model];
+        NSPredicate *predicate = ([NSPredicate predicateWithFormat:@"messageId == %@", messageId]);
         
-        // 使用插入行动画代替 reloadData
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0];
-        [weakSelf.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        LAssistantModel *model = [weakSelf.dataSource filteredArrayUsingPredicate:predicate].firstObject;
+        
+        if (model) {
+            model.param = ([NSString stringWithFormat:@"%@\n🔁\n%@", translateTextModel.text, translateTextModel.trans.firstObject.translation_text]);
+            
+            NSInteger row = [weakSelf.dataSource indexOfObject:model];
+            
+            // 动画刷新
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+        } else {
+            model = [LAssistantModel new];
+            model.assistantType = weakSelf.isChinese ? LAssistantType_UserText : LAssistantType_AssistantText;
+            model.messageId = messageId;
+            model.param = ([NSString stringWithFormat:@"%@\n🔁\n%@", translateTextModel.text, translateTextModel.trans.firstObject.translation_text]);
+            
+            // 添加
+            [weakSelf.dataSource addObject:model];
+            
+            NSInteger row = [weakSelf.dataSource indexOfObject:model];
+            
+            // 使用插入行动画代替 reloadData
+            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            [weakSelf.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
         
         // 如果之前就在底部，就滚动到底部
         if (weakSelf.shouldScrollToBottom && !weakSelf.isScrollingToBottom) {
@@ -300,6 +324,12 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
     [self.tableView scrollToRowAtIndexPath:lastIndexPath
                           atScrollPosition:UITableViewScrollPositionBottom
                                   animated:animated];
+}
+
+
+- (void)dealloc {
+    LAIGC.sharedManager.allowUseVoiceAssistant = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

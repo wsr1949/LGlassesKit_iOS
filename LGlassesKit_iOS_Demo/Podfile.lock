@@ -3,11 +3,11 @@ PODS:
     - MJExtension
     - SocketRocket
     - SSZipArchive
-  - LGlassesKit_iOS (1.0.3):
-    - LGlassesKit_iOS/Basic (= 1.0.3)
-    - LGlassesKit_iOS/JL_OTA (= 1.0.3)
-  - LGlassesKit_iOS/Basic (1.0.3)
-  - LGlassesKit_iOS/JL_OTA (1.0.3)
+  - LGlassesKit_iOS (1.0.4):
+    - LGlassesKit_iOS/Basic (= 1.0.4)
+    - LGlassesKit_iOS/JL_OTA (= 1.0.4)
+  - LGlassesKit_iOS/Basic (1.0.4)
+  - LGlassesKit_iOS/JL_OTA (1.0.4)
   - libopus (1.1):
     - libopus/float (= 1.1)
   - libopus/float (1.1)
@@ -21,6 +21,7 @@ PODS:
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
+  - ZegoExpressEngine (3.22.0)
 
 DEPENDENCIES:
   - iOS_LWAIGCKit (from `https://github.com/wsr1949/iOS_LWAIGCKit.git`)
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - Masonry
   - Realm
   - SVProgressHUD
+  - ZegoExpressEngine
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
@@ -39,6 +41,7 @@ SPEC REPOS:
     - SocketRocket
     - SSZipArchive
     - SVProgressHUD
+    - ZegoExpressEngine
 
 EXTERNAL SOURCES:
   iOS_LWAIGCKit:
@@ -48,15 +51,15 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   iOS_LWAIGCKit:
-    :commit: 53981e71e5f0c0990a9153894b5129f53e3cf7c9
+    :commit: 8c14808e9d19fe60fde4715cd665567d44eb538a
     :git: https://github.com/wsr1949/iOS_LWAIGCKit.git
   LGlassesKit_iOS:
-    :commit: f9066e52535e80289343a1873a9ad47e082b0393
+    :commit: ff42edcb664947b3e4cbc7ad9bf1f2c7c1e18b06
     :git: https://github.com/wsr1949/LGlassesKit_iOS.git
 
 SPEC CHECKSUMS:
   iOS_LWAIGCKit: c74ab68d346d522a6be941d90ccf138e2090d645
-  LGlassesKit_iOS: 1c1153c86764da9412b85d45f6ccf669da410df4
+  LGlassesKit_iOS: 572aedc453a3c56b44df442c1172312282c64b41
   libopus: ad5f060dcb8f30f139777244d70f9111f1c80863
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
@@ -64,7 +67,8 @@ SPEC CHECKSUMS:
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
+  ZegoExpressEngine: c1b01551fc817e6fd32b3a877a9d15de6d93f68e
 
-PODFILE CHECKSUM: a91c09b9b9fb8ae0b80072e18bc970a04f63c97e
+PODFILE CHECKSUM: fd0accd559db87a09fb09bed6a6f2889e0d53540
 
 COCOAPODS: 1.16.2

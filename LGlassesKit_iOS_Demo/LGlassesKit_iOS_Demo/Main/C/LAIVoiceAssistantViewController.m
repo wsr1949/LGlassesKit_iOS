@@ -33,7 +33,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"🤖AI语音助手";
+    self.navigationItem.title = @"语音助手";
     
     self.shouldScrollToBottom = YES; // 初始状态需要滚动到底部
     self.isScrollingToBottom = NO;
@@ -47,7 +47,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
     self.dataSource = [NSMutableArray array];
     
     // 通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aiVoiceAssistantNotify:) name:LAIVoiceAssistantChatNotify object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aigcChatNotify:) name:LAIGCChatNotify object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -157,7 +157,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 */
 
 // 通知
-- (void)aiVoiceAssistantNotify:(NSNotification *)notification
+- (void)aigcChatNotify:(NSNotification *)notification
 {
     LWEAKSELF
     GCD_MAIN_QUEUE(^{

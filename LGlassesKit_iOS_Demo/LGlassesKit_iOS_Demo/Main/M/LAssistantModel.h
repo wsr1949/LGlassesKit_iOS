@@ -19,6 +19,9 @@ typedef NS_ENUM(NSInteger, LAssistantType) {
 
 @property (nonatomic, assign) LAssistantType assistantType;
 
+/// 消息ID
+@property (nonatomic, copy) NSString *messageId;
+
 @property (nonatomic, copy) NSString *param;
 
 @property (nonatomic, assign) BOOL isAdd;
