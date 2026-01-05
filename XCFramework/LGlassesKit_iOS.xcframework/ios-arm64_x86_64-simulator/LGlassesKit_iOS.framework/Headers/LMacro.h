@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, LBleStatus)
 /// Wi-Fi热点连接状态
 typedef NS_ENUM(NSInteger, LWiFiHotspotStatus)
 {
-    /// 连接断开/连接失败
+    /// 连接断开
     LWiFiHotspotStatusDisconnect        = 0,
     /// 连接中
     LWiFiHotspotStatusConnecting        = 1,

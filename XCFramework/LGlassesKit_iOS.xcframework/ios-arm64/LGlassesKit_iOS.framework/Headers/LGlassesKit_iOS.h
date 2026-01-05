@@ -23,6 +23,9 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-01-05  Version:1.0.4   Build:2026010501
+            1.更新「开始扫描设备」方法 startScanningWithCallback:timeout:broadcastAnalysis: 新增broadcastAnalysis是否解析广播，YES解析成功才回调，NO不解析广播数据直接回调
+ 
  project    2025-12-22  Version:1.0.3   Build:2025122201
             1.更新OTA升级方法（LGlassesKit）startOtaUpgradeWithFilePath...
                 - 增加 isRestoreUpgrade 恢复OTA升级，true恢复升级，false正常升级
