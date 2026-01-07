@@ -1,13 +1,13 @@
 PODS:
-  - iOS_LWAIGCKit (1.0.1):
+  - iOS_LWAIGCKit (1.0.2):
     - MJExtension
     - SocketRocket
     - SSZipArchive
-  - LGlassesKit_iOS (1.0.4):
-    - LGlassesKit_iOS/Basic (= 1.0.4)
-    - LGlassesKit_iOS/JL_OTA (= 1.0.4)
-  - LGlassesKit_iOS/Basic (1.0.4)
-  - LGlassesKit_iOS/JL_OTA (1.0.4)
+  - LGlassesKit_iOS (1.0.5):
+    - LGlassesKit_iOS/Basic (= 1.0.5)
+    - LGlassesKit_iOS/JL_OTA (= 1.0.5)
+  - LGlassesKit_iOS/Basic (1.0.5)
+  - LGlassesKit_iOS/JL_OTA (1.0.5)
   - libopus (1.1):
     - libopus/float (= 1.1)
   - libopus/float (1.1)
@@ -51,15 +51,15 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   iOS_LWAIGCKit:
-    :commit: 8c14808e9d19fe60fde4715cd665567d44eb538a
+    :commit: a7636d2f9b8239c1d0d797e11f5992a6846681d6
     :git: https://github.com/wsr1949/iOS_LWAIGCKit.git
   LGlassesKit_iOS:
-    :commit: ff42edcb664947b3e4cbc7ad9bf1f2c7c1e18b06
+    :commit: 0a3f6aa354b364f4cbcc0b942b1f0ad546ad3ae8
     :git: https://github.com/wsr1949/LGlassesKit_iOS.git
 
 SPEC CHECKSUMS:
-  iOS_LWAIGCKit: c74ab68d346d522a6be941d90ccf138e2090d645
-  LGlassesKit_iOS: 572aedc453a3c56b44df442c1172312282c64b41
+  iOS_LWAIGCKit: b515bd6cce06960e2e2fb999ba2da56785020b6d
+  LGlassesKit_iOS: e836b0f5227555f400c719ff73038fe2a32d6d24
   libopus: ad5f060dcb8f30f139777244d70f9111f1c80863
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8

@@ -263,12 +263,12 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         }];
     }
     else if ([title isEqualToString:@"佩戴检测设置"]) {
-        [LGlassesKit setWearDetection:YES callback:^(NSError * _Nullable error) {
+        [LGlassesKit setWearDetection:NO callback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"佩戴检测设置 %@", error]];
         }];
     }
     else if ([title isEqualToString:@"设置语音唤醒"]) {
-        [LGlassesKit setVoiceWakeUp:YES callback:^(NSError * _Nullable error) {
+        [LGlassesKit setVoiceWakeUp:NO callback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"设置语音唤醒 %@", error]];
         }];
     }
@@ -571,7 +571,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 - (void)notifyVoiceData:(NSData *)voiceData
 {
     if (LAIGC.sharedManager.allowUseVoiceAssistant) { // 允许使用chat
-        [LAIGC sendAudioData:voiceData]; // 发送语音
+        [LAIGC sendChatAudioData:voiceData]; // 发送语音
     }
 }
 

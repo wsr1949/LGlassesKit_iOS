@@ -310,7 +310,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
     
     if (audioData.length && self.sendAudio)
     {
-        [LAIGC sendAudioData:audioData];
+        [LAIGC sendCallTranslationAudioData:audioData];
     }
 }
 
@@ -505,7 +505,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 
 - (void)reloadList:(LWAIGCTranslateTextModel *)translateTextModel assistantType:(LAssistantType)assistantType
 {
-    NSString *messageID = [NSString stringWithFormat:@"%@_%ld", assistantType==LAssistantType_UserText ? @"user" : @"web", translateTextModel.messageId];
+    NSString *messageID = [NSString stringWithFormat:@"%@_%ld", assistantType==LAssistantType_UserText ? @"user" : @"web", translateTextModel.message_id];
     
     NSPredicate *predicate = ([NSPredicate predicateWithFormat:@"messageId == %@", messageID]);
     

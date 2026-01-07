@@ -202,7 +202,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 - (void)audioRecorderManager:(LAudioRecorderManager *)manager didOutputAudioData:(NSData *)audioData audioPower:(NSArray<NSArray<NSNumber *> *> *)audioPower
 {
     NSLog(@"实时音频数据输出 %@", audioData);
-    [LAIGC sendAudioData:audioData];
+    [LAIGC sendTranslationAudioData:audioData];
     
     [NSNotificationCenter.defaultCenter postNotificationName:LAudioRecorderUpdateSpectraKey object:audioPower];
 }
@@ -262,7 +262,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
         
         if (!translateTextModel) return;
         
-        NSString *messageId = @(translateTextModel.messageId).stringValue;
+        NSString *messageId = @(translateTextModel.message_id).stringValue;
         
         NSPredicate *predicate = ([NSPredicate predicateWithFormat:@"messageId == %@", messageId]);
         

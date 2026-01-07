@@ -36,7 +36,7 @@ typedef void(^LWAIGCTtsCallback)(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable
 typedef void(^LWAIGCMcpCmdCallback)(LWAIGCMcpModel *mcpModel, NSTimeInterval timeInterval);
 
 /// AI智能语音（文本音频回调）
-typedef void(^LWAIGCAudioCallback)(NSData *audioData);
+typedef void(^LWAIGCAudioCallback)(LWAIGCAudioStream *audioStream);
 
 /// AI智能语音（停止回调）
 typedef void(^LWAIGCStopCallback)(void);

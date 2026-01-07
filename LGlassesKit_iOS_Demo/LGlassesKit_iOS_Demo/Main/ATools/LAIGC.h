@@ -48,8 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 开始录音
 + (void)startRecording;
 
-/// 发送音频数据
-+ (void)sendAudioData:(NSData *)data;
+/// 发送语音助手音频数据
++ (void)sendChatAudioData:(NSData *)data;
 
 /// 上传图片开始识图
 + (void)requestUploadImageData:(NSData *)data;
@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 开始翻译
 + (void)startTranslationFromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage;
 
+/// 发送翻译音频数据
++ (void)sendTranslationAudioData:(NSData *)data;
+
 /// 结束翻译
 + (void)endTranslation;
 
@@ -65,12 +68,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 开始同声传译
 + (void)startSimultaneousInterpretationFromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage;
 
+/// 发送同声传译音频数据
++ (void)sendSimultaneousInterpretationAudioData:(NSData *)data;
+
 /// 结束同声传译
 + (void)endSimultaneousInterpretation;
 
 
 /// 开始通话翻译
 + (void)startCallTranslationFromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage;
+
+/// 发送通话翻译音频数据
++ (void)sendCallTranslationAudioData:(NSData *)data;
 
 /// 结束通话翻译
 + (void)endCallTranslation;

@@ -167,7 +167,7 @@ static NSString *const LUserTextCellID = @"LUserTextCell";
 - (void)audioRecorderManager:(LAudioRecorderManager *)manager didOutputAudioData:(NSData *)audioData audioPower:(NSArray<NSArray<NSNumber *> *> *)audioPower
 {
     NSLog(@"实时音频数据输出 %@", audioData);
-    [LAIGC sendAudioData:audioData];
+    [LAIGC sendSimultaneousInterpretationAudioData:audioData];
 }
 
 /// 录音开始
@@ -220,7 +220,7 @@ static NSString *const LUserTextCellID = @"LUserTextCell";
         
         if (!translateTextModel) return;
         
-        NSPredicate *predicate = ([NSPredicate predicateWithFormat:@"messageId == %@", @(translateTextModel.messageId).stringValue]);
+        NSPredicate *predicate = ([NSPredicate predicateWithFormat:@"messageId == %@", @(translateTextModel.message_id).stringValue]);
         
         LAssistantModel *assistantModel = [weakSelf.dataSource filteredArrayUsingPredicate:predicate].lastObject;
         
@@ -235,7 +235,7 @@ static NSString *const LUserTextCellID = @"LUserTextCell";
             
         } else {
             LAssistantModel *model = [LAssistantModel new];
-            model.messageId = @(translateTextModel.messageId).stringValue;
+            model.messageId = @(translateTextModel.message_id).stringValue;
             model.param = ([NSString stringWithFormat:@"%@\n🔁\n%@", translateTextModel.text, translateTextModel.trans.firstObject.translation_text]);
             
             // 添加

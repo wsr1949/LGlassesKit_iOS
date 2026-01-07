@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *request_id;
 
 /// 消息ID
-@property (nonatomic, assign) NSInteger messageId;
+@property (nonatomic, assign) NSInteger message_id;
 
 /// 动作
 @property (nonatomic, copy) NSString *action;

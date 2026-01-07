@@ -65,12 +65,14 @@
                 [[LAIGC sharedManager].audioPlayer stopPlayback];
             }
             
-        } chatAudioCallback:^(NSData * _Nonnull audioData) {
+        } chatAudioCallback:^(LWAIGCAudioStream * _Nonnull audioStream) {
+            
+            if (!audioStream.payload.length) return;
             
             // 音频回复回调
             // 解码 OPUS -> PCM
             NSError *decodeError = nil;
-            NSData *pcmData = [[LAIGC sharedManager].opusDecoder decodeOpusData:audioData error:&decodeError];
+            NSData *pcmData = [[LAIGC sharedManager].opusDecoder decodeOpusData:audioStream.payload error:&decodeError];
             
             if (pcmData) {
                 // 播放 PCM
@@ -109,12 +111,14 @@
             
             [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCTranslateNotify object:translateTextModel];
             
-        } translationAudioCallback:^(NSData * _Nonnull audioData) {
+        } translationAudioCallback:^(LWAIGCAudioStream * _Nonnull audioStream) {
+            
+            if (!audioStream.payload.length) return;
             
             // 音频回复回调
             // 解码 OPUS -> PCM
             NSError *decodeError = nil;
-            NSData *pcmData = [[LAIGC sharedManager].opusDecoder decodeOpusData:audioData error:&decodeError];
+            NSData *pcmData = [[LAIGC sharedManager].opusDecoder decodeOpusData:audioStream.payload error:&decodeError];
             
             if (pcmData) {
                 // 播放 PCM
@@ -124,11 +128,6 @@
                 NSLog(@"解码失败: %@", decodeError);
             }
             
-        } translationTtsCallback:^(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable tts, NSTimeInterval timeInterval) {
-            
-            if (ttsStatus == LWAIGCTTSSTATUS_STOP) {
-                [[LAIGC sharedManager].audioPlayer stopPlayback];
-            }
         }];
         
 #pragma mark - 注册智能体同声传译回调
@@ -137,12 +136,14 @@
             
             [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCSimultaneousInterpretationNotify object:translateTextModel];
             
-        } simultaneousInterpretationAudioCallback:^(NSData * _Nonnull audioData) {
+        } simultaneousInterpretationAudioCallback:^(LWAIGCAudioStream * _Nonnull audioStream) {
+            
+            if (!audioStream.payload.length) return;
             
             // 音频回复回调
             // 解码 OPUS -> PCM
             NSError *decodeError = nil;
-            NSData *pcmData = [[LAIGC sharedManager].opusDecoder decodeOpusData:audioData error:&decodeError];
+            NSData *pcmData = [[LAIGC sharedManager].opusDecoder decodeOpusData:audioStream.payload error:&decodeError];
             
             if (pcmData) {
                 // 播放 PCM
@@ -152,11 +153,6 @@
                 NSLog(@"解码失败: %@", decodeError);
             }
             
-        } simultaneousInterpretationTtsCallback:^(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable tts, NSTimeInterval timeInterval) {
-            
-            if (ttsStatus == LWAIGCTTSSTATUS_STOP) {
-                [[LAIGC sharedManager].audioPlayer stopPlayback];
-            }
         }];
         
 #pragma mark - 注册智能体通话翻译回调
@@ -234,10 +230,10 @@
     [LWAIGCKit startChatSpeechRecognition:STT_AUTO language:140]; // demo这里固定使用了 中文（普通话，简体）
 }
 
-/// 发送音频数据
-+ (void)sendAudioData:(NSData *)data
+/// 发送语音助手音频数据
++ (void)sendChatAudioData:(NSData *)data
 {
-    [LWAIGCKit sendRecognizedVoiceData:data];
+    [LWAIGCKit sendChatVoiceData:data];
 }
 
 /// 上传图片开始识图
@@ -298,6 +294,12 @@
     [LWAIGCKit startTranslateSpeechRecognition:@(NSDate.date.timeIntervalSince1970).stringValue];
 }
 
+/// 发送翻译音频数据
++ (void)sendTranslationAudioData:(NSData *)data
+{
+    [LWAIGCKit sendTranslateVoiceData:data];
+}
+
 /// 结束翻译
 + (void)endTranslation
 {
@@ -323,6 +325,12 @@
     [LWAIGCKit startSimultaneousInterpretationSpeechRecognition:@(NSDate.date.timeIntervalSince1970).stringValue];
 }
 
+/// 发送同声传译音频数据
++ (void)sendSimultaneousInterpretationAudioData:(NSData *)data
+{
+    [LWAIGCKit sendSimultaneousInterpretationVoiceData:data];
+}
+
 /// 结束同声传译
 + (void)endSimultaneousInterpretation
 {
@@ -346,6 +354,12 @@
     [LWAIGCKit setTranslationInfo:translateModel];
     
     [LWAIGCKit startCallTranslationSpeechRecognition:@(NSDate.date.timeIntervalSince1970).stringValue];
+}
+
+/// 发送通话翻译音频数据
++ (void)sendCallTranslationAudioData:(NSData *)data
+{
+    [LWAIGCKit sendCallTranslationVoiceData:data];
 }
 
 /// 结束通话翻译

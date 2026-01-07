@@ -121,8 +121,8 @@ static NSString *const LAIAgentCellID = @"LAIAgentCell";
         model.from_language = 140; //中文
         model.to_language = 47; // 英文
         model.roomType = 1; // 这里demo演示视频
-#warning - 请联系服务商提供
-        model.appId = @"请联系服务商提供"; // 申请的appId，中国大陆内临时测试可以使用 1528564533 ，每天有限额用完即止，上线前务必使用申请的正式appId
+#warning - 请联系服务商提供，中国大陆内临时测试可以使用 1528564533 ，每天有限额用完即止，上线前务必使用申请的正式appId
+        model.appId = @"1528564533"; // 申请的appId
         
         LWEAKSELF
         [LWAIGCKit requestCreateRoomWithModel:model withCallback:^(LWAIGCRoomQryModel * _Nullable roomQryModel) {

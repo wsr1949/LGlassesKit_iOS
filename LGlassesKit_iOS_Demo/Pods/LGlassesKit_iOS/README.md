@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.4 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.5 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -646,6 +646,9 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2026-01-06  Version:1.0.5   Build:2026010601
+            1.修复已知解析错误BUG
+
  project    2026-01-05  Version:1.0.4   Build:2026010501
             1.更新「开始扫描设备」方法 startScanningWithCallback:timeout:broadcastAnalysis: 新增broadcastAnalysis是否解析广播，YES解析成功才回调，NO不解析广播数据直接回调
 

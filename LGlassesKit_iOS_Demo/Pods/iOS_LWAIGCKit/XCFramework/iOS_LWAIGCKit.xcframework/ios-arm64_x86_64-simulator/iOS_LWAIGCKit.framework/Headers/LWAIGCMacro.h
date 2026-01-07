@@ -13,6 +13,8 @@ typedef NS_ENUM(NSInteger, LWAIGCERRORCODE) {
     ERRORCODE_SAME      = 500001,   // 用户同一设备重复连接服务器
     ERRORCODE_AUTH      = 500002,   // 当前设备未进行授权
     ERRORCODE_SECRETKEY = 500003,   // 服务器密钥错误（请找商务经理进行申请）
+    ERRORCODE_STOCK     = 500004,   // 当前设备未入库
+    ERRORCODE_APPID     = 500005,   // APPID错误
 } NS_SWIFT_NAME(LWAIGCERRORCODE);
 
 /// 模型类型

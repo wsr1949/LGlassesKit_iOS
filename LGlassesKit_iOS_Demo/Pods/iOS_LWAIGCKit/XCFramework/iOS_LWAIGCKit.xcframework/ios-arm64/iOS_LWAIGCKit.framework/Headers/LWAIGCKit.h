@@ -122,9 +122,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)startChatSpeechRecognition:(LWAIGCSTTMODE)mode language:(NSInteger)language;
 
 /**
- AI语音智能体(发送识别的语音数据)
+ AI语音智能体(发送对话语音数据)
  */
-+ (void)sendRecognizedVoiceData:(NSData *)data;
++ (void)sendChatVoiceData:(NSData *)data;
 
 /**
  AI语音智能体(停止对话语音识别，手动模式必须调用)
@@ -158,12 +158,9 @@ NS_ASSUME_NONNULL_BEGIN
  注册智能体翻译回调
  @param translationTextCallback     语音转文本翻译回调
  @param translationAudioCallback    音频翻译回调
- @param translationTtsCallback      翻译音频tts状态回调
  */
 + (void)registerTranslationTextCallback:(LWAIGCTranslateTextCallback)translationTextCallback
-               translationAudioCallback:(LWAIGCAudioCallback)translationAudioCallback
-                 translationTtsCallback:(LWAIGCTtsCallback)translationTtsCallback;
-
+               translationAudioCallback:(LWAIGCAudioCallback)translationAudioCallback;
 /**
  AI语音智能体（设置翻译语种及音频信息）
  @param translateModel  翻译语种及音频信息
@@ -177,6 +174,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)startTranslateSpeechRecognition:(NSString * _Nonnull)requestId;
 
 /**
+ AI语音智能体（发送翻译语音数据）
+ */
++ (void)sendTranslateVoiceData:(NSData *)data;
+
+/**
  AI语音智能体（停止翻译语音识别）
  */
 + (void)stopTranslateSpeechRecognition;
@@ -186,17 +188,20 @@ NS_ASSUME_NONNULL_BEGIN
  注册智能体同声传译回调
  @param simultaneousInterpretationTextCallback     语音转文本同声传译回调
  @param simultaneousInterpretationAudioCallback    音频同声传译回调
- @param simultaneousInterpretationTtsCallback      同声传译音频tts状态回调
  */
 + (void)registerSimultaneousInterpretationTextCallback:(LWAIGCTranslateTextCallback)simultaneousInterpretationTextCallback
-               simultaneousInterpretationAudioCallback:(LWAIGCAudioCallback)simultaneousInterpretationAudioCallback
-                 simultaneousInterpretationTtsCallback:(LWAIGCTtsCallback)simultaneousInterpretationTtsCallback;
+               simultaneousInterpretationAudioCallback:(LWAIGCAudioCallback)simultaneousInterpretationAudioCallback;
 
 /**
  AI语音智能体（开始同声传译语音识别）
  @param requestId   请求唯一ID
  */
 + (void)startSimultaneousInterpretationSpeechRecognition:(NSString *)requestId;
+
+/**
+ AI语音智能体（发送同声传译语音数据）
+ */
++ (void)sendSimultaneousInterpretationVoiceData:(NSData *)data;
 
 /**
  AI语音智能体（停止同声传译语音识别）
@@ -223,6 +228,11 @@ NS_ASSUME_NONNULL_BEGIN
  开始通话翻译语音识别
  */
 + (void)startCallTranslationSpeechRecognition:(NSString *)requestId;
+
+/**
+ AI语音智能体（发送通话翻译语音数据）
+ */
++ (void)sendCallTranslationVoiceData:(NSData *)data;
 
  /**
   停止通话翻译语音识别
