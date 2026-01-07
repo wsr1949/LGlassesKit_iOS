@@ -268,7 +268,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         }];
     }
     else if ([title isEqualToString:@"设置语音唤醒"]) {
-        [LGlassesKit setVoiceWakeUp:NO callback:^(NSError * _Nullable error) {
+        [LGlassesKit setVoiceWakeUp:YES callback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"设置语音唤醒 %@", error]];
         }];
     }
@@ -556,6 +556,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 {
     if (activated) { // 已唤醒
         if (LAIGC.sharedManager.allowUseVoiceAssistant) { // 允许使用chat
+            LAIGC.sharedManager.usingVoiceAssistant = YES;
             [LAIGC startRecording];
         }
         else { // 直接关闭
@@ -564,6 +565,8 @@ static NSString *const LMainFooterID = @"LMainFooterView";
                 NSLog(@"中断语音: %@", error);
             }];
         }
+    } else {
+        LAIGC.sharedManager.usingVoiceAssistant = NO;
     }
 }
 
@@ -609,6 +612,18 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 - (void)notifyDeviceWearingStatus:(BOOL)wearing
 {
     NSLog(@"通知设备佩戴状态: %@", wearing ? @"已佩戴" : @"未佩戴");
+}
+
+/// 通知停止语音识别
+- (void)notifyStopSpeechRecognition
+{
+    LAIGC.sharedManager.usingVoiceAssistant = NO;
+}
+
+/// 通知停止语音播报
+- (void)notifyStopVoicePlayback
+{
+    LAIGC.sharedManager.usingVoiceAssistant = NO;
 }
 
 @end

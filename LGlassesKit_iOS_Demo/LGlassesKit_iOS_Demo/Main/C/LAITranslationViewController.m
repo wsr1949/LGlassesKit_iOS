@@ -46,9 +46,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"对话翻译";
-    
-    LAIGC.sharedManager.allowUseVoiceAssistant = NO;
-    
+        
     LWEAKSELF
     UIButton *englishButton = [UIButton buttonWithType:UIButtonTypeCustom];
     englishButton.backgroundColor = UIColor.systemGray2Color;
@@ -328,7 +326,6 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 
 
 - (void)dealloc {
-    LAIGC.sharedManager.allowUseVoiceAssistant = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

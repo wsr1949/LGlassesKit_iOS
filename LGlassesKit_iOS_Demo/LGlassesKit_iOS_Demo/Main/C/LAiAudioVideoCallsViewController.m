@@ -49,9 +49,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    LAIGC.sharedManager.allowUseVoiceAssistant = NO;
-    
+        
     self.shouldScrollToBottom = YES; // 初始状态需要滚动到底部
     self.isScrollingToBottom = NO;
     
@@ -568,7 +566,6 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
 
 
 - (void)dealloc {
-    LAIGC.sharedManager.allowUseVoiceAssistant = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

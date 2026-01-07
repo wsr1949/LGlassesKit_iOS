@@ -23,6 +23,12 @@ static NSString *const LAIAgentCellID = @"LAIAgentCell";
 
 @implementation LAIAgentViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    LAIGC.sharedManager.allowUseVoiceAssistant = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -97,6 +103,8 @@ static NSString *const LAIAgentCellID = @"LAIAgentCell";
             return;
         }
         
+        LAIGC.sharedManager.allowUseVoiceAssistant = NO;
+        
         LAITranslationViewController *vc = LAITranslationViewController.new;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -106,6 +114,8 @@ static NSString *const LAIAgentCellID = @"LAIAgentCell";
             return;
         }
         
+        LAIGC.sharedManager.allowUseVoiceAssistant = NO;
+        
         LAISimultaneousInterpretationViewController *vc = LAISimultaneousInterpretationViewController.new;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -114,6 +124,8 @@ static NSString *const LAIAgentCellID = @"LAIAgentCell";
             [LHUD showText:@"正在使用助手，请先结束"];
             return;
         }
+        
+        LAIGC.sharedManager.allowUseVoiceAssistant = NO;
         
         LWAIGCQueryRoomModel *model = [LWAIGCQueryRoomModel new];
 #warning - 实际请根据需要的语言设置

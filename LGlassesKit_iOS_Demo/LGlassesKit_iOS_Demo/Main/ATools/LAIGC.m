@@ -97,6 +97,7 @@
             
         } chatStopCallback:^{
             
+            LAIGC.sharedManager.usingVoiceAssistant = NO;
             // 停止回调
             // 中断语音传输
             [LGlassesKit abortVoiceTransmissionWithCallback:^(NSError * _Nullable error) {

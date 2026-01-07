@@ -38,9 +38,7 @@ static NSString *const LUserTextCellID = @"LUserTextCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"同声传译";
-    
-    LAIGC.sharedManager.allowUseVoiceAssistant = NO;
-    
+        
     LWEAKSELF
     UIButton *mainButton = [UIButton buttonWithType:UIButtonTypeCustom];
     mainButton.backgroundColor = UIColor.systemGreenColor;
@@ -291,7 +289,6 @@ static NSString *const LUserTextCellID = @"LUserTextCell";
 
 
 - (void)dealloc {
-    LAIGC.sharedManager.allowUseVoiceAssistant = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
