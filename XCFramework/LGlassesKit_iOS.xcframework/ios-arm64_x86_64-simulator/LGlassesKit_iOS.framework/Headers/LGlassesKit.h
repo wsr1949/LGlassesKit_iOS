@@ -214,8 +214,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  文件下载
  @param fileName    文件名称
+ @param targetUrl   下载至本地目标地址
  */
-+ (void)downloadFile:(NSString * _Nonnull)fileName progressCallback:(LDownloadProgressCallback _Nonnull)progressCallback completeCallback:(LDownloadCallback _Nonnull)completeCallback;
++ (void)downloadFile:(NSString * _Nonnull)fileName targetUrl:(NSURL * _Nonnull)targetUrl progressCallback:(LDownloadProgressCallback _Nonnull)progressCallback completeCallback:(LDownloadCallback _Nonnull)completeCallback;
 
 /**
  文件删除

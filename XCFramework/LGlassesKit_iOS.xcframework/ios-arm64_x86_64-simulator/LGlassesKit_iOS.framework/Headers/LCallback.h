@@ -43,10 +43,10 @@ typedef void(^LDownloadProgressCallback)(double progress, double speed);
 
 /**
  文件下载回调
- @param data                文件数据
+ @param locationUrl         文件本地地址
  @param error               错误
  */
-typedef void(^LDownloadCallback)(NSData * _Nullable data, NSError * _Nullable error);
+typedef void(^LDownloadCallback)(NSURL * _Nullable locationUrl, NSError * _Nullable error);
 
 /**
  设备控制参数回调
