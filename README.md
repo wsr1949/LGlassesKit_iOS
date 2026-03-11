@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.5 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.6 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -247,6 +247,24 @@ Uses Bluetooth LE accessories
  @param activated   激活状态，YES激活 NO未激活
  */
 - (void)notifyVideoRecordingStatus:(BOOL)activated;
+```
+
+##### 通知设备其他状态
+```ruby
+/**
+ 通知设备其他状态
+ @param status     状态
+ */
+- (void)notifyDeviceOtherStatus:(LOtherStatus)status;
+```
+
+##### 通知设备音乐播放状态
+```ruby
+/**
+ 通知设备音乐播放状态
+ @param playing     音乐播放状态，YES播放 NO暂停
+ */
+- (void)notifyDeviceMusicPlayingStatus:(BOOL)playing;
 ```
 
 ##### 通知设备佩戴状态
@@ -561,8 +579,9 @@ Uses Bluetooth LE accessories
 /**
  文件下载
  @param fileName    文件名称
+ @param targetUrl   下载至本地目标地址
  */
-+ (void)downloadFile:(NSString * _Nonnull)fileName progressCallback:(LProgressCallback _Nonnull)progressCallback completeCallback:(LDownloadCallback _Nonnull)completeCallback;
++ (void)downloadFile:(NSString * _Nonnull)fileName targetUrl:(NSURL * _Nonnull)targetUrl progressCallback:(LDownloadProgressCallback _Nonnull)progressCallback completeCallback:(LDownloadCallback _Nonnull)completeCallback;
 ```
 
 ##### 文件删除
@@ -646,6 +665,13 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2026-02-02  Version:1.0.6   Build:2026020201
+            1.优化下载方法，支持本地目标地址 详@link downloadFile:targetUrl:progressCallback:completeCallback
+            2.新增委托代理方法 详@link LDelegate
+                通知设备其他状态 notifyDeviceOtherStatus:
+                通知设备音乐播放状态 notifyDeviceMusicPlayingStatus:
+            3.修复已知解析错误BUG
+
  project    2026-01-06  Version:1.0.5   Build:2026010601
             1.修复已知解析错误BUG
 
