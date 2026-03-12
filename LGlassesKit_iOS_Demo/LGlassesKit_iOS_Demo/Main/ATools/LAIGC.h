@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 #define LAIGCConnectionSuccessfulNotify         @"LAIGCConnectionSuccessfulNotify"
 /// 对话通知
 #define LAIGCChatNotify                         @"LAIGCChatNotify"
+/// 日程通知
+#define LAIGCCScheduleNotify                    @"LAIGCCScheduleNotify"
 /// 翻译通知
 #define LAIGCTranslateNotify                    @"LAIGCTranslateNotify"
 /// 同声传译通知
@@ -83,6 +85,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 结束通话翻译
 + (void)endCallTranslation;
+
+
+/// 图片翻译
++ (void)startImageTranslationWithImageData:(NSData *)data fromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage callback:(void (^)(NSString *base64, NSError *error))callback;
 
 @end
 

@@ -10,6 +10,7 @@
 #import "LAITranslationViewController.h"
 #import "LAISimultaneousInterpretationViewController.h"
 #import "LAiAudioVideoCallsViewController.h"
+#import "LAIImageTranslateViewController.h"
 
 @interface LAIAgentViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -56,6 +57,7 @@ static NSString *const LAIAgentCellID = @"LAIAgentCell";
         @"对话翻译",
         @"同声传译",
         @"音视频通话",
+        @"图片翻译",
     ];
 }
 
@@ -149,6 +151,10 @@ static NSString *const LAIAgentCellID = @"LAIAgentCell";
                 });
             }
         }];
+    }
+    else if ([title isEqualToString:@"图片翻译"]) {
+        LAIImageTranslateViewController *vc = [LAIImageTranslateViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

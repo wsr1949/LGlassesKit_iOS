@@ -21,6 +21,13 @@ FOUNDATION_EXPORT const unsigned char iOS_LWAIGCKitVersionString[];
  
  版本记录：
 
+ project    2026-03-11  Version:1.0.4   Build:2026031101
+            1.语音助手（Chat）增加LLM模型控制 参@link startChatSpeechRecognition:llmType:language:
+            2.语音助手（Chat）支持日程MCP命令 参@link LWAIGCMcpCmdCallback回调 LWAIGCScheduleModel模型
+ 
+ project    2026-01-26  Version:1.0.3   Build:2026012601
+            1.新增 图片翻译
+ 
  project    2026-01-07  Version:1.0.2   Build:2026010701
             1.移除音频发送公共API sendRecognizedVoiceData:，新增不同业务的音频发送API，如下:
                 语音助手（Chat） sendChatVoiceData:
@@ -55,12 +62,14 @@ FOUNDATION_EXPORT const unsigned char iOS_LWAIGCKitVersionString[];
 #import <iOS_LWAIGCKit/LWAIGCMTGDetailsModel.h>
 #import <iOS_LWAIGCKit/LWAIGCMTGQryStatusModel.h>
 #import <iOS_LWAIGCKit/LWAIGCAudioInfoModel.h>
+#import <iOS_LWAIGCKit/LWAIGCScheduleModel.h>
 #import <iOS_LWAIGCKit/LWAIGCMcpModel.h>
 #import <iOS_LWAIGCKit/LWAIGCTranslateModel.h>
 #import <iOS_LWAIGCKit/LWAIGCTranslateTextModel.h>
 #import <iOS_LWAIGCKit/LWAIGCQueryRoomModel.h>
 #import <iOS_LWAIGCKit/LWAIGCRoomQryModel.h>
 #import <iOS_LWAIGCKit/LWAIGCAudioStream.h>
+#import <iOS_LWAIGCKit/LWAIGCLangListModel.h>
 
 #import <iOS_LWAIGCKit/LWAIGCQueryListModel.h>
 #import <iOS_LWAIGCKit/LWAIGCCallback.h>

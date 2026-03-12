@@ -94,6 +94,11 @@
                     NSLog(@"拍照结果: %@", error);
                 }];
             }
+            else if (mcpModel.cmd == LWAIGCMCPCMD_SCHEDULE_ASSISTANT) { // 日程助手
+                
+                NSLog(@"日程助手 %@", mcpModel.schedule);
+                [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCCScheduleNotify object:mcpModel.schedule];
+            }
             
         } chatStopCallback:^{
             
@@ -226,9 +231,9 @@
 /// 开始录音
 + (void)startRecording
 {
-#warning - 实际请根据需要的语言设置
+#warning - 实际请根据需要的语言设置、模型
     // 支持的语言查阅本地 language.json 文件
-    [LWAIGCKit startChatSpeechRecognition:STT_AUTO language:140]; // demo这里固定使用了 中文（普通话，简体）
+    [LWAIGCKit startChatSpeechRecognition:STT_AUTO llmType:LWLLMMODELTYPE_DEFAULT language:140]; // demo这里固定使用了 中文（普通话，简体），模型默认
 }
 
 /// 发送语音助手音频数据
@@ -367,6 +372,12 @@
 + (void)endCallTranslation
 {
     [LWAIGCKit stopCallTranslationSpeechRecognition];
+}
+
+/// 图片翻译
++ (void)startImageTranslationWithImageData:(NSData *)data fromLanguage:(NSInteger)fromLanguage toLanguage:(NSInteger)toLanguage callback:(void (^)(NSString * _Nonnull, NSError * _Nonnull))callback
+{
+    [LWAIGCKit startTranslationWithImageData:data fromLanguage:fromLanguage toLanguage:toLanguage callback:callback];
 }
 
 @end

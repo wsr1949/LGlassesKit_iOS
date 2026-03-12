@@ -1,9 +1,9 @@
 {
   "name": "iOS_LWAIGCKit",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "summary": "LWAIGCKit人工智能SDK for iOS",
   "description": "iOS_LWAIGCKit 为 iOS 应用程序提供AI功能。",
-  "homepage": "https://github.com/wsr1949/iOS_LWAIGCKit/tree/1.0.2/iOS_LWAIGCKit",
+  "homepage": "https://github.com/wsr1949/iOS_LWAIGCKit/tree/1.0.4/iOS_LWAIGCKit",
   "license": "MIT",
   "authors": {
     "wsr1949": "921903719@qq.com"
@@ -14,22 +14,16 @@
   },
   "source": {
     "git": "https://github.com/wsr1949/iOS_LWAIGCKit.git",
-    "tag": "1.0.2"
+    "tag": "1.0.4"
   },
   "documentation_url": "https://github.com/wsr1949/iOS_LWAIGCKit/blob/main/README.md",
   "requires_arc": true,
   "frameworks": "Foundation",
   "vendored_frameworks": "XCFramework/iOS_LWAIGCKit.xcframework",
   "dependencies": {
-    "MJExtension": [
-
-    ],
-    "SSZipArchive": [
-
-    ],
-    "SocketRocket": [
-
-    ]
+    "MJExtension": [],
+    "SSZipArchive": [],
+    "SocketRocket": []
   },
   "pod_target_xcconfig": {
     "OTHER_LDFLAGS": "-lObjC"

@@ -607,6 +607,18 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 {
     NSLog(@"通知录像状态: %@", activated ? @"开始录像" : @"停止录像");
 }
+
+/// 通知设备其他动作
+- (void)notifyDeviceOtherStatus:(LOtherStatus)status
+{
+    NSLog(@"通知设备其他动作: %lu", status);
+}
+
+/// 通知音乐播放状态
+- (void)notifyDeviceMusicPlayingStatus:(BOOL)playing
+{
+    NSLog(@"通知音乐播放状态: %@", playing ? @"播放" : @"停止");
+}
  
 /// 通知设备佩戴状态
 - (void)notifyDeviceWearingStatus:(BOOL)wearing

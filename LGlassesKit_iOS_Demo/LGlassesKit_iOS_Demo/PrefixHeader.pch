@@ -53,6 +53,7 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #include <libopus/libopus-umbrella.h>
 #import <MJExtension/MJExtension-umbrella.h>
+#import <BRPickerView/BRPickerView.h>
 
 // 眼镜👓SDK
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>

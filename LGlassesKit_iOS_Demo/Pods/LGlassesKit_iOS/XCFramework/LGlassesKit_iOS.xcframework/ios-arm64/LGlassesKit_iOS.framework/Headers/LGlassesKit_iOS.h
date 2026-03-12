@@ -23,6 +23,13 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-02-02  Version:1.0.6   Build:2026020201
+            1.优化下载方法，支持本地目标地址 详@link downloadFile:targetUrl:progressCallback:completeCallback
+            2.新增委托代理方法 详@link LDelegate
+                通知设备其他状态 notifyDeviceOtherStatus:
+                通知设备音乐播放状态 notifyDeviceMusicPlayingStatus:
+            3.修复已知解析错误BUG
+ 
  project    2026-01-06  Version:1.0.5   Build:2026010601
             1.修复已知解析错误BUG
  
@@ -40,7 +47,7 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
                 - 移除 restartCallback 重启回调，升级成功设备不会重启
  
  project    2025-12-15  Version:1.0.2   Build:2025121501
-            1.新增委托代理方法 @link LDelegate
+            1.新增委托代理方法 详@link LDelegate
                 通知拍照状态 notifyDevicePhotoTakingStatus:
                 通知录音状态 notifyAudioRecordingStatus:
                 通知录像状态 notifyVideoRecordingStatus:

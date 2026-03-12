@@ -1,7 +1,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/iOS_LWAIGCKit.git">
-    <img src="https://img.shields.io/badge/Release-1.0.2 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.4 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/iOS_LWAIGCKit.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -124,9 +124,10 @@ typedef NS_ENUM(NSInteger, LWAIGCERRORCODE) {
 /**
  AI语音智能体(开始对话语音识别)
  @param mode     stt类型
+ @param llmType  LLM模型类型
  @param language 语言类型
  */
-+ (void)startChatSpeechRecognition:(LWAIGCSTTMODE)mode language:(NSInteger)language;
++ (void)startChatSpeechRecognition:(LWAIGCSTTMODE)mode llmType:(LWLLMMODELTYPE)llmType language:(NSInteger)language;
 ```
 
 ##### 发送对话语音数据
@@ -369,9 +370,37 @@ typedef NS_ENUM(NSInteger, LWAIGCERRORCODE) {
 + (void)stopCallTranslationSpeechRecognition;
 ```
 
+##### 获取图片翻译支持的语言列表
+```ruby
+/**
+ 获取图片翻译支持的语言列表
+ */
++ (void)getImageTranslationLangListWithCallback:(LWAIGCLangListCallback)callback;
+```
+
+##### 图片翻译
+```ruby
+/**
+ 图片翻译
+ @param data            图片数据
+ @param fromLanguage    源语种
+ @param toLanguage      目标语种
+ */
++ (void)startTranslationWithImageData:(NSData *)data
+                         fromLanguage:(NSInteger)fromLanguage
+                           toLanguage:(NSInteger)toLanguage
+                             callback:(LWAIGCImageRecognitionCallback)callback;
+```
 
 ## 版本记录
 ```ruby
+ project    2026-03-11  Version:1.0.4   Build:2026031101
+            1.语音助手（Chat）增加LLM模型控制 参@link startChatSpeechRecognition:llmType:language:
+            2.语音助手（Chat）支持日程MCP命令 参@link LWAIGCMcpCmdCallback回调 LWAIGCScheduleModel模型
+ 
+ project    2026-01-26  Version:1.0.3   Build:2026012601
+            1.新增 图片翻译
+
  project    2026-01-07  Version:1.0.2   Build:2026010701
             1.移除音频发送公共API sendRecognizedVoiceData:，新增不同业务的音频发送API，如下:
                 语音助手（Chat） sendChatVoiceData:

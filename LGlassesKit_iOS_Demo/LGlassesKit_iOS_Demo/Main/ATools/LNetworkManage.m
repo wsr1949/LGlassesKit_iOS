@@ -73,7 +73,13 @@
         
         [LHUD showLoading:@"下载文件"];
         
-        [LGlassesKit downloadFile:fileModel.name progressCallback:^(double progress, double speed) {
+        // 下载到本地指定路径，可以自己定义，这里demo只是示例
+        NSURL *documentDirectory = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        NSString *fileName = [NSString stringWithFormat:@"%.0f_%@", NSDate.date.timeIntervalSince1970*1000, fileModel.name];
+        // 目标位置
+        NSURL *targetUrl = [documentDirectory URLByAppendingPathComponent:fileName];
+        
+        [LGlassesKit downloadFile:fileModel.name targetUrl:targetUrl progressCallback:^(double progress, double speed) {
             
             NSString *speedString = nil;
             if (speed < 1024) {
@@ -86,7 +92,7 @@
             
             [LHUD showProgress:progress/100.0 text:[NSString stringWithFormat:@"第%ld共%ld\n%.0f%%\n%@", index+1, total, progress, speedString]];
             
-        } completeCallback:^(NSData * _Nullable data, NSError * _Nullable error) {
+        } completeCallback:^(NSURL * _Nullable locationUrl, NSError * _Nullable error) {
             
             if (error)
             {
@@ -95,27 +101,17 @@
             }
             else {
                 // 下载成功，缓存到本地
-                NSURL *cachesDirectoryUrl = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-                NSURL *fileUrl = [cachesDirectoryUrl URLByAppendingPathComponent:[NSString stringWithFormat:@"%ld_%@", fileModel.timecode, fileModel.name]];
+                LDownloadFile *model = LDownloadFile.new;
+                model.fileModel = fileModel;
+                model.fileUrl = locationUrl;
                 
-                if ([data writeToURL:fileUrl options:NSDataWritingAtomic error:&error]) {
-                    
-                    LDownloadFile *model = LDownloadFile.new;
-                    model.fileModel = fileModel;
-                    model.fileUrl = fileUrl;
-                    
-                    [files addObject:model];
-                    
-                    // 删除
-                    [LDownloadFile deleteFile:fileModel.path callback:^(NSError * _Nullable error) {
+                [files addObject:model];
+                
+                // 删除
+                [LDownloadFile deleteFile:fileModel.path callback:^(NSError * _Nullable error) {
 
-                        [LDownloadFile downloadFile:list index:index+1 downloadCount:(error ? downloadCount : downloadCount+1) files:files callback:callback];
-                    }];
-                    
-                } else {
-                    // 失败，跳过...下载下一个
-                    [LDownloadFile downloadFile:list index:index+1 downloadCount:downloadCount files:files callback:callback];
-                }
+                    [LDownloadFile downloadFile:list index:index+1 downloadCount:(error ? downloadCount : downloadCount+1) files:files callback:callback];
+                }];
             }
         }];
     }

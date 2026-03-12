@@ -117,9 +117,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  AI语音智能体(开始对话语音识别)
  @param mode     stt类型
+ @param llmType  LLM模型类型
  @param language 语言类型
  */
-+ (void)startChatSpeechRecognition:(LWAIGCSTTMODE)mode language:(NSInteger)language;
++ (void)startChatSpeechRecognition:(LWAIGCSTTMODE)mode llmType:(LWLLMMODELTYPE)llmType language:(NSInteger)language;
 
 /**
  AI语音智能体(发送对话语音数据)
@@ -133,9 +134,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  AI语音智能体(中止对话响应)
- @param sessionId    会话ID
  */
-+ (void)abortResponseWithSessionId:(NSString * _Nonnull)sessionId;
++ (void)abortResponse;
 
 /**
  AI语音智能体（上传对话图片开始识图，问题描述）
@@ -238,6 +238,23 @@ NS_ASSUME_NONNULL_BEGIN
   停止通话翻译语音识别
   */
 + (void)stopCallTranslationSpeechRecognition;
+
+
+/**
+ 获取图片翻译支持的语言列表
+ */
++ (void)getImageTranslationLangListWithCallback:(LWAIGCLangListCallback)callback;
+
+/**
+ 图片翻译
+ @param data            图片数据
+ @param fromLanguage    源语种
+ @param toLanguage      目标语种
+ */
++ (void)startTranslationWithImageData:(NSData *)data
+                         fromLanguage:(NSInteger)fromLanguage
+                           toLanguage:(NSInteger)toLanguage
+                             callback:(LWAIGCImageRecognitionCallback)callback;
 
 @end
 

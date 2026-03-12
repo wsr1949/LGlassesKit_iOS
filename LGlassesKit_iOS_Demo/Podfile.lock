@@ -1,13 +1,39 @@
 PODS:
-  - iOS_LWAIGCKit (1.0.2):
+  - BRPickerView (2.9.9):
+    - BRPickerView/All (= 2.9.9)
+  - BRPickerView/All (2.9.9):
+    - BRPickerView/Default
+    - BRPickerView/Deprecated
+  - BRPickerView/Core (2.9.9)
+  - BRPickerView/DatePicker (2.9.9):
+    - BRPickerView/Core
+  - BRPickerView/Default (2.9.9):
+    - BRPickerView/DatePicker
+    - BRPickerView/TextPicker
+  - BRPickerView/Deprecated (2.9.9):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/AddressPickerView (= 2.9.9)
+    - BRPickerView/Deprecated/Base (= 2.9.9)
+    - BRPickerView/Deprecated/StringPickerView (= 2.9.9)
+  - BRPickerView/Deprecated/AddressPickerView (2.9.9):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/Deprecated/Base (2.9.9):
+    - BRPickerView/Core
+  - BRPickerView/Deprecated/StringPickerView (2.9.9):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/TextPicker (2.9.9):
+    - BRPickerView/Core
+  - iOS_LWAIGCKit (1.0.4):
     - MJExtension
     - SocketRocket
     - SSZipArchive
-  - LGlassesKit_iOS (1.0.5):
-    - LGlassesKit_iOS/Basic (= 1.0.5)
-    - LGlassesKit_iOS/JL_OTA (= 1.0.5)
-  - LGlassesKit_iOS/Basic (1.0.5)
-  - LGlassesKit_iOS/JL_OTA (1.0.5)
+  - LGlassesKit_iOS (1.0.6):
+    - LGlassesKit_iOS/Basic (= 1.0.6)
+    - LGlassesKit_iOS/JL_OTA (= 1.0.6)
+  - LGlassesKit_iOS/Basic (1.0.6)
+  - LGlassesKit_iOS/JL_OTA (1.0.6)
   - libopus (1.1):
     - libopus/float (= 1.1)
   - libopus/float (1.1)
@@ -24,6 +50,7 @@ PODS:
   - ZegoExpressEngine (3.22.0)
 
 DEPENDENCIES:
+  - BRPickerView
   - iOS_LWAIGCKit (from `https://github.com/wsr1949/iOS_LWAIGCKit.git`)
   - LGlassesKit_iOS (from `https://github.com/wsr1949/LGlassesKit_iOS.git`)
   - libopus
@@ -34,6 +61,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - BRPickerView
     - libopus
     - Masonry
     - MJExtension
@@ -51,15 +79,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   iOS_LWAIGCKit:
-    :commit: a7636d2f9b8239c1d0d797e11f5992a6846681d6
+    :commit: 3b7a767f51771c274ac36c45a00f0d3ec74d0590
     :git: https://github.com/wsr1949/iOS_LWAIGCKit.git
   LGlassesKit_iOS:
-    :commit: 0a3f6aa354b364f4cbcc0b942b1f0ad546ad3ae8
+    :commit: 07bf3243741e26f3ad05a8bfb23a8a569ae52443
     :git: https://github.com/wsr1949/LGlassesKit_iOS.git
 
 SPEC CHECKSUMS:
-  iOS_LWAIGCKit: b515bd6cce06960e2e2fb999ba2da56785020b6d
-  LGlassesKit_iOS: e836b0f5227555f400c719ff73038fe2a32d6d24
+  BRPickerView: 84b2effb81f3b9ebd27f1d31de867ae0b37024f7
+  iOS_LWAIGCKit: 3092299d219d4bb25190372572d29235450eedea
+  LGlassesKit_iOS: f54a7ecabb06b77f2b6f7618f69f5aeafb7dab1f
   libopus: ad5f060dcb8f30f139777244d70f9111f1c80863
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
@@ -69,6 +98,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   ZegoExpressEngine: c1b01551fc817e6fd32b3a877a9d15de6d93f68e
 
-PODFILE CHECKSUM: fd0accd559db87a09fb09bed6a6f2889e0d53540
+PODFILE CHECKSUM: b54917befbd36594273fbcb053d6a85f0935d808
 
 COCOAPODS: 1.16.2

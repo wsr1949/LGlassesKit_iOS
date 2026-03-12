@@ -48,6 +48,7 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
     
     // 通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aigcChatNotify:) name:LAIGCChatNotify object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aigcScheduleNotify:) name:LAIGCCScheduleNotify object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -217,6 +218,25 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
                                   animated:animated];
 }
 
+- (void)aigcScheduleNotify:(NSNotification *)notification
+{
+    LWEAKSELF
+    GCD_MAIN_QUEUE(^{
+        LWAIGCScheduleModel *schedule = (LWAIGCScheduleModel *)notification.object;
+        
+        if (!schedule) return;
+        
+        NSString *message = ([NSString stringWithFormat:@"时间：%@\n地点：%@\n人物：%@\n事件：%@",
+                              [NSDate br_stringFromDate:[NSDate dateWithTimeIntervalSince1970:schedule.time] dateFormat:@"yyyy_MM_dd HH:mm:ss"],
+                              schedule.location,
+                              schedule.person,
+                              schedule.event]);
+        [ATools showAlertController:weakSelf title:@"日程" message:message callback:^{
+            // done...
+        }];
+        
+    });
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

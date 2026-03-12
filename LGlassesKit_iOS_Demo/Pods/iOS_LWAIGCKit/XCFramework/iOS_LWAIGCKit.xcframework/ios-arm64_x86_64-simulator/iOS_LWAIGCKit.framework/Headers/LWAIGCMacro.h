@@ -85,8 +85,18 @@ typedef NS_ENUM(NSInteger, LWAIGCTTSSTATUS) {
 /// MCP命令
 typedef NS_ENUM(NSInteger, LWAIGCMCPCMD) {
     LWAIGCMCPCMD_AI_IMAGE_RECOGNIYION,  // AI识图
+    LWAIGCMCPCMD_SCHEDULE_ASSISTANT,    // 日程助手
     // 更多待拓展...
 } NS_SWIFT_NAME(LWAIGCMCPCMD);
+
+
+/// LLM模型类型
+typedef NS_ENUM(NSInteger, LWLLMMODELTYPE) {
+    LWLLMMODELTYPE_DEFAULT = 0,     // 默认
+    LWLLMMODELTYPE_QWEN = 6,        // 千问
+    LWLLMMODELTYPE_GPT5OMINI = 7,   // GPT-5o mini
+    // 更多待拓展...
+} NS_SWIFT_NAME(LWLLMMODELTYPE);
 
 
 #endif /* LWAIGCMacro_h */

@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-LGlassesKit_iOS_Demo/Pods-LGlassesKit_iOS_Demo-frameworks.sh
+${BUILT_PRODUCTS_DIR}/BRPickerView/BRPickerView.framework
 ${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/Realm/Realm.framework

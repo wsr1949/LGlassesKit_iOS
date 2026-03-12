@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 采集时间戳 (毫秒)
 @property (nonatomic, assign) NSInteger timestamp;
 
+/// 包序号
+@property (nonatomic, assign) NSInteger sequence;
+
 @end
 
 NS_ASSUME_NONNULL_END

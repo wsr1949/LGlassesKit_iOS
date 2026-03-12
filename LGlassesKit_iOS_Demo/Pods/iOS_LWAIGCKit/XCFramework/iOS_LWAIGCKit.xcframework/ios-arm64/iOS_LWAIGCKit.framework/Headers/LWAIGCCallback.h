@@ -50,6 +50,9 @@ typedef void(^LWAIGCTranslateTextCallback)(LWAIGCTranslateTextModel *translateTe
 /// AI智能语音（语音房间结果回调）
 typedef void(^LWAIGCRoomQryCallback)(LWAIGCRoomQryModel * _Nullable roomQryModel);
 
+/// 图片翻译（支持的语言列表回调）
+typedef void(^ LWAIGCLangListCallback)(NSArray <LWAIGCLangListModel *> * _Nullable result, NSError * _Nullable error);
+
 @end
 
 NS_ASSUME_NONNULL_END

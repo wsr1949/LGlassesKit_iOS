@@ -169,4 +169,20 @@ typedef NS_ENUM(NSInteger, LOtaUpgradeReconnectMethod)
 } NS_SWIFT_NAME(LOtaUpgradeReconnectMethod);
 
 
+/// 设备其他状态
+typedef NS_ENUM(NSInteger, LOtherStatus)
+{
+    LOtherStatus_None,
+    /// 音量加
+    LOtherStatus_VolumeUp,
+    /// 音量减
+    LOtherStatus_VolumeDown,
+    /// 点头
+    LOtherStatus_Nod,
+    /// 摇头
+    LOtherStatus_ShakeHead,
+    
+} NS_SWIFT_NAME(LOtherStatus);
+
+
 #endif /* LMacro_h */

@@ -109,6 +109,18 @@
 - (void)notifyVideoRecordingStatus:(BOOL)activated;
 
 /**
+ 通知设备其他状态
+ @param status     状态
+ */
+- (void)notifyDeviceOtherStatus:(LOtherStatus)status;
+
+/**
+ 通知设备音乐播放状态
+ @param playing     音乐播放状态，YES播放 NO暂停
+ */
+- (void)notifyDeviceMusicPlayingStatus:(BOOL)playing;
+
+/**
  通知设备佩戴状态
  @param wearing     佩戴状态，YES佩戴 NO未佩戴
  */
