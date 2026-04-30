@@ -638,4 +638,16 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     LAIGC.sharedManager.usingVoiceAssistant = NO;
 }
 
+/// 通知设备按键事件
+- (void)notifyDeviceButtonEvents:(LButtonEvents)event
+{
+    if (event == LButtonEvents_Single) // 按键单击事件，可根据自身业务实现功能定义
+    {
+        // 成功拍照后图片会通过委托代理LDelegate返回 详@link notifyAIRecognizePhotoData:
+        [LGlassesKit startTakingPhotos:LPhotoType_PhotoRecognition callback:^(NSError * _Nullable error) {
+            NSLog(@"拍照结果: %@", error);
+        }];
+    }
+}
+
 @end

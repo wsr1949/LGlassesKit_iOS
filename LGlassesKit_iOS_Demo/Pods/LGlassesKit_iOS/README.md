@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.6 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.7 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -274,6 +274,15 @@ Uses Bluetooth LE accessories
  @param wearing     佩戴状态，YES佩戴 NO未佩戴
  */
 - (void)notifyDeviceWearingStatus:(BOOL)wearing;
+```
+
+##### 通知设备按键事件
+```ruby
+/**
+ 通知设备按键事件
+ @param event       事件
+ */
+- (void)notifyDeviceButtonEvents:(LButtonEvents)event;
 ```
 
 
@@ -665,6 +674,11 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2026-04-30  Version:1.0.7   Build:2026043001
+            1.新增委托代理方法 详@link LDelegate
+                通知设备按键事件 notifyDeviceButtonEvents:
+            2.修复偶现拍照状态异常BUG
+
  project    2026-02-02  Version:1.0.6   Build:2026020201
             1.优化下载方法，支持本地目标地址 详@link downloadFile:targetUrl:progressCallback:completeCallback
             2.新增委托代理方法 详@link LDelegate
