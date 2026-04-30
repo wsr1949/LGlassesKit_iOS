@@ -185,4 +185,13 @@ typedef NS_ENUM(NSInteger, LOtherStatus)
 } NS_SWIFT_NAME(LOtherStatus);
 
 
+/// 设备按键事件
+typedef NS_ENUM(NSInteger, LButtonEvents)
+{
+    /// 单击
+    LButtonEvents_Single = 1,
+    
+} NS_SWIFT_NAME(LButtonEvent);
+
+
 #endif /* LMacro_h */

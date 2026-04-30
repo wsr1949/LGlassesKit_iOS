@@ -126,6 +126,12 @@
  */
 - (void)notifyDeviceWearingStatus:(BOOL)wearing;
 
+/**
+ 通知设备按键事件
+ @param event       事件
+ */
+- (void)notifyDeviceButtonEvents:(LButtonEvents)event;
+
 @end
 
 #endif /* LDelegate_h */

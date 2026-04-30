@@ -23,6 +23,11 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-04-30  Version:1.0.7   Build:2026043001
+            1.新增委托代理方法 详@link LDelegate
+                通知设备按键事件 notifyDeviceButtonEvents:
+            2.修复偶现拍照状态异常BUG
+ 
  project    2026-02-02  Version:1.0.6   Build:2026020201
             1.优化下载方法，支持本地目标地址 详@link downloadFile:targetUrl:progressCallback:completeCallback
             2.新增委托代理方法 详@link LDelegate
