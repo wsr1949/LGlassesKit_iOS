@@ -28,6 +28,13 @@ typedef void(^LResultCallback)(NSError * _Nullable error);
 typedef void(^LBatteryCallback)(LBatteryModel * _Nullable batteryModel, NSError * _Nullable error);
 
 /**
+ 照片回调
+ @param photoData           照片数据（JPG格式）
+ @param error               错误
+ */
+typedef void(^LPhotoCallback)(NSData * _Nullable photoData, NSError * _Nullable error);
+
+/**
  文件列表回调
  @param list                文件列表
  @param error               错误
@@ -73,5 +80,11 @@ typedef void(^LOtaUpgradeProgressCallback)(double progress);
  */
 typedef void(^LOtaUpgradeReconnectCallback)(LOtaUpgradeReconnectMethod reconnectMethod, NSString * _Nonnull reconnectDevice);
 
+/**
+ 语言控制状态回调
+ @param control             语言控制状态，(LVoiceCmdControl)[control integerValue]
+ @param error               错误
+ */
+typedef void(^LDeviceVoiceCmdControlCallback)(NSNumber * _Nullable control, NSError * _Nullable error);
 
 #endif /* LCallback_h */

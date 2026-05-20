@@ -43,19 +43,6 @@
 - (void)notifyThumbnailsCount:(NSInteger)count;
 
 /**
- 通知Wi-Fi热点名称
- @param wifiHotspotName     Wi-Fi热点名称
- */
-- (void)notifyWifiHotspotName:(NSString * _Nullable)wifiHotspotName;
-
-/**
- Wi-Fi热点连接状态
- @param status      Wi-Fi状态
- @param error       错误
- */
-- (void)wifiHotspotConnectionStatus:(LWiFiHotspotStatus)status error:(NSError * _Nullable)error;
-
-/**
  通知设备电池电量信息
  @param batteryModel        电池电量信息
  */
@@ -72,13 +59,6 @@
  @param voiceData   语音数据（opus格式）
  */
 - (void)notifyVoiceData:(NSData * _Nullable)voiceData;
-
-/**
- 通知AI识图照片数据
- @param photoData   图片数据（JPG格式）
- @param error       错误
- */
-- (void)notifyAIRecognizePhotoData:(NSData * _Nullable)photoData error:(NSError * _Nullable)error;
 
 /**
  通知停止语音识别

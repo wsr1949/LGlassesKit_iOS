@@ -112,17 +112,6 @@ typedef NS_ENUM(NSInteger, LGestureEvents)
 } NS_SWIFT_NAME(LGestureEvents);
 
 
-/// 拍照类型
-typedef NS_ENUM(NSInteger, LPhotoType)
-{
-    /// 只拍照
-    LPhotoType_OnlyTakePhotos   = 0,
-    /// 拍照并传高清图(用于ai识图)
-    LPhotoType_PhotoRecognition = 1,
-    
-} NS_SWIFT_NAME(LPhotoType);
-
-
 /// 拍照模式
 typedef NS_ENUM(NSInteger, LPhotoMode)
 {
@@ -193,5 +182,17 @@ typedef NS_ENUM(NSInteger, LButtonEvents)
     
 } NS_SWIFT_NAME(LButtonEvent);
 
+
+/// 语音指令控制
+typedef NS_ENUM(NSInteger, LVoiceCmdControl) {
+    
+    /// 启用：全部
+    LVoiceCmdControl_EnableAll = 0,
+    /// 禁用：设备本地指令(本地离线语音)
+    LVoiceCmdControl_DisableOfflineVoice = 1 << 0,
+    /// 禁用：opus流推送(AI唤醒)
+    LVoiceCmdControl_DisableVoiceWakeUp = 1 << 1,
+    
+} NS_SWIFT_NAME(LVoiceCmdControl);
 
 #endif /* LMacro_h */
