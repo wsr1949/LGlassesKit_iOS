@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 佩戴检测开关状态
 @property (nonatomic, assign) BOOL wearStatus;
 
-/// 语音唤醒开关状态
-@property (nonatomic, assign) BOOL wakeUpStatus;
+/// 语音指令控制
+@property (nonatomic, assign) LVoiceCmdControl control;
 
 /// 向前滑动
 @property (nonatomic, assign) LGestureActions actions_1;

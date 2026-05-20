@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LMediaListCell : UICollectionViewCell
 
-- (void)reloadModel:(LDownloadFile *)fileModel;
+- (void)reloadWithUrl:(NSURL *)url;
 
 @end
 

@@ -17,11 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 任务ID
 @property (nonatomic, copy) NSString *task_id;
 
-/// 问题
+/// Ai识图问题
 @property (nonatomic, copy, nullable) NSString *question;
 
 /// 日程
-@property (nonatomic, strong, nonnull) LWAIGCScheduleModel *schedule;
+@property (nonatomic, strong, nullable) LWAIGCScheduleModel *schedule;
 
 @end
 

@@ -30,7 +30,7 @@ typedef void(^LWAIGCMTGQryItemCallback)(LWAIGCMTGQryItem * _Nullable mtgQryModel
 typedef void(^LWAIGCSttCallback)(NSString * _Nullable stt, NSTimeInterval timeInterval);
 
 /// AI智能语音（文本转语音回调）
-typedef void(^LWAIGCTtsCallback)(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable tts, NSTimeInterval timeInterval);
+typedef void(^LWAIGCTtsCallback)(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable message_id, NSString * _Nullable tts, NSTimeInterval timeInterval);
 
 /// AI智能语音（mcp命令回调）
 typedef void(^LWAIGCMcpCmdCallback)(LWAIGCMcpModel *mcpModel, NSTimeInterval timeInterval);

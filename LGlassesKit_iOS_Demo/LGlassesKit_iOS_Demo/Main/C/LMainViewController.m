@@ -91,8 +91,6 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         if (deviceModel) {
             // 断开蓝牙设备
             [LGlassesKit disconnectDevice];
-            // 断开Wi-Fi热点
-            [LGlassesKit disconnectWiFiHotspot];
             // 断开智能体
             [LAIGC disconnectAgentWebSocket];
             // 删除设备记录
@@ -147,7 +145,8 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"设置LED亮度",
         @"设置录像时长",
         @"佩戴检测设置",
-        @"设置语音唤醒",
+        @"获取语音指令控制",
+        @"设置语音指令控制",
         @"设置快捷手势功能",
         @"重置快捷手势功能",
         @"设置久坐提醒",
@@ -164,7 +163,6 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"停止录音",
         @"获取设备控制参数",
         @"获取设备版本",
-        @"打开Wi-Fi热点",
         @"获取当前文件(缩略图)数量",
         @"设置离线语音语种",
         @"🚀OTA升级",
@@ -194,12 +192,45 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     if (self.mediaCount > 0 && LGlassesKit.bleConnectStatus == LBleStatusConnected) {
         LMainHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:LMainHeaderID];
         [header reloadCount:self.mediaCount callback:^{
-            // 打开Wi-Fi热点
-            // @note Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
+            
             [LHUD showLoading:nil];
-            [LGlassesKit openWifiHotspotWithCallback:^(NSError * _Nullable error) {
-                [LHUD showText:[NSString stringWithFormat:@"打开Wi-Fi热点 %@", error]];
-                LNetworkManage.sharedInstance.networkMode = LNetworkMode_Download;
+            
+            NSMutableArray <NSURL *> *urls = NSMutableArray.array;
+            LWEAKSELF
+            // 开始导入文件
+            [LGlassesKit startImportingFilesWithProgressCallback:^(LFileModel * _Nonnull fileModel, NSInteger currentIndex, NSInteger totalCount, double totalProgress, double speed) {
+                
+                // 当前正在导入
+                NSString *speedString = nil; // 速率
+                if (speed < 1024) {
+                    speedString = [NSString stringWithFormat:@"%.0f B/s", speed];
+                } else if (speed < 1024 * 1024) {
+                    speedString = [NSString stringWithFormat:@"%.1f KB/s", speed / 1024];
+                } else {
+                    speedString = [NSString stringWithFormat:@"%.1f MB/s", speed / (1024 * 1024)];
+                }
+                
+                [LHUD showProgress:totalProgress/100.0 text:[NSString stringWithFormat:@"%ld/%ld 总进度%.0f%% 速率%@", currentIndex, totalCount, totalProgress, speedString]];
+                
+            } importedCallback:^(LFileModel * _Nonnull fileModel, NSURL * _Nonnull locationUrl) {
+                
+                // 当前已导入文件
+                // ⚠️注意：locationUrl为系统temp目录下，如需长期缓存请及时移动文件至自己自身业务目录
+                [urls addObject:locationUrl];
+                
+            } completion:^(BOOL complete, NSError * _Nullable error) {
+                if (complete) {
+                    // 完成
+                    [LHUD dismiss];
+                    if (urls.count) {
+                        LMediaListViewController *vc = [LMediaListViewController new];
+                        vc.urls = urls.copy;
+                        [weakSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } else {
+                    // 失败
+                    [LHUD showText:error.localizedDescription];
+                }
             }];
         }];
         return header;
@@ -263,13 +294,37 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         }];
     }
     else if ([title isEqualToString:@"佩戴检测设置"]) {
-        [LGlassesKit setWearDetection:NO callback:^(NSError * _Nullable error) {
+        [LGlassesKit setWearDetection:YES callback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"佩戴检测设置 %@", error]];
         }];
     }
-    else if ([title isEqualToString:@"设置语音唤醒"]) {
-        [LGlassesKit setVoiceWakeUp:YES callback:^(NSError * _Nullable error) {
-            [LHUD showText:[NSString stringWithFormat:@"设置语音唤醒 %@", error]];
+    else if ([title isEqualToString:@"获取语音指令控制"]) {
+        [LGlassesKit getVoiceCmdControlWithCallback:^(NSNumber * _Nullable control, NSError * _Nullable error) {
+            if (!error) {
+                LVoiceCmdControl cmdControl = (LVoiceCmdControl)[control integerValue];
+                if (cmdControl & LVoiceCmdControl_EnableAll) {
+                    // 全打开
+                } else if (cmdControl & LVoiceCmdControl_DisableOfflineVoice &&
+                           cmdControl & LVoiceCmdControl_DisableVoiceWakeUp) {
+                    // 离线语音、唤醒 已关闭
+                }
+            }
+            [LHUD showText:[NSString stringWithFormat:@"获取语音指令控制->%@ %@", control, error]];
+        }];
+    }
+    else if ([title isEqualToString:@"设置语音指令控制"]) {
+        static BOOL voiceEnable = YES;
+        voiceEnable = !voiceEnable;
+        LVoiceCmdControl control;
+        if (voiceEnable) {
+            // 全打开
+            control = LVoiceCmdControl_EnableAll;
+        } else {
+            // 关闭离线语音、唤醒
+            control = LVoiceCmdControl_DisableOfflineVoice | LVoiceCmdControl_DisableVoiceWakeUp;
+        }
+        [LGlassesKit setVoiceCmdControl:control callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"设置语音指令控制 %@", error]];
         }];
     }
     else if ([title isEqualToString:@"设置快捷手势功能"]) {
@@ -306,13 +361,12 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         }];
     }
     else if ([title isEqualToString:@"开启拍照（只拍照）"]) {
-        [LGlassesKit startTakingPhotos:LPhotoType_OnlyTakePhotos callback:^(NSError * _Nullable error) {
+        [LGlassesKit startPhotoTakingWithCallback:^(NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"开启拍照 %@", error]];
         }];
     }
     else if ([title isEqualToString:@"开启拍照（拍照并返回）"]) {
-        // 成功拍照后图片会通过委托代理LDelegate返回 详@link notifyAIRecognizePhotoData:
-        [LGlassesKit startTakingPhotos:LPhotoType_PhotoRecognition callback:^(NSError * _Nullable error) {
+        [LGlassesKit startPhotoTakingWithCompletion:^(NSData * _Nullable photoData, NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"开启拍照 %@", error]];
         }];
     }
@@ -358,13 +412,6 @@ static NSString *const LMainFooterID = @"LMainFooterView";
                 weakSelf.versionModel = deviceModel;
                 [weakSelf.tableView reloadData];
             }
-        }];
-    }
-    else if ([title isEqualToString:@"打开Wi-Fi热点"]) {
-        // @note Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
-        [LGlassesKit openWifiHotspotWithCallback:^(NSError * _Nullable error) {
-            [LHUD showText:[NSString stringWithFormat:@"打开Wi-Fi热点 %@", error]];
-            LNetworkManage.sharedInstance.networkMode = LNetworkMode_None;
         }];
     }
     else if ([title isEqualToString:@"获取当前文件(缩略图)数量"]) {
@@ -501,48 +548,6 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     [self.tableView reloadData];
 }
 
-/// 通知Wi-Fi热点名称
-- (void)notifyWifiHotspotName:(NSString *)wifiHotspotName
-{
-    // 连接Wi-Fi热点
-    // @note 连接结果通过委托代理LDelegate返回 详@link wifiHotspotConnectionStatus:error:
-    [LGlassesKit connectingWiFiHotspot:wifiHotspotName];
-}
-
-/// Wi-Fi热点连接状态
-- (void)wifiHotspotConnectionStatus:(LWiFiHotspotStatus)status error:(NSError *)error
-{
-    LWEAKSELF
-    
-    if (status == LWiFiHotspotStatusConnected) {
-        [LHUD showText:@"Wi-Fi热点连接成功"];
-        
-        LNetworkMode networkMode = LNetworkManage.sharedInstance.networkMode;
-        
-        if (networkMode == LNetworkMode_Download) {
-            // 开始下载文件
-            [LNetworkManage.sharedInstance downloadFileWithCallback:^(NSArray<LDownloadFile *> * _Nonnull files)
-             {
-                LNetworkManage.sharedInstance.networkMode = LNetworkMode_None;
-                
-                LMediaListViewController *vc = LMediaListViewController.new;
-                vc.files = files;
-                [weakSelf.navigationController pushViewController:vc animated:YES];
-            }];
-        }
-        else if (networkMode == LNetworkMode_Upload) {
-            // 开始上传文件
-            [NSNotificationCenter.defaultCenter postNotificationName:LIspUpgradeNotifyKey object:nil];
-        }
-    }
-    else if (status == LWiFiHotspotStatusDisconnect) {
-        [LHUD showText:@"Wi-Fi热点连接断开"];
-    }
-    else if (status == LWiFiHotspotStatusConnectionFailed) {
-        [LHUD showText:[NSString stringWithFormat:@"Wi-Fi热点连接失败：%@", error]];
-    }
-}
-
 /// 通知设备电池电量信息
 - (void)notifyDeviceBatteryInfo:(LBatteryModel *)batteryModel
 {
@@ -575,18 +580,6 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 {
     if (LAIGC.sharedManager.allowUseVoiceAssistant) { // 允许使用chat
         [LAIGC sendChatAudioData:voiceData]; // 发送语音
-    }
-}
-
-/// 通知AI识图照片数据
-- (void)notifyAIRecognizePhotoData:(NSData *)photoData error:(NSError *)error
-{
-    if (error) {
-        [LHUD showText:error.localizedDescription];
-    }
-    else if (photoData.length)
-    {
-        [LAIGC requestUploadImageData:photoData]; // 上传图片开始识图
     }
 }
 
@@ -643,9 +636,9 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 {
     if (event == LButtonEvents_Single) // 按键单击事件，可根据自身业务实现功能定义
     {
-        // 成功拍照后图片会通过委托代理LDelegate返回 详@link notifyAIRecognizePhotoData:
-        [LGlassesKit startTakingPhotos:LPhotoType_PhotoRecognition callback:^(NSError * _Nullable error) {
-            NSLog(@"拍照结果: %@", error);
+        // 这里仅演示拍照
+        [LGlassesKit startPhotoTakingWithCompletion:^(NSData * _Nullable photoData, NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"开启拍照 %@", error]];
         }];
     }
 }

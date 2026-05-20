@@ -9,9 +9,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 通知：Wi-Fi连接成功，ISP开始升级
-#define LIspUpgradeNotifyKey   @"LIspUpgradeNotifyKey"
-
 @interface LOtaUpgradeViewController : LCommonViewController
 
 @end

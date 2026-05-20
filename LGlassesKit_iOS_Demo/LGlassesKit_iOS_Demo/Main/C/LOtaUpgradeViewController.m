@@ -15,7 +15,6 @@
 @property (nonatomic, strong) UILabel *progressLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UIButton *otaButton;
-@property (nonatomic, copy) NSString *ispVersion;
 
 @end
 
@@ -79,15 +78,6 @@
         [weakSelf selectUpgradeType];
     }];
     self.otaButton = otaButton;
-    
-    // Wi-Fi连接成功
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(ispUpgradeNotify) name:LIspUpgradeNotifyKey object:nil];
-}
-
-- (void)ispUpgradeNotify
-{
-    /// 开始isp升级
-    [self startIspUpgradeWithFilePath:self.fileLabel.text];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -198,21 +188,21 @@
     [alertController addAction:cancel];
         
     //添加OTA按钮
-    UIAlertAction *ota = [UIAlertAction actionWithTitle:@"OTA升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *ota = [UIAlertAction actionWithTitle:@"OTA升级（⚠️蓝牙为.ufw文件）" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         RLMOtaDeviceModel *otaModel = RLMOtaDeviceModel.allObjects.lastObject;
         if (otaModel) {
             /// 确认是否恢复ota升级
             [weakSelf confirmRestoreOtaUpgrade:weakSelf.fileLabel.text isRestoreUpgrade:YES restoreReconnectMethod:otaModel.reconnectMethod restoreReconnectDevice:otaModel.reconnectDevice];
         } else {
-            /// 开始ota升级
+            /// 开始ota升级🚀
             [weakSelf startOtaUpgradeWithFilePath:weakSelf.fileLabel.text isRestoreUpgrade:NO restoreReconnectMethod:LOtaUpgradeReconnectMethod_None restoreReconnectDevice:nil];
         }
     }];
     [alertController addAction:ota];
     
     //添加ISP按钮
-    UIAlertAction *isp = [UIAlertAction actionWithTitle:@"ISP升级" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *isp = [UIAlertAction actionWithTitle:@"ISP升级（⚠️Wi-Fi为.bin文件）" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         // 确定ISP版本号
         [weakSelf confirmIspVersion];
     }];
@@ -243,9 +233,8 @@
         if (IF_NULL(ispVersion)) {
             [LHUD showText:@"请确定ISP版本号"];
         } else {
-            weakSelf.ispVersion = ispVersion;
-            /// 进入ISP升级模式🚀
-            [weakSelf enableIspUpgradeMode];
+            /// 开始isp升级🚀
+            [weakSelf startIspUpgradeWithFilePath:weakSelf.fileLabel.text ispVersion:ispVersion];
         }
     }];
     [alertController addAction:confirm];
@@ -296,7 +285,9 @@
     self.otaButton.enabled = NO;
     
     LWEAKSELF
+    [LHUD showLoading:nil];
     [LGlassesKit startOtaUpgradeWithFilePath:filePath isRestoreUpgrade:isRestoreUpgrade restoreReconnectMethod:restoreReconnectMethod restoreReconnectDevice:restoreReconnectDevice preparingProgressCallback:^(double progress) {
+        [LHUD dismiss];
         
         weakSelf.progressView.hidden = NO;
         weakSelf.progressView.progress = progress/100.0;
@@ -307,6 +298,7 @@
         weakSelf.statusLabel.text = @"OTA文件检验中";
         
     } reconnectCallback:^(LOtaUpgradeReconnectMethod reconnectMethod, NSString * _Nonnull reconnectDevice) {
+        [LHUD dismiss];
         
         // ⚠️OTA文件检验通过后，设备进入OTA模式，正在回连OTA模式的设备...
         /**
@@ -324,6 +316,7 @@
         [otaModel saveOrUpdateObject];
         
     } upgradeProgressCallback:^(double progress) {
+        [LHUD dismiss];
         
         weakSelf.progressView.hidden = NO;
         weakSelf.progressView.progress = progress/100.0;
@@ -334,6 +327,7 @@
         weakSelf.statusLabel.text = @"OTA升级中";
         
     } upgradeResultCallback:^(NSError * _Nullable error) {
+        [LHUD dismiss];
         
         if (error) {
             weakSelf.progressView.hidden = YES;
@@ -358,25 +352,15 @@
     }];
 }
 
-/// 进入ISP升级模式🚀
-- (void)enableIspUpgradeMode
-{
-    [LHUD showLoading:nil];
-    /// 进入ISP升级模式🚀
-    /// @note 进入ISP升级模式会自动打开Wi-Fi热点，Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
-    [LGlassesKit enableIspUpgradeModeWithCallback:^(NSError * _Nullable error) {
-        [LHUD showText:[NSString stringWithFormat:@"进入ISP升级模式🚀 %@", error]];
-        LNetworkManage.sharedInstance.networkMode = LNetworkMode_Upload;
-    }];
-}
-
 /// 开始isp升级
-- (void)startIspUpgradeWithFilePath:(NSString *)filePath
+- (void)startIspUpgradeWithFilePath:(NSString *)filePath ispVersion:(NSString *)ispVersion
 {
     self.otaButton.enabled = NO;
     
     LWEAKSELF
-    [LGlassesKit startIspUpgradeWithFilePath:filePath ispVersion:self.ispVersion upgradeProgressCallback:^(double progress) {
+    [LHUD showLoading:nil];
+    [LGlassesKit startIspUpgradeWithFilePath:filePath ispVersion:ispVersion upgradeProgressCallback:^(double progress) {
+        [LHUD dismiss];
         
         weakSelf.progressView.hidden = NO;
         weakSelf.progressView.progress = progress/100.0;
@@ -387,6 +371,7 @@
         weakSelf.statusLabel.text = @"ISP升级中";
         
     } upgradeResultCallback:^(NSError * _Nullable error) {
+        [LHUD dismiss];
         
         if (error) {
             weakSelf.progressView.hidden = YES;
@@ -404,7 +389,7 @@
             // 重新获取一下版本号
             [LGlassesKit getDeviceVersionWithCallback:^(LDeviceVersionModel * _Nullable deviceModel, NSError * _Nullable error) {
                 if (!error) {
-                    NSString *string = [NSString stringWithFormat:@"isp 版本号 %@", deviceModel.ispVersion];
+                    NSString *string = [NSString stringWithFormat:@"当前 isp 版本号 %@", deviceModel.ispVersion];
                     [LHUD showText:string];
                 }
             }];

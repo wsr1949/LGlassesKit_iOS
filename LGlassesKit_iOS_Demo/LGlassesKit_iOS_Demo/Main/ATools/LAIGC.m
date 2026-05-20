@@ -10,7 +10,7 @@
 #import "LOpusDecoder.h"
 #import "LAudioPlayer.h"
 
-@interface LAIGC ()
+@interface LAIGC () <LWAIGCKitDelegete>
 
 @property (nonatomic, strong) LWAIGCMcpModel *mcpModel;
 
@@ -31,6 +31,15 @@
     return instance;
 }
 
+- (void)logDidOutputtingWithText:(NSString *)text
+{
+    NSLog(@"日志 %@", text);
+}
+
+- (void)aiVoiceAgentWebSocketConnectionStatus:(LWAIGCWEBSOCKETSTATUS)status
+{
+    NSLog(@"ws连接状态 %lu", status);
+}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -41,6 +50,8 @@
         
         self.allowUseVoiceAssistant = YES;
         
+        [LWAIGCKit registerDelegete:self];
+        
 #pragma mark - 注册智能体对话回调
         // 注册智能体对话回调
         [LWAIGCKit registerChatSttCallback:^(NSString * _Nullable stt, NSTimeInterval timeInterval) {
@@ -48,18 +59,22 @@
             // 语音转文本回调
             LAssistantModel *assistantModel = [LAssistantModel new];
             assistantModel.assistantType = LAssistantType_UserText;
-            assistantModel.isAdd = YES;
             assistantModel.param = stt;
+            // stt没有message_id参数，且为句式返回非流式，这里且用当前时间戳作为message_id
+            assistantModel.messageId = [NSString stringWithFormat:@"UserText_%.6f", timeInterval];
             [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
             
-        } chatTtsCallback:^(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable tts, NSTimeInterval timeInterval) {
+        } chatTtsCallback:^(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable message_id, NSString * _Nullable tts, NSTimeInterval timeInterval) {
             
-            // 文本回复回调
-            LAssistantModel *assistantModel = [LAssistantModel new];
-            assistantModel.assistantType = LAssistantType_AssistantText;
-            assistantModel.param = tts;
-            assistantModel.isAdd = ttsStatus == LWAIGCTTSSTATUS_START;
-            [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
+            if (!IF_NULL(message_id)) {
+                // 文本回复回调
+                LAssistantModel *assistantModel = [LAssistantModel new];
+                assistantModel.assistantType = LAssistantType_AssistantText;
+                assistantModel.param = tts;
+                /// tts有message_id，返回方式为流式非句式，请注意处理
+                assistantModel.messageId = message_id;
+                [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
+            }
             
             if (ttsStatus == LWAIGCTTSSTATUS_STOP) {
                 [[LAIGC sharedManager].audioPlayer stopPlayback];
@@ -88,10 +103,15 @@
             [LAIGC sharedManager].mcpModel = mcpModel;
             
             if (mcpModel.cmd == LWAIGCMCPCMD_AI_IMAGE_RECOGNIYION) { // 需要拍照
-                            
-                // 成功拍照后图片会通过委托代理LDelegate返回 详@link notifyAIRecognizePhotoData:
-                [LGlassesKit startTakingPhotos:LPhotoType_PhotoRecognition callback:^(NSError * _Nullable error) {
-                    NSLog(@"拍照结果: %@", error);
+                   
+                [LGlassesKit startPhotoTakingWithCompletion:^(NSData * _Nullable photoData, NSError * _Nullable error) {
+                    if (error) {
+                        [LHUD showText:error.localizedDescription];
+                    }
+                    else if (photoData.length)
+                    {
+                        [LAIGC requestUploadImageData:photoData]; // 上传图片开始识图
+                    }
                 }];
             }
             else if (mcpModel.cmd == LWAIGCMCPCMD_SCHEDULE_ASSISTANT) { // 日程助手
@@ -175,10 +195,10 @@
 + (void)registerAIGC
 {
     RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
-#warning - 请联系服务商提供
+#warning - 请联系服务商提供正式
     LWAIGCModel *aigcModel = [LWAIGCModel new];
-    aigcModel.clientId = @"请联系服务商提供";
-    aigcModel.clientSk = @"请联系服务商提供";
+    aigcModel.clientId = @"ukuSPzMnpLvLS2TTLL9S8PvUJzfTCHnu"; // 此为test，请联系服务商提供正式
+    aigcModel.clientSk = @"tz5dgRLm6tXS8gRr"; // 此为test，请联系服务商提供正式
     aigcModel.deviceId = deviceModel.deviceMac;
     aigcModel.deviceName = deviceModel.deviceName;
     aigcModel.deviceModel = deviceModel.deviceMode;
@@ -258,26 +278,30 @@
         LAssistantModel *assistantModel = [LAssistantModel new];
         assistantModel.assistantType = LAssistantType_UserImage;
         assistantModel.param = url.path;
-        assistantModel.isAdd = YES;
+        // 这里且用当前时间戳作为message_id
+        assistantModel.messageId = [NSString stringWithFormat:@"UserImage_%.6f", NSDate.date.timeIntervalSince1970];
         [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
         
         // 识图
-        [LWAIGCKit requestChatUploadImageData:data question:[LAIGC sharedManager].mcpModel.question callback:^(NSString * _Nullable result, NSError * _Nullable error) {
-            if (error) {
-                [LHUD showText:error.localizedDescription];
-            }
-            else {
-                // 识别成功
-                LAssistantModel *assistantModel_1 = [LAssistantModel new];
-                assistantModel_1.assistantType = LAssistantType_UserText;
-                assistantModel_1.param = [NSString stringWithFormat:@"图片识别内容: %@", result];
-                assistantModel_1.isAdd = YES;
-                [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel_1];
-                
-                // 发送识图结果
-                [LWAIGCKit sendChatImageRecognitionResults:result task_id:[LAIGC sharedManager].mcpModel.task_id];
-            }
-        }];
+        [LWAIGCKit sendRecognitionImageData:data question:[LAIGC sharedManager].mcpModel.question task_id:[LAIGC sharedManager].mcpModel.task_id];
+        
+//        // 识图
+//        [LWAIGCKit requestChatUploadImageData:data question:[LAIGC sharedManager].mcpModel.question callback:^(NSString * _Nullable result, NSError * _Nullable error) {
+//            if (error) {
+//                [LHUD showText:error.localizedDescription];
+//            }
+//            else {
+//                // 识别成功
+//                LAssistantModel *assistantModel_1 = [LAssistantModel new];
+//                assistantModel_1.assistantType = LAssistantType_UserText;
+//                assistantModel_1.param = [NSString stringWithFormat:@"图片识别内容: %@", result];
+//                assistantModel_1.isAdd = YES;
+//                [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel_1];
+//                
+//                // 发送识图结果
+//                [LWAIGCKit sendChatImageRecognitionResults:result task_id:[LAIGC sharedManager].mcpModel.task_id];
+//            }
+//        }];
     }
 }
 

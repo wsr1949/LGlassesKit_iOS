@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LMediaListViewController : LCommonViewController
 
-@property (nonatomic, strong) NSArray <LDownloadFile *> *files;
+@property (nonatomic, strong) NSArray <NSURL *> *urls;
 
 @end
 

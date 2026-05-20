@@ -21,6 +21,10 @@ FOUNDATION_EXPORT const unsigned char iOS_LWAIGCKitVersionString[];
  
  版本记录：
 
+ project    2026-05-20  Version:1.0.5   Build:2026052001
+            1.新增AI识图合并方法 参@link sendRecognitionImageData:question:task_id:
+            2.对话回调TTS回调新增message_id，服务升级为流式回调，客户端需要处理流式文本 参@link registerChatSttCallback:chatTtsCallback:chatAudioCallback:chatMcpCmdCallback:chatStopCallback:
+ 
  project    2026-03-11  Version:1.0.4   Build:2026031101
             1.语音助手（Chat）增加LLM模型控制 参@link startChatSpeechRecognition:llmType:language:
             2.语音助手（Chat）支持日程MCP命令 参@link LWAIGCMcpCmdCallback回调 LWAIGCScheduleModel模型

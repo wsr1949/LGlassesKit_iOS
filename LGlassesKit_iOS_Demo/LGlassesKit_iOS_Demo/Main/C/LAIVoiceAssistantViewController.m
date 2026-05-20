@@ -166,23 +166,29 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
         
         if (!model) return;
                 
-        if (model.isAdd) {
+        NSPredicate *predicate = ([NSPredicate predicateWithFormat:@"messageId == %@", model.messageId]);
+        
+        LAssistantModel *filteredModel = [weakSelf.dataSource filteredArrayUsingPredicate:predicate].firstObject;
+                
+        if (filteredModel) {
+            
+            // 更新
+            NSString *addString = ([NSString stringWithFormat:@"%@%@", filteredModel.param, model.param]);
+            filteredModel.param = addString;
+            
+            // 动画刷新
+            NSInteger row = [weakSelf.dataSource indexOfObject:filteredModel];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        else {
+            
             // 添加
             [weakSelf.dataSource addObject:model];
             
             // 使用插入行动画代替 reloadData
             NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0];
             [weakSelf.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }
-        else if (weakSelf.dataSource.count) {
-            // 更新
-            LAssistantModel *lastModel = weakSelf.dataSource.lastObject;
-            NSString *lastContent = lastModel.param;
-            lastModel.param = ([NSString stringWithFormat:@"%@%@", lastContent, model.param]);
-            
-            // 动画刷新
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0];
-            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
         
         // 如果之前就在底部，就滚动到底部

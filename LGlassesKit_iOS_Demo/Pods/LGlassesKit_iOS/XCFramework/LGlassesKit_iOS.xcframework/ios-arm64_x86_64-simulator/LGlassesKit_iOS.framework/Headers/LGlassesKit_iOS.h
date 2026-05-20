@@ -23,6 +23,18 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-05-20  Version:1.0.8   Build:2026052001
+            1.移除 startTakingPhotos:callback: 拍照方法 及 拍照类型枚举LPhotoType，新增以下2个方法区分
+                - 仅拍照 详@link （LGlassesKit）startPhotoTakingWithCallback:
+                - 拍照并返回图片 详@link （LGlassesKit）startPhotoTakingWithCompletion:
+            2.移除委托代理方法（LDelegate）notifyAIRecognizePhotoData: 使用代替方法 详@link startPhotoTakingWithCompletion:
+            3.移除委托代理方法（LDelegate）notifyWifiHotspotName: 以及 wifiHotspotConnectionStatus:error:
+            4.新增导入文件封装方法 详@link （LGlassesKit）startImportingFilesWithProgressCallback:importedCallback:completion:
+            5.优化ISP升级方法 详@link （LGlassesKit）startIspUpgradeWithFilePath:ispVersion:upgradeProgressCallback:upgradeResultCallback:
+            6.移除设置语音唤醒方法 setVoiceWakeUp:callback: 使用代替方法 详@link setVoiceCmdControl:callback:
+            7.新增获取语音指令控制（LGlassesKit）getVoiceCmdControlWithCallback
+            8.新增设置语音指令控制（LGlassesKit）setVoiceCmdControl:callback:
+ 
  project    2026-04-30  Version:1.0.7   Build:2026043001
             1.新增委托代理方法 详@link LDelegate
                 通知设备按键事件 notifyDeviceButtonEvents:

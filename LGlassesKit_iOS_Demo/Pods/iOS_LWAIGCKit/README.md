@@ -1,7 +1,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/iOS_LWAIGCKit.git">
-    <img src="https://img.shields.io/badge/Release-1.0.4 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.5 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/iOS_LWAIGCKit.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -155,26 +155,15 @@ typedef NS_ENUM(NSInteger, LWAIGCERRORCODE) {
 + (void)abortResponseWithSessionId:(NSString * _Nonnull)sessionId;
 ```
 
-##### 上传对话图片开始识图，问题描述
+##### AI语音智能体（发送识别图片）
 ```ruby
 /**
- AI语音智能体（上传对话图片开始识图，问题描述）
+ AI语音智能体（发送识别图片）
  @param data        图片数据
- @param question    问题
+ @param question    问题描述
+ @param task_id     mcp命令中的任务ID
  */
-+ (void)requestChatUploadImageData:(NSData * _Nonnull)data
-                          question:(NSString * _Nonnull)question
-                          callback:(LWAIGCImageRecognitionCallback)callback;
-```
-
-##### 发送对话识图的结果
-```ruby
-/**
- AI语音智能体（发送对话识图的结果）
- @param results        识别结果
- @param task_id        任务ID
- */
-+ (void)sendChatImageRecognitionResults:(NSString * _Nonnull)results task_id:(NSString * _Nonnull)task_id;
++ (void)sendRecognitionImageData:(NSData * _Nonnull)data question:(NSString * _Nonnull)question task_id:(NSString * _Nonnull)task_id;
 ```
 
 
@@ -394,6 +383,10 @@ typedef NS_ENUM(NSInteger, LWAIGCERRORCODE) {
 
 ## 版本记录
 ```ruby
+ project    2026-05-20  Version:1.0.5   Build:2026052001
+            1.新增AI识图合并方法 参@link sendRecognitionImageData:question:task_id:
+            2.对话回调TTS回调新增message_id，服务升级为流式回调，客户端需要处理流式文本 参@link registerChatSttCallback:chatTtsCallback:chatAudioCallback:chatMcpCmdCallback:chatStopCallback:
+
  project    2026-03-11  Version:1.0.4   Build:2026031101
             1.语音助手（Chat）增加LLM模型控制 参@link startChatSpeechRecognition:llmType:language:
             2.语音助手（Chat）支持日程MCP命令 参@link LWAIGCMcpCmdCallback回调 LWAIGCScheduleModel模型

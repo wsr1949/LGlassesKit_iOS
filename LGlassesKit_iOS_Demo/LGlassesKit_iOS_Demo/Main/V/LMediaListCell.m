@@ -39,16 +39,16 @@
     return self;
 }
 
-- (void)reloadModel:(LDownloadFile *)fileModel
+- (void)reloadWithUrl:(NSURL *)url
 {
     self.playImg.hidden = YES;
         
-    if ([fileModel.fileModel.name hasSuffix:@"MP4"]) {
+    if ([url.path hasSuffix:@"MP4"]) {
         self.playImg.hidden = NO;
-        self.imgView.image = [LMediaListCell videoCoverImage:fileModel.fileUrl];
+        self.imgView.image = [LMediaListCell videoCoverImage:url];
     }
-    else if ([fileModel.fileModel.name hasSuffix:@"JPG"]) {
-        self.imgView.image = [UIImage imageWithContentsOfFile:fileModel.fileUrl.path];
+    else if ([url.path hasSuffix:@"JPG"]) {
+        self.imgView.image = [UIImage imageWithContentsOfFile:url.path];
     }
     else {
         self.imgView.image = UIImageMake(@"ic_other_file");

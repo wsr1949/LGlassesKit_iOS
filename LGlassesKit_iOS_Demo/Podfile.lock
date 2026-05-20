@@ -25,15 +25,15 @@ PODS:
     - BRPickerView/Deprecated/Base
   - BRPickerView/TextPicker (2.9.9):
     - BRPickerView/Core
-  - iOS_LWAIGCKit (1.0.4):
+  - iOS_LWAIGCKit (1.0.5):
     - MJExtension
     - SocketRocket
     - SSZipArchive
-  - LGlassesKit_iOS (1.0.7):
-    - LGlassesKit_iOS/Basic (= 1.0.7)
-    - LGlassesKit_iOS/JL_OTA (= 1.0.7)
-  - LGlassesKit_iOS/Basic (1.0.7)
-  - LGlassesKit_iOS/JL_OTA (1.0.7)
+  - LGlassesKit_iOS (1.0.8):
+    - LGlassesKit_iOS/Basic (= 1.0.8)
+    - LGlassesKit_iOS/JL_OTA (= 1.0.8)
+  - LGlassesKit_iOS/Basic (1.0.8)
+  - LGlassesKit_iOS/JL_OTA (1.0.8)
   - libopus (1.1):
     - libopus/float (= 1.1)
   - libopus/float (1.1)
@@ -79,16 +79,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   iOS_LWAIGCKit:
-    :commit: 3b7a767f51771c274ac36c45a00f0d3ec74d0590
+    :commit: f24a408783c2ba904fb18af4cfd343474d36f83d
     :git: https://github.com/wsr1949/iOS_LWAIGCKit.git
   LGlassesKit_iOS:
-    :commit: d21854a8fd7a0745864f15781c3a0d1ac363106b
+    :commit: 9c9adad84e2db273e722d0848113d23152ae5a5f
     :git: https://github.com/wsr1949/LGlassesKit_iOS.git
 
 SPEC CHECKSUMS:
   BRPickerView: 84b2effb81f3b9ebd27f1d31de867ae0b37024f7
-  iOS_LWAIGCKit: 3092299d219d4bb25190372572d29235450eedea
-  LGlassesKit_iOS: c94941c70403fd27151599c92c6dbca3ff99cc06
+  iOS_LWAIGCKit: 5f1587fb47cebbfab682d6d3ab96a32072d5a1af
+  LGlassesKit_iOS: 7a9323f86abc745bb7151d5b72b6c6228bec929a
   libopus: ad5f060dcb8f30f139777244d70f9111f1c80863
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8

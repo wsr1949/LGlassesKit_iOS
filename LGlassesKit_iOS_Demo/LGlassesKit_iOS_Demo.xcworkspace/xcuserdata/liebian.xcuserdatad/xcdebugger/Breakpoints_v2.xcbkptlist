@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
             endingLineNumber = "620"
-            landmarkName = "-notifyDeviceMusicPlayingStatus:"
+            landmarkName = "-notifyDeviceWearingStatus:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "626"
             endingLineNumber = "626"
-            landmarkName = "-notifyDeviceWearingStatus:"
+            landmarkName = "-notifyStopSpeechRecognition"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -17,14 +17,14 @@ typedef NS_ENUM(NSInteger, LAssistantType) {
 
 @interface LAssistantModel : NSObject
 
+/// 类型
 @property (nonatomic, assign) LAssistantType assistantType;
 
 /// 消息ID
 @property (nonatomic, copy) NSString *messageId;
 
+/// 文本
 @property (nonatomic, copy) NSString *param;
-
-@property (nonatomic, assign) BOOL isAdd;
 
 @end
 

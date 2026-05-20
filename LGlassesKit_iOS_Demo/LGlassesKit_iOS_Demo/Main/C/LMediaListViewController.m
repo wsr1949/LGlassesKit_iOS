@@ -66,28 +66,28 @@ static NSString *const LMediaListCellID = @"LMediaListCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.files.count;
+    return self.urls.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     LMediaListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LMediaListCellID forIndexPath:indexPath];
-    if (indexPath.row < self.files.count) {
-        [cell reloadModel:self.files[indexPath.row]];
+    if (indexPath.row < self.urls.count) {
+        [cell reloadWithUrl:self.urls[indexPath.row]];
     }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    LDownloadFile *fileModel = self.files[indexPath.row];
+    NSURL *url = self.urls[indexPath.row];
     
-    if ([fileModel.fileModel.name hasSuffix:@"MP4"]) {
-        LVideoPreviewController *vc = [[LVideoPreviewController alloc] initWithFileUrl:fileModel.fileUrl];
+    if ([url.path hasSuffix:@"MP4"]) {
+        LVideoPreviewController *vc = [[LVideoPreviewController alloc] initWithFileUrl:url];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if ([fileModel.fileModel.name hasSuffix:@"JPG"]) {
-        LPhotoPreviewController *vc = [[LPhotoPreviewController alloc] initWithFilePath:fileModel.fileUrl.path];
+    else if ([url.path hasSuffix:@"JPG"]) {
+        LPhotoPreviewController *vc = [[LPhotoPreviewController alloc] initWithFilePath:url.path];
         [self.navigationController pushViewController:vc animated:YES];
     }
     else {

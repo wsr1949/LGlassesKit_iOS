@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.7 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.8 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -150,25 +150,6 @@ Uses Bluetooth LE accessories
 - (void)notifyThumbnailsCount:(NSInteger)count;
 ```
 
-##### 通知Wi-Fi热点名称
-```ruby
-/**
- 通知Wi-Fi热点名称
- @param wifiHotspotName     Wi-Fi热点名称
- */
-- (void)notifyWifiHotspotName:(NSString * _Nullable)wifiHotspotName;
-```
-
-##### Wi-Fi热点连接状态
-```ruby
-/**
- Wi-Fi热点连接状态
- @param status      Wi-Fi状态
- @param error       错误
- */
-- (void)wifiHotspotConnectionStatus:(LWiFiHotspotStatus)status error:(NSError * _Nullable)error;
-```
-
 ##### 通知设备电池电量信息
 ```ruby
 /**
@@ -194,16 +175,6 @@ Uses Bluetooth LE accessories
  @param voiceData   语音数据（opus格式）
  */
 - (void)notifyVoiceData:(NSData * _Nullable)voiceData;
-```
-
-##### 通知AI识图照片数据
-```ruby
-/**
- 通知AI识图照片数据
- @param photoData   图片数据（JPG格式）
- @param error       错误
- */
-- (void)notifyAIRecognizePhotoData:(NSData * _Nullable)photoData error:(NSError * _Nullable)error;
 ```
 
 ##### 通知停止语音识别
@@ -379,13 +350,21 @@ Uses Bluetooth LE accessories
 + (void)setWearDetection:(BOOL)open callback:(LResultCallback _Nonnull)callback;
 ```
 
-##### 设置语音唤醒
+##### 获取语音指令控制
 ```ruby
 /**
- 设置语音唤醒
- @param open    是否开启语音唤醒
+ 获取语音指令控制
  */
-+ (void)setVoiceWakeUp:(BOOL)open callback:(LResultCallback _Nonnull)callback;
++ (void)getVoiceCmdControlWithCallback:(LDeviceVoiceCmdControlCallback _Nonnull)callback;
+```
+
+##### 设置语音指令控制
+```ruby
+/**
+ 设置语音指令控制
+ @param control     语音控制
+ */
++ (void)setVoiceCmdControl:(LVoiceCmdControl)control callback:(LResultCallback _Nonnull)callback;
 ```
 
 ##### 设置快捷手势功能
@@ -439,13 +418,20 @@ Uses Bluetooth LE accessories
 + (void)getDeviceBatteryWithCallback:(LBatteryCallback _Nonnull)callback;
 ```
 
-##### 开启拍照
+##### 开启拍照，仅拍照
 ```ruby
 /**
- 开启拍照
- @param type    拍照类型，当类型为LPhotoType_PhotoRecognition时，成功拍照后图片会通过委托代理LDelegate返回 详@link notifyAIRecognizePhotoData:
+ 开启拍照，仅拍照
  */
-+ (void)startTakingPhotos:(LPhotoType)type callback:(LResultCallback _Nonnull)callback;
++ (void)startPhotoTakingWithCallback:(LResultCallback _Nonnull)callback;
+```
+
+##### 开启拍照，返回图片数据
+```ruby
+/**
+ 开启拍照，返回图片数据
+ */
++ (void)startPhotoTakingWithCompletion:(LPhotoCallback _Nonnull)completion;
 ```
 
 ##### 照片拍摄模式
@@ -539,82 +525,31 @@ Uses Bluetooth LE accessories
 + (void)getThumbnailsCountWithCallback:(LResultCallback _Nonnull)callback;
 ```
 
-##### 打开Wi-Fi热点
+##### 开始导入文件
 ```ruby
 /**
- 打开Wi-Fi热点
- @note Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
+ 开始导入文件
+ @param progressCallback            导入进度回调
+                                        fileModel: 当前正在导入的文件信息
+                                        currentIndex: 当前文件索引
+                                        totalCount: 总的文件数量
+                                        totalProgress: 总进度0-100
+                                        speed: 速率，字节/秒
+ @param importedCallback            当前已导入回调
+                                        fileModel: 当前导入的文件信息
+                                        locationUrl: 文件本地URL路径，注意⚠️url为系统temp目录下，如需长期缓存请及时移动文件至自己自身业务目录下
+ @param completion                  完成回调
+                                        complete: YES完成，NO失败 error不为nil
  */
-+ (void)openWifiHotspotWithCallback:(LResultCallback _Nonnull)callback;
++ (void)startImportingFilesWithProgressCallback:(void (^)(LFileModel *fileModel, NSInteger currentIndex, NSInteger totalCount, double totalProgress, double speed))progressCallback
+                               importedCallback:(void (^)(LFileModel *fileModel, NSURL *locationUrl))importedCallback
+                                     completion:(void (^)(BOOL complete, NSError * _Nullable error))completion;
 ```
 
-##### 连接Wi-Fi热点
+##### 🚀开始OTA升级（BLE模块）
 ```ruby
 /**
- 连接Wi-Fi热点
- @param wifiHotspotName    Wi-Fi热点名称
- @note  连接结果通过委托代理LDelegate返回 详@link wifiHotspotConnectionStatus:error:
- */
-+ (void)connectingWiFiHotspot:(NSString * _Nonnull)wifiHotspotName;
-```
-
-##### 断开Wi-Fi热点连接
-```ruby
-/**
- 断开Wi-Fi热点连接
- */
-+ (void)disconnectWiFiHotspot;
-```
-
-##### Wi-Fi热点连接状态
-```ruby
-/**
- Wi-Fi热点连接状态
- @return    Wi-Fi热点连接状态
- */
-+ (LWiFiHotspotStatus)wifiHotspotStatus;
-```
-
-##### 请求文件列表
-```ruby
-/**
- 请求文件列表
- */
-+ (void)requestFileListWithCallback:(LFileListCallback _Nonnull)callback;
-```
-
-##### 文件下载
-```ruby
-/**
- 文件下载
- @param fileName    文件名称
- @param targetUrl   下载至本地目标地址
- */
-+ (void)downloadFile:(NSString * _Nonnull)fileName targetUrl:(NSURL * _Nonnull)targetUrl progressCallback:(LDownloadProgressCallback _Nonnull)progressCallback completeCallback:(LDownloadCallback _Nonnull)completeCallback;
-```
-
-##### 文件删除
-```ruby
-/**
- 文件删除
- @param filePath    文件路径
- */
-+ (void)deleteFile:(NSString * _Nonnull)filePath callback:(LResultCallback _Nonnull)callback;
-```
-
-##### 上报文件下载个数
-```ruby
-/**
- 上报文件下载个数
- @param count    已下载个数
- */
-+ (void)reportFileDownloadsCount:(NSInteger)count callback:(LResultCallback _Nonnull)callback;
-```
-
-##### 🚀开始OTA升级
-```ruby
-/**
- 🚀开始OTA升级
+ 🚀开始OTA升级（BLE模块）
  @param filePath                    ota文件本地路径
  @param isRestoreUpgrade            恢复OTA升级，true恢复升级，false正常升级
  @param restoreReconnectMethod      恢复OTA升级的设备回连方式，isRestore==true时（必填）使用正确的回连方式；isRestore==false时则使用None即可
@@ -636,19 +571,10 @@ Uses Bluetooth LE accessories
                     restartCallback:(void (^ _Nonnull)(void))restartCallback;
 ```
 
-##### 进入ISP升级模式🚀
+##### 🚀开始ISP升级（Wi-Fi模块）
 ```ruby
 /**
- 进入ISP升级模式🚀
- @note 进入ISP升级模式会自动打开Wi-Fi热点，Wi-Fi热点成功打开后名称会通过委托代理LDelegate返回 详@link notifyWifiHotspotName:
- */
-+ (void)enableIspUpgradeModeWithCallback:(LResultCallback _Nonnull)callback;
-```
-
-##### 🚀开始ISP升级（需要先打开并连接Wi-Fi热点）
-```ruby
-/**
- 🚀开始ISP升级（需要先进入ISP升级模式，并连接Wi-Fi热点）
+ 🚀开始ISP升级（Wi-Fi模块）
  @param filePath                    isp文件本地路径
  @param ispVersion                  isp版本号，格式x.x.x
  @param upgradeProgressCallback     isp升级进度回调
@@ -674,6 +600,18 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2026-05-20  Version:1.0.8   Build:2026052001
+            1.移除 startTakingPhotos:callback: 拍照方法 及 拍照类型枚举LPhotoType，新增以下2个方法区分
+                - 仅拍照 详@link （LGlassesKit）startPhotoTakingWithCallback:
+                - 拍照并返回图片 详@link （LGlassesKit）startPhotoTakingWithCompletion:
+            2.移除委托代理方法（LDelegate）notifyAIRecognizePhotoData: 使用代替方法 详@link startPhotoTakingWithCompletion:
+            3.移除委托代理方法（LDelegate）notifyWifiHotspotName: 以及 wifiHotspotConnectionStatus:error:
+            4.新增导入文件封装方法 详@link （LGlassesKit）startImportingFilesWithProgressCallback:importedCallback:completion:
+            5.优化ISP升级方法 详@link （LGlassesKit）startIspUpgradeWithFilePath:ispVersion:upgradeProgressCallback:upgradeResultCallback:
+            6.移除设置语音唤醒方法 setVoiceWakeUp:callback: 使用代替方法 详@link setVoiceCmdControl:callback:
+            7.新增获取语音指令控制（LGlassesKit）getVoiceCmdControlWithCallback
+            8.新增设置语音指令控制（LGlassesKit）setVoiceCmdControl:callback:
+
  project    2026-04-30  Version:1.0.7   Build:2026043001
             1.新增委托代理方法 详@link LDelegate
                 通知设备按键事件 notifyDeviceButtonEvents:
