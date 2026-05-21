@@ -41,8 +41,15 @@
 ## 一、安装（CocoaPods）
 
 ##### 1. 在 `Podfile` 中添加
+
+眼镜SDK
 ```ruby
 pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
+```
+
+AI SDK（如有自己的AI服务可不集成）
+```ruby
+pod 'iOS_LWAIGCKit', git: 'https://github.com/wsr1949/iOS_LWAIGCKit.git'
 ```
 
 ##### 2. 终端执行 
