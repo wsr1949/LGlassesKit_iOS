@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.8 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.9 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -41,8 +41,15 @@
 ## 一、安装（CocoaPods）
 
 ##### 1. 在 `Podfile` 中添加
+
+眼镜SDK
 ```ruby
 pod 'LGlassesKit_iOS', git: 'https://github.com/wsr1949/LGlassesKit_iOS.git'
+```
+
+AI SDK（如有自己的AI服务可不集成）
+```ruby
+pod 'iOS_LWAIGCKit', git: 'https://github.com/wsr1949/iOS_LWAIGCKit.git'
 ```
 
 ##### 2. 终端执行 
@@ -595,11 +602,59 @@ Uses Bluetooth LE accessories
 + (void)setOfflineVoiceLanguage:(LOfflineVoiceLanguage)language callback:(LResultCallback _Nonnull)callback;
 ```
 
+##### 音乐控制
+```ruby
+/**
+ 音乐控制
+ */
++ (void)setupMusicControls:(LMusicControl)control callback:(LResultCallback _Nonnull)callback;
+```
+
+##### 音量控制
+```ruby
+/**
+ 音量控制
+ */
++ (void)setupVolumeControls:(LVolumeControl)control callback:(LResultCallback _Nonnull)callback;
+```
+
+##### 通话控制
+```ruby
+/**
+ 通话控制
+ */
++ (void)setupCallControls:(LCallControl)control callback:(LResultCallback _Nonnull)callback;
+```
+
+##### 获取设备音量
+```ruby
+/**
+ 获取设备音量
+ */
++ (void)getDeviceVolumeWithCallback:(LDeviceVolumeCallback _Nonnull)callback;
+```
+
+##### 设置设备音量
+```ruby
+/**
+ 设置设备音量
+ @param volume  音量档位：系统提示音量和通话音量共16档，0-15；媒体播放音量共17挡，0-16。
+ */
++ (void)setDeviceVolume:(int)volume type:(LVolumeType)type callback:(LResultCallback _Nonnull)callback;
+```
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 # 版本记录🚀
 ```ruby
+ project    2026-05-27  Version:1.0.9   Build:2026052701
+            1.新增音乐控制 详@link（LGlassesKit）setupMusicControls: callback:
+            2.新增音量控制 详@link（LGlassesKit）setupVolumeControls:callback:
+            3.新增通话控制 详@link（LGlassesKit）setupCallControls:callback:
+            4.新增设置设备音量 详@link（LGlassesKit）getDeviceVolumeWithCallback:
+            5.新增获取设备音量 详@link（LGlassesKit）setDeviceVolume:type:callback:
+
  project    2026-05-20  Version:1.0.8   Build:2026052001
             1.移除 startTakingPhotos:callback: 拍照方法 及 拍照类型枚举LPhotoType，新增以下2个方法区分
                 - 仅拍照 详@link （LGlassesKit）startPhotoTakingWithCallback:

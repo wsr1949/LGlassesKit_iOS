@@ -1,7 +1,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/iOS_LWAIGCKit.git">
-    <img src="https://img.shields.io/badge/Release-1.0.5 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.0.6 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/iOS_LWAIGCKit.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -383,6 +383,9 @@ typedef NS_ENUM(NSInteger, LWAIGCERRORCODE) {
 
 ## 版本记录
 ```ruby
+ project    2026-05-27  Version:1.0.6   Build:2026052701
+            1.对话回调STT回调新增message_id和识别状态LWAIGCSTTSTATUS，服务升级为流式句式回调，客户端需要处理流式文本 参@link registerChatSttCallback:chatTtsCallback:chatAudioCallback:chatMcpCmdCallback:chatStopCallback:
+
  project    2026-05-20  Version:1.0.5   Build:2026052001
             1.新增AI识图合并方法 参@link sendRecognitionImageData:question:task_id:
             2.对话回调TTS回调新增message_id，服务升级为流式回调，客户端需要处理流式文本 参@link registerChatSttCallback:chatTtsCallback:chatAudioCallback:chatMcpCmdCallback:chatStopCallback:

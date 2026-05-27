@@ -173,8 +173,12 @@ static NSString *const LAssistantTextCellID = @"LAssistantTextCell";
         if (filteredModel) {
             
             // 更新
-            NSString *addString = ([NSString stringWithFormat:@"%@%@", filteredModel.param, model.param]);
-            filteredModel.param = addString;
+            if (filteredModel.assistantType == LAssistantType_UserText) {
+                filteredModel.param = model.param;
+            } else {
+                NSString *addString = ([NSString stringWithFormat:@"%@%@", filteredModel.param, model.param]);
+                filteredModel.param = addString;
+            }
             
             // 动画刷新
             NSInteger row = [weakSelf.dataSource indexOfObject:filteredModel];

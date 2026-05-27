@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
             endingLineNumber = "620"
-            landmarkName = "-notifyDeviceWearingStatus:"
+            landmarkName = "-bleConnectionStatus:error:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "626"
             endingLineNumber = "626"
-            landmarkName = "-notifyStopSpeechRecognition"
+            landmarkName = "-bleConnectionStatus:error:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "559"
             endingLineNumber = "559"
-            landmarkName = "-notifyAIVoiceAssistantStatus:"
+            landmarkName = "-centralBluetoothStatus:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "569"
             endingLineNumber = "569"
-            landmarkName = "-notifyAIVoiceAssistantStatus:"
+            landmarkName = "-centralBluetoothStatus:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -27,7 +27,7 @@ typedef void(^LWAIGCMTGQryCallback)(LWAIGCMTGQryModel * _Nullable mtgQryModel);
 typedef void(^LWAIGCMTGQryItemCallback)(LWAIGCMTGQryItem * _Nullable mtgQryModel);
 
 /// AI智能语音（语音转文本回调）
-typedef void(^LWAIGCSttCallback)(NSString * _Nullable stt, NSTimeInterval timeInterval);
+typedef void(^LWAIGCSttCallback)(LWAIGCSTTSTATUS sttStatus, NSString * _Nullable message_id, NSString * _Nullable stt, NSTimeInterval timeInterval);
 
 /// AI智能语音（文本转语音回调）
 typedef void(^LWAIGCTtsCallback)(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable message_id, NSString * _Nullable tts, NSTimeInterval timeInterval);

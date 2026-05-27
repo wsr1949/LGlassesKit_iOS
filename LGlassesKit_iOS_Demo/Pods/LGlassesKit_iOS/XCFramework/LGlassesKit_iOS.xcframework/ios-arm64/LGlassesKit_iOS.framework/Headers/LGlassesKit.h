@@ -249,6 +249,32 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)setOfflineVoiceLanguage:(LOfflineVoiceLanguage)language callback:(LResultCallback _Nonnull)callback;
 
+/**
+ 音乐控制
+ */
++ (void)setupMusicControls:(LMusicControl)control callback:(LResultCallback _Nonnull)callback;
+
+/**
+ 音量控制
+ */
++ (void)setupVolumeControls:(LVolumeControl)control callback:(LResultCallback _Nonnull)callback;
+
+/**
+ 通话控制
+ */
++ (void)setupCallControls:(LCallControl)control callback:(LResultCallback _Nonnull)callback;
+
+/**
+ 获取设备音量
+ */
++ (void)getDeviceVolumeWithCallback:(LDeviceVolumeCallback _Nonnull)callback;
+
+/**
+ 设置设备音量
+ @param volume  音量档位：系统提示音量和通话音量共16档，0-15；媒体播放音量共17挡，0-16。
+ */
++ (void)setDeviceVolume:(int)volume type:(LVolumeType)type callback:(LResultCallback _Nonnull)callback;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -54,14 +54,14 @@
         
 #pragma mark - 注册智能体对话回调
         // 注册智能体对话回调
-        [LWAIGCKit registerChatSttCallback:^(NSString * _Nullable stt, NSTimeInterval timeInterval) {
+        [LWAIGCKit registerChatSttCallback:^(LWAIGCSTTSTATUS sttStatus, NSString * _Nullable message_id, NSString * _Nullable stt, NSTimeInterval timeInterval) {
             
             // 语音转文本回调
             LAssistantModel *assistantModel = [LAssistantModel new];
             assistantModel.assistantType = LAssistantType_UserText;
             assistantModel.param = stt;
-            // stt没有message_id参数，且为句式返回非流式，这里且用当前时间戳作为message_id
-            assistantModel.messageId = [NSString stringWithFormat:@"UserText_%.6f", timeInterval];
+            // stt有message_id，返回方式为流式句式，请注意处理
+            assistantModel.messageId = message_id;
             [[NSNotificationCenter defaultCenter] postNotificationName:LAIGCChatNotify object:assistantModel];
             
         } chatTtsCallback:^(LWAIGCTTSSTATUS ttsStatus, NSString * _Nullable message_id, NSString * _Nullable tts, NSTimeInterval timeInterval) {
@@ -364,7 +364,7 @@
 /// 结束同声传译
 + (void)endSimultaneousInterpretation
 {
-    [LWAIGCKit stopSimultaneousInterpretationSpeechRecognition];
+    [LWAIGCKit stopSimultaneousInterpretationSpeechRecognition:YES];
 }
 
 /// 开始通话翻译

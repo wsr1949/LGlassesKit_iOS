@@ -195,4 +195,54 @@ typedef NS_ENUM(NSInteger, LVoiceCmdControl) {
     
 } NS_SWIFT_NAME(LVoiceCmdControl);
 
+
+/// 音乐控制
+typedef NS_ENUM(NSInteger, LMusicControl) {
+    
+    /// 上一曲
+    LMusicControl_Previous,
+    /// 下一曲
+    LMusicControl_Next,
+    /// 暂停
+    LMusicControl_Pause,
+    /// 播放
+    LMusicControl_Play,
+    
+} NS_SWIFT_NAME(LMusicControl);
+
+
+/// 音量控制
+typedef NS_ENUM(NSInteger, LVolumeControl) {
+    
+    /// 减小音量
+    LVolumeControl_Down = 0,
+    /// 加大音量
+    LVolumeControl_Up   = 1,
+    
+} NS_SWIFT_NAME(LVolumeControl);
+
+
+/// 通话控制
+typedef NS_ENUM(NSInteger, LCallControl) {
+    
+    /// 挂断电话
+    LCallControl_HangUp = 0,
+    /// 接听电话
+    LCallControl_Answer = 1,
+    
+} NS_SWIFT_NAME(LCallControl);
+
+
+/// 音量类型
+typedef NS_ENUM(NSInteger, LVolumeType) {
+    
+    /// 系统提示音量
+    LVolumeType_System  = 0,
+    /// 媒体播放音量
+    LVolumeType_Media   = 1,
+    /// 通话音量
+    LVolumeType_Calls   = 2,
+    
+} NS_SWIFT_NAME(LVolumeType);
+
 #endif /* LMacro_h */

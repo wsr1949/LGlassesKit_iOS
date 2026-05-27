@@ -153,25 +153,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)abortResponse;
 
-
-/// 流程简化，直接发送图片+mcp任务ID 详@link 发送识别图片 sendRecognitionImageData:task_id:
-///
-///**
-// AI语音智能体（上传对话图片开始识图，问题描述）
-// @param data        图片数据
-// @param question    问题
-// */
-//+ (void)requestChatUploadImageData:(NSData * _Nonnull)data
-//                          question:(NSString * _Nonnull)question
-//                          callback:(LWAIGCImageRecognitionCallback)callback;
-//
-///**
-// AI语音智能体（发送对话识图的结果）
-// @param results        识别结果
-// @param task_id        任务ID
-// */
-//+ (void)sendChatImageRecognitionResults:(NSString * _Nonnull)results task_id:(NSString * _Nonnull)task_id;
-
 /**
  AI语音智能体（发送识别图片）
  @param data        图片数据
@@ -232,8 +213,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  AI语音智能体（停止同声传译语音识别）
+ @param end   YES结束，剩余tts、音频不再返回；NO暂停，剩余tts、音频继续返回
  */
-+ (void)stopSimultaneousInterpretationSpeechRecognition;
++ (void)stopSimultaneousInterpretationSpeechRecognition:(BOOL)end;
 
 
 

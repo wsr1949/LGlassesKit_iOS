@@ -167,6 +167,11 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"设置离线语音语种",
         @"🚀OTA升级",
         @"🤖AI智能体",
+        @"音乐控制",
+        @"音量控制",
+        @"通话控制",
+        @"获取设备音量",
+        @"设置设备音量",
     ];
 }
 
@@ -432,8 +437,114 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         LAIAgentViewController *vc = LAIAgentViewController.new;
         [self.navigationController pushViewController:vc animated:YES];
     }
+    else if ([title isEqualToString:@"音乐控制"]) {
+        [self musicControlWithCallback:^(LMusicControl control) {
+            [LGlassesKit setupMusicControls:control callback:^(NSError * _Nullable error) {
+                [LHUD showText:[NSString stringWithFormat:@"音乐控制 %@", error]];
+            }];
+        }];
+    }
+    else if ([title isEqualToString:@"音量控制"]) {
+        [self volumeControlWithCallback:^(LVolumeControl control) {
+            [LGlassesKit setupVolumeControls:control callback:^(NSError * _Nullable error) {
+                [LHUD showText:[NSString stringWithFormat:@"音量控制 %@", error]];
+            }];
+        }];
+    }
+    else if ([title isEqualToString:@"通话控制"]) {
+        [self callControlWithCallback:^(LCallControl control) {
+            [LGlassesKit setupCallControls:control callback:^(NSError * _Nullable error) {
+                [LHUD showText:[NSString stringWithFormat:@"通话控制 %@", error]];
+            }];
+        }];
+    }
+    else if ([title isEqualToString:@"获取设备音量"]) {
+        [LGlassesKit getDeviceVolumeWithCallback:^(LVolumeModel * _Nullable volumeModel, NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"获取设备音量 %@", error]];
+        }];
+    }
+    else if ([title isEqualToString:@"设置设备音量"]) {
+        [LGlassesKit setDeviceVolume:10 type:LVolumeType_Media callback:^(NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"获取媒体播放音量10 %@", error]];
+        }];
+    }
 }
 
+- (void)musicControlWithCallback:(void (^)(LMusicControl control))callback
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"音乐控制" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    //添加取消按钮
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancel];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"上一首" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LMusicControl_Previous);
+    }];
+    [alertController addAction:action1];
+    
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"下一首" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LMusicControl_Next);
+    }];
+    [alertController addAction:action2];
+    
+    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"暂停" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LMusicControl_Pause);
+    }];
+    [alertController addAction:action3];
+    
+    UIAlertAction *action4 = [UIAlertAction actionWithTitle:@"播放" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LMusicControl_Play);
+    }];
+    [alertController addAction:action4];
+    
+    //显示
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)volumeControlWithCallback:(void (^)(LVolumeControl control))callback
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"音量控制" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    //添加取消按钮
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancel];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"音量加" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LVolumeControl_Up);
+    }];
+    [alertController addAction:action1];
+    
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"音量减" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LVolumeControl_Down);
+    }];
+    [alertController addAction:action2];
+    
+    //显示
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)callControlWithCallback:(void (^)(LCallControl control))callback
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"通话控制" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    //添加取消按钮
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancel];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"接听" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LCallControl_Answer);
+    }];
+    [alertController addAction:action1];
+    
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"拒接" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (callback) callback (LCallControl_HangUp);
+    }];
+    [alertController addAction:action2];
+    
+    //显示
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 #pragma mark - LGlassesKitDelegate
 
