@@ -57,6 +57,8 @@ typedef void(^LDownloadCallback)(NSURL * _Nullable locationUrl, NSError * _Nulla
 
 /**
  设备控制参数回调
+ @param deviceModel         设备控制参数
+ @param error               错误
  */
 typedef void(^LDeviceControlParamCallback)(LDeviceControlParamModel * _Nullable deviceModel, NSError * _Nullable error);
 
@@ -86,5 +88,12 @@ typedef void(^LOtaUpgradeReconnectCallback)(LOtaUpgradeReconnectMethod reconnect
  @param error               错误
  */
 typedef void(^LDeviceVoiceCmdControlCallback)(NSNumber * _Nullable control, NSError * _Nullable error);
+
+/**
+ 设备音量回调
+ @param volumeModel         设备音量
+ @param error               错误
+ */
+typedef void(^LDeviceVolumeCallback)(LVolumeModel * _Nullable volumeModel, NSError * _Nullable error);
 
 #endif /* LCallback_h */
