@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.0.9 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.1.0 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -648,6 +648,9 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2026-05-28  Version:1.1.0   Build:2026052801
+            1.修复已知问题
+
  project    2026-05-27  Version:1.0.9   Build:2026052701
             1.新增音乐控制 详@link（LGlassesKit）setupMusicControls: callback:
             2.新增音量控制 详@link（LGlassesKit）setupVolumeControls:callback:
