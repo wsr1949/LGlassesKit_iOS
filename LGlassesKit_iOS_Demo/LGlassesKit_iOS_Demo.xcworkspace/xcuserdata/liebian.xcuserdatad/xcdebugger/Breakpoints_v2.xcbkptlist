@@ -50,6 +50,36 @@
             endingLineNumber = "100"
             landmarkName = "-init"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5D2C5FDC-C973-4270-8256-3C0632F11333 - c5fd5deca449304e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__13-[LAIGC init]_block_invoke_3"
+                  moduleName = "LGlassesKit_iOS_Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/ATools/LAIGC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100">
+               </Location>
+               <Location
+                  uuid = "5D2C5FDC-C973-4270-8256-3C0632F11333 - c5fd5deca44930eb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__13-[LAIGC init]_block_invoke_4"
+                  moduleName = "LGlassesKit_iOS_Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/ATools/LAIGC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

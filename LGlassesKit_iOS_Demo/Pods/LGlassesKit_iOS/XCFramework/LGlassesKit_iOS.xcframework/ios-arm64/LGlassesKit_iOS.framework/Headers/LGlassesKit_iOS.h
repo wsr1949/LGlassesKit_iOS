@@ -23,12 +23,15 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-05-28  Version:1.1.0   Build:2026052801
+            1.修复已知问题
+ 
  project    2026-05-27  Version:1.0.9   Build:2026052701
             1.新增音乐控制 详@link（LGlassesKit）setupMusicControls: callback:
             2.新增音量控制 详@link（LGlassesKit）setupVolumeControls:callback:
             3.新增通话控制 详@link（LGlassesKit）setupCallControls:callback:
-            4.新增设置设备音量 详@link（LGlassesKit）getDeviceVolumeWithCallback:
-            5.新增获取设备音量 详@link（LGlassesKit）setDeviceVolume:type:callback:
+            4.新增获取设备音量 详@link（LGlassesKit）getDeviceVolumeWithCallback:
+            5.新增设置设备音量 详@link（LGlassesKit）setDeviceVolume:type:callback:
  
  project    2026-05-20  Version:1.0.8   Build:2026052001
             1.移除 startTakingPhotos:callback: 拍照方法 及 拍照类型枚举LPhotoType，新增以下2个方法区分
