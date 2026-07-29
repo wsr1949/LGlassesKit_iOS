@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.1.0 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.1.1 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -34,6 +34,7 @@
 
 ### [⚠️请仔细阅读 `README` 集成SDK；参考提供的示例 `Demo`，以帮助您更好地理解 `API` 的使用！](#NOTE)
 
+### [提供的示例 `Demo` 片段仅供演示用途，并未经过严格测试，不要作为商用目的使用！](#NOTE)
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -254,6 +255,15 @@ Uses Bluetooth LE accessories
 - (void)notifyDeviceWearingStatus:(BOOL)wearing;
 ```
 
+##### 通知设备导入状态
+```ruby
+/**
+ 通知设备导入状态
+ @param importing   导入状态，YES正在导入 NO未导入
+ */
+- (void)notifyDeviceImportingStatus:(BOOL)importing;
+```
+
 ##### 通知设备按键事件
 ```ruby
 /**
@@ -320,6 +330,15 @@ Uses Bluetooth LE accessories
  @return    BLE连接状态
  */
 + (LBleStatus)bleConnectStatus;
+```
+
+##### 设置设备系列
+```ruby
+/**
+ 设置设备系列
+ @note  Wi-Fi热点地址不同、接口不同
+ */
++ (void)setDeviceSeries:(LDeviceSeries)series;
 ```
 
 ##### 设置系统时间
@@ -648,6 +667,12 @@ Uses Bluetooth LE accessories
 
 # 版本记录🚀
 ```ruby
+ project    2026-07-14  Version:1.1.1   Build:2026071401
+            1.新增委托代理方法 详@link LDelegate
+                通知设备导入状态 notifyDeviceImportingStatus:
+            2.新增设置设备系列 详@link（LGlassesKit）setDeviceSeries: 兼容S/T系列设备
+            3.优化已知问题
+
  project    2026-05-28  Version:1.1.0   Build:2026052801
             1.修复已知问题
 
