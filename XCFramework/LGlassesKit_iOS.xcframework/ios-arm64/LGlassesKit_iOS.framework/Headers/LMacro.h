@@ -245,4 +245,15 @@ typedef NS_ENUM(NSInteger, LVolumeType) {
     
 } NS_SWIFT_NAME(LVolumeType);
 
+
+/// 设备系列
+typedef NS_ENUM(NSInteger, LDeviceSeries) {
+    
+    /// S系列
+    LDeviceSeries_S = 0,
+    /// T系列
+    LDeviceSeries_T = 1,
+    
+} NS_SWIFT_NAME(LDeviceSeries);
+
 #endif /* LMacro_h */

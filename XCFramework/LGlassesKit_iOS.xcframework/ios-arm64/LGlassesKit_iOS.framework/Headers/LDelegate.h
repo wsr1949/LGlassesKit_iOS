@@ -107,6 +107,12 @@
 - (void)notifyDeviceWearingStatus:(BOOL)wearing;
 
 /**
+ 通知设备导入状态
+ @param importing   导入状态，YES正在导入 NO未导入
+ */
+- (void)notifyDeviceImportingStatus:(BOOL)importing;
+
+/**
  通知设备按键事件
  @param event       事件
  */

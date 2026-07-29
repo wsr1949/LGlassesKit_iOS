@@ -57,6 +57,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (LBleStatus)bleConnectStatus;
 
 /**
+ 设置设备系列
+ @note  Wi-Fi热点地址不同、接口不同
+ */
++ (void)setDeviceSeries:(LDeviceSeries)series;
+
+/**
  设置系统时间
  */
 + (void)setSystemTimeWithCallback:(LResultCallback _Nonnull)callback;
