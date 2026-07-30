@@ -19,6 +19,18 @@
     self.view.backgroundColor = UIColor.systemBackgroundColor;
 }
 
+/// 添加单个导航栏左按钮
+- (void)addLeftBarButtonItem:(NSString *)title itemEvent:(void (^)(void))itemEvent
+{
+    UIAction *action = [UIAction actionWithTitle:title image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        GCD_MAIN_QUEUE(^{
+            if (itemEvent) itemEvent();
+        });
+    }];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithPrimaryAction:action];
+}
+
 /// 添加单个导航栏右按钮
 - (void)addRightBarButtonItem:(NSString *)title itemEvent:(void (^)(void))itemEvent
 {

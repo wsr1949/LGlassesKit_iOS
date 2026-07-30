@@ -6,6 +6,7 @@
 //
 
 #import "LMediaListViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import "LMediaListCell.h"
 #import "LPhotoPreviewController.h"
 #import "LVideoPreviewController.h"
@@ -13,6 +14,8 @@
 @interface LMediaListViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
 @end
 
@@ -82,13 +85,33 @@ static NSString *const LMediaListCellID = @"LMediaListCell";
 {
     NSURL *url = self.urls[indexPath.row];
     
-    if ([url.path hasSuffix:@"MP4"]) {
+    if ([url.pathExtension rangeOfString:@"MP4" options:NSCaseInsensitiveSearch].location != NSNotFound) { // 视频
         LVideoPreviewController *vc = [[LVideoPreviewController alloc] initWithFileUrl:url];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if ([url.path hasSuffix:@"JPG"]) {
+    else if ([url.pathExtension rangeOfString:@"JPG" options:NSCaseInsensitiveSearch].location != NSNotFound) { // 图片
         LPhotoPreviewController *vc = [[LPhotoPreviewController alloc] initWithFilePath:url.path];
         [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if ([url.pathExtension rangeOfString:@"WAV" options:NSCaseInsensitiveSearch].location != NSNotFound ||
+             [url.pathExtension rangeOfString:@"AAC" options:NSCaseInsensitiveSearch].location != NSNotFound) { // 音频
+        
+        if (self.audioPlayer.isPlaying) {
+            [self.audioPlayer stop];
+            
+            if ([self.audioPlayer.url.lastPathComponent isEqualToString:url.path.lastPathComponent]) {
+                return;
+            }
+        }
+        
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        
+        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        audioPlayer.volume = 1.0;
+        [audioPlayer prepareToPlay];
+        [audioPlayer play];
+        self.audioPlayer = audioPlayer;
     }
     else {
         [LHUD showText:@"其他类型文件处理"];

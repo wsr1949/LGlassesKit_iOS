@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LCommonViewController : UIViewController
 
+/// 添加单个导航栏左按钮
+- (void)addLeftBarButtonItem:(NSString *)title itemEvent:(void(^)(void))itemEvent;
+
 /// 添加单个导航栏右按钮
 - (void)addRightBarButtonItem:(NSString *)title itemEvent:(void(^)(void))itemEvent;
 

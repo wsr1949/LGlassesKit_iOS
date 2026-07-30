@@ -43,12 +43,16 @@
 {
     self.playImg.hidden = YES;
         
-    if ([url.path hasSuffix:@"MP4"]) {
+    if ([url.pathExtension rangeOfString:@"MP4" options:NSCaseInsensitiveSearch].location != NSNotFound) { // 视频
         self.playImg.hidden = NO;
         self.imgView.image = [LMediaListCell videoCoverImage:url];
     }
-    else if ([url.path hasSuffix:@"JPG"]) {
+    else if ([url.pathExtension rangeOfString:@"JPG" options:NSCaseInsensitiveSearch].location != NSNotFound) { // 图片
         self.imgView.image = [UIImage imageWithContentsOfFile:url.path];
+    }
+    else if ([url.pathExtension rangeOfString:@"WAV" options:NSCaseInsensitiveSearch].location != NSNotFound ||
+             [url.pathExtension rangeOfString:@"AAC" options:NSCaseInsensitiveSearch].location != NSNotFound) { // 音频
+        self.imgView.image = UIImageMake(@"ic_audio_file");
     }
     else {
         self.imgView.image = UIImageMake(@"ic_other_file");

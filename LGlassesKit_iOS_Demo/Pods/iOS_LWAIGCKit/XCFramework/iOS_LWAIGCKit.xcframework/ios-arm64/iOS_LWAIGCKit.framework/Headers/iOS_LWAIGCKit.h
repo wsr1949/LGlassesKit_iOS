@@ -21,6 +21,13 @@ FOUNDATION_EXPORT const unsigned char iOS_LWAIGCKitVersionString[];
  
  版本记录：
 
+ project    2026-06-24  Version:1.0.8   Build:2026062401
+            1.优化已知问题
+ 
+ project    2026-06-04  Version:1.0.7   Build:2026060401
+            1.枚举 LWAIGCSERVERNODETYPE 新增 CUSTOM_DOMAIN 自定义服务器节点类型，初始化LWAIGCModel自定义类型时customServer_https、customServer_ws必填
+            2.优化已知问题
+ 
  project    2026-05-27  Version:1.0.6   Build:2026052701
             1.对话回调STT回调新增message_id和识别状态LWAIGCSTTSTATUS，服务升级为流式句式回调，客户端需要处理流式文本 参@link registerChatSttCallback:chatTtsCallback:chatAudioCallback:chatMcpCmdCallback:chatStopCallback:
  

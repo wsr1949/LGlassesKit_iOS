@@ -23,6 +23,12 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-07-14  Version:1.1.1   Build:2026071401
+            1.新增委托代理方法 详@link LDelegate
+                通知设备导入状态 notifyDeviceImportingStatus:
+            2.新增设置设备系列 详@link（LGlassesKit）setDeviceSeries: 兼容S/T系列设备
+            3.优化已知问题
+ 
  project    2026-05-28  Version:1.1.0   Build:2026052801
             1.修复已知问题
  

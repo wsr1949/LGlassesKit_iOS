@@ -11,8 +11,9 @@
 #import "LMediaListViewController.h"
 #import "LOtaUpgradeViewController.h"
 #import "LAIAgentViewController.h"
+#import "LDeviceSeriesPopoverController.h"
 
-@interface LMainViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface LMainViewController () <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray <NSString *> *dataSource;
@@ -25,6 +26,8 @@
 @property (nonatomic, assign) BOOL charging;
 @property (nonatomic, assign) int battery;
 @property (nonatomic, strong) LDeviceVersionModel *versionModel;
+/// 当前设备系列
+@property (nonatomic, assign) LDeviceSeries deviceSeries;
 
 @end
 
@@ -69,6 +72,9 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     // 注册眼镜👓SDK
     [LGlassesKit registerDelegate:self enableLog:YES];
     
+    // 默认 S 系列
+    self.deviceSeries = LDeviceSeries_S;
+    [LGlassesKit setDeviceSeries:self.deviceSeries];
     
     UIView *titleView = UIView.new;
     UIButton *connectButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,8 +90,13 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     self.navigationItem.titleView = titleView;
     
     
-    // 扫描/断开
     LWEAKSELF
+    // 设备系列
+    [self addLeftBarButtonItem:@"S系列" itemEvent:^{
+        [weakSelf selectDeviceSeries];
+    }];
+    
+    // 扫描/断开
     [self addRightBarButtonItem:@"扫描/断开" itemEvent:^{
         RLMDeviceModel *deviceModel = RLMDeviceModel.allObjects.lastObject;
         if (deviceModel) {
@@ -122,6 +133,47 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.safeAreaInsets);
     }];
+}
+
+#pragma mark - 选择设备系列
+- (void)selectDeviceSeries
+{
+    LDeviceSeriesPopoverController *popoverVC = [[LDeviceSeriesPopoverController alloc] initWithSelectedSeries:self.deviceSeries];
+    
+    LWEAKSELF
+    popoverVC.selectionCallback = ^(LDeviceSeries series) {
+        weakSelf.deviceSeries = series;
+        [LGlassesKit setDeviceSeries:series];
+        [weakSelf updateDeviceSeriesBarButton];
+        [weakSelf dismissViewControllerAnimated:YES completion:^{
+            NSString *title = (series == LDeviceSeries_T) ? @"T系列" : @"S系列";
+            [LHUD showText:[NSString stringWithFormat:@"已切换为 %@", title]];
+        }];
+    };
+    
+    UIPopoverPresentationController *popover = popoverVC.popoverPresentationController;
+    popover.delegate = self;
+    popover.barButtonItem = self.navigationItem.leftBarButtonItem;
+    popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    
+    [self presentViewController:popoverVC animated:YES completion:nil];
+}
+
+- (void)updateDeviceSeriesBarButton
+{
+    NSString *title = (self.deviceSeries == LDeviceSeries_T) ? @"T系列" : @"S系列";
+    LWEAKSELF
+    [self addLeftBarButtonItem:title itemEvent:^{
+        [weakSelf selectDeviceSeries];
+    }];
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+
+/// iPhone 上也保持 popover 样式，不自动转成全屏
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
 }
 
 #pragma mark - 刷新连接状态
@@ -224,15 +276,12 @@ static NSString *const LMainFooterID = @"LMainFooterView";
                 [urls addObject:locationUrl];
                 
             } completion:^(BOOL complete, NSError * _Nullable error) {
-                if (complete) {
-                    // 完成
-                    [LHUD dismiss];
-                    if (urls.count) {
-                        LMediaListViewController *vc = [LMediaListViewController new];
-                        vc.urls = urls.copy;
-                        [weakSelf.navigationController pushViewController:vc animated:YES];
-                    }
-                } else {
+                [LHUD dismiss];
+                if (urls.count) {
+                    LMediaListViewController *vc = [LMediaListViewController new];
+                    vc.urls = urls.copy;
+                    [weakSelf.navigationController pushViewController:vc animated:YES];
+                } else if (error) {
                     // 失败
                     [LHUD showText:error.localizedDescription];
                 }
@@ -728,6 +777,12 @@ static NSString *const LMainFooterID = @"LMainFooterView";
 - (void)notifyDeviceWearingStatus:(BOOL)wearing
 {
     NSLog(@"通知设备佩戴状态: %@", wearing ? @"已佩戴" : @"未佩戴");
+}
+
+/// 通知设备导入状态
+- (void)notifyDeviceImportingStatus:(BOOL)importing
+{
+    NSLog(@"通知设备导入状态: %@", importing ? @"导入中" : @"未导入");
 }
 
 /// 通知停止语音识别

@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, LWAIGCSERVERNODETYPE) {
     CHINA_DOMAIN,       //中国正式
     GERMANY_DOMAIN,     //德国正式
     SINGAPORE_DOMAIN,   //新加坡正式
+    CUSTOM_DOMAIN,      //自定义
 } NS_SWIFT_NAME(LWAIGCSERVERNODETYPE);
 
 

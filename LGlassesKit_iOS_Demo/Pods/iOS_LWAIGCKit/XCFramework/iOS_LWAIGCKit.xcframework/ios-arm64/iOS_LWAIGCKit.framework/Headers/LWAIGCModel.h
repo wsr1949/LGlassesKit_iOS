@@ -32,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 服务器
 @property (nonatomic, assign) LWAIGCSERVERNODETYPE serverNode;
 
+/// 自定义HTTPS服务环境，仅当 serverNode 为 CUSTOM_DOMAIN 时 必填
+@property (nonatomic, copy, nullable) NSString *customServer_https;
+
+/// 自定义WS服务环境，仅当 serverNode 为 CUSTOM_DOMAIN 时 必填
+@property (nonatomic, copy, nullable) NSString *customServer_ws;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
             endingLineNumber = "620"
-            landmarkName = "-bleConnectionStatus:error:"
+            landmarkName = "-centralBluetoothStatus:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,52 +32,36 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "626"
             endingLineNumber = "626"
-            landmarkName = "-bleConnectionStatus:error:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5D2C5FDC-C973-4270-8256-3C0632F11333"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LGlassesKit_iOS_Demo/Main/ATools/LAIGC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "-init"
+            landmarkName = "-centralBluetoothStatus:"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "5D2C5FDC-C973-4270-8256-3C0632F11333 - c5fd5deca449304e"
+                  uuid = "D2294C8C-1551-45CC-967C-D39647A2078C - b362d19a74399310"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__13-[LAIGC init]_block_invoke_3"
+                  symbolName = "__46-[LMainViewController centralBluetoothStatus:]_block_invoke"
                   moduleName = "LGlassesKit_iOS_Demo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/ATools/LAIGC.m"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100">
+                  startingLineNumber = "626"
+                  endingLineNumber = "626">
                </Location>
                <Location
-                  uuid = "5D2C5FDC-C973-4270-8256-3C0632F11333 - c5fd5deca44930eb"
+                  uuid = "D2294C8C-1551-45CC-967C-D39647A2078C - 9307d0fe6c301133"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__13-[LAIGC init]_block_invoke_4"
+                  symbolName = "__46-[LMainViewController centralBluetoothStatus:]_block_invoke_2"
                   moduleName = "LGlassesKit_iOS_Demo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/ATools/LAIGC.m"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "103"
-                  endingLineNumber = "103">
+                  startingLineNumber = "628"
+                  endingLineNumber = "628">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -94,7 +78,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "559"
             endingLineNumber = "559"
-            landmarkName = "-centralBluetoothStatus:"
+            landmarkName = "-volumeControlWithCallback:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -110,7 +94,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "569"
             endingLineNumber = "569"
-            landmarkName = "-centralBluetoothStatus:"
+            landmarkName = "-volumeControlWithCallback:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

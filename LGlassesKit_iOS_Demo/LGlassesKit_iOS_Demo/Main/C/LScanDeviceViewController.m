@@ -104,6 +104,7 @@ static NSString *const LScanDeviceCellID = @"LScanDeviceCell";
     LPeripheralModel *peripheral = self.dataSource[indexPath.row];
     [LHUD showLoading:nil];
     self.peripheral = peripheral;
+    // 发起连接
     [LGlassesKit connectingDevice:peripheral.deviceUUID timeout:60];
 }
 
