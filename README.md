@@ -32,9 +32,12 @@
 
 #### 支持 `iOS 14.0 及以上操作系统`
 
-### [⚠️请仔细阅读 `README` 集成SDK；参考提供的示例 `Demo`，以帮助您更好地理解 `API` 的使用！](#NOTE)
+#### [⚠️请仔细阅读 `README` 集成SDK；参考提供的示例 `Demo`，以帮助您更好地理解 `API` 的使用！](#NOTE)
 
-### [提供的示例 `Demo` 片段仅供演示用途，并未经过严格测试，不要作为商用目的使用！](#NOTE)
+#### [🎈提供的示例 `Demo` 片段仅供演示用途，并未经过严格测试，不要作为商用目的使用！](#NOTE)
+
+#### [‼️设备有多个 `系列`，为确保能够正常交互，连接成功后需要设置该设备属于哪个 `系列`，API详参：
+`+ (void)setDeviceSeries:(LDeviceSeries)series;`](#NOTE)
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -106,8 +109,6 @@ Uses Bluetooth LE accessories
 ```objective-c 
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
-
-#### [‼️重要‼️ 设备有多个系列，为确保能够正常交互，连接成功后需要设置该设备属于哪个系列，API详参：`+ (void)setDeviceSeries:(LDeviceSeries)series;`](#NOTE)
 
 ## 二、初始化SDK（详阅LGlassesKit.h）注册委托代理
 
