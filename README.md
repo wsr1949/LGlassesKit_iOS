@@ -106,18 +106,8 @@ Uses Bluetooth LE accessories
 ```objective-c 
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
-<font color="red">
-⚠️⚠️⚠️↓前言↓⚠️⚠️⚠️
 
-设备有多个系列，为确保能够正常交互，连接成功后需要设置该设备属于哪个系列，API详参：
-```ruby
-+ (void)setDeviceSeries:(LDeviceSeries)series;
-```
-</font>
-
-### <font color="red">⚠️ 请仔细阅读以下内容</font>
-
-⚠️⚠️⚠️↑注意↑⚠️⚠️⚠️
+#### [‼️重要‼️ 设备有多个系列，为确保能够正常交互，连接成功后需要设置该设备属于哪个系列，API详参：`+ (void)setDeviceSeries:(LDeviceSeries)series;`](#NOTE)
 
 ## 二、初始化SDK（详阅LGlassesKit.h）注册委托代理
 
