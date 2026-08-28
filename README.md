@@ -39,6 +39,8 @@
 #### [‼️设备有多个 `系列`，为确保能够正常交互，连接成功后需要设置该设备属于哪个 `系列`，API详参：](#NOTE)
 `LGlassesKit` 设置设备系列 `+ (void)setDeviceSeries:(LDeviceSeries)series;`
 
+<span style="color:#f44336">红色提示文字</span>
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
