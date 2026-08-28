@@ -115,6 +115,8 @@ Uses Bluetooth LE accessories
 ```
 </font>
 
+### <font color="red">⚠️ 请仔细阅读以下内容</font>
+
 ⚠️⚠️⚠️↑注意↑⚠️⚠️⚠️
 
 ## 二、初始化SDK（详阅LGlassesKit.h）注册委托代理
