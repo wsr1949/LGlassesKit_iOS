@@ -37,7 +37,7 @@
 #### [🎈提供的示例 `Demo` 片段仅供演示用途，并未经过严格测试，不要作为商用目的使用！](#NOTE)
 
 #### [‼️设备有多个 `系列`，为确保能够正常交互，连接成功后需要设置该设备属于哪个 `系列`，API详参：](#NOTE)
-`+ (void)setDeviceSeries:(LDeviceSeries)series;`
+`LGlassesKit` 设置设备系列 `+ (void)setDeviceSeries:(LDeviceSeries)series;`
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
