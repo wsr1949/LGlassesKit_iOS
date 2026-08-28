@@ -84,12 +84,12 @@ Access Wi-Fi Information
 Hotspot
 ```
 
-##### 3. 扩展虚拟地址（可选）
+##### 3. 扩展虚拟地址 `（可选）`
 ```objective-c
 Extended Virtual Addressing
 ```
 
-##### 4. 后台模式`Background Modes`勾选
+##### 4. 后台模式 `Background Modes` 勾选
 ```objective-c 
 Uses Bluetooth LE accessories
 ```
@@ -106,6 +106,16 @@ Uses Bluetooth LE accessories
 ```objective-c 
 #import <LGlassesKit_iOS/LGlassesKit_iOS.h>
 ```
+<font color="red">
+⚠️⚠️⚠️↓前言↓⚠️⚠️⚠️
+
+设备有多个系列，为确保能够正常交互，连接成功后需要设置该设备属于哪个系列，API详参：
+```ruby
++ (void)setDeviceSeries:(LDeviceSeries)series;
+```
+</font>
+
+⚠️⚠️⚠️↑注意↑⚠️⚠️⚠️
 
 ## 二、初始化SDK（详阅LGlassesKit.h）注册委托代理
 
