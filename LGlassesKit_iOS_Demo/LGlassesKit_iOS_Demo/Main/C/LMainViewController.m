@@ -12,8 +12,9 @@
 #import "LOtaUpgradeViewController.h"
 #import "LAIAgentViewController.h"
 #import "LDeviceSeriesPopoverController.h"
+#import <QuickLook/QuickLook.h>
 
-@interface LMainViewController () <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
+@interface LMainViewController () <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, QLPreviewControllerDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray <NSString *> *dataSource;
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) LDeviceVersionModel *versionModel;
 /// 当前设备系列
 @property (nonatomic, assign) LDeviceSeries deviceSeries;
+
+@property (nonatomic, strong) NSURL *previewUrl;
 
 @end
 
@@ -224,6 +227,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"通话控制",
         @"获取设备音量",
         @"设置设备音量",
+        @"获取设备状态",
     ];
 }
 
@@ -420,8 +424,23 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         }];
     }
     else if ([title isEqualToString:@"开启拍照（拍照并返回）"]) {
+        LWEAKSELF
         [LGlassesKit startPhotoTakingWithCompletion:^(NSData * _Nullable photoData, NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"开启拍照 %@", error]];
+            
+            if (photoData.length) {
+                
+                NSString *photoPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"quick_photo_%.0f.jpg", NSDate.date.timeIntervalSince1970]];
+                [photoData writeToFile:photoPath options:0 error:&error];
+                
+                if (!error) {
+                    weakSelf.previewUrl = [NSURL fileURLWithPath:photoPath];
+                    
+                    QLPreviewController *previewController = [[QLPreviewController alloc] init];
+                    previewController.dataSource = weakSelf;
+                    [weakSelf presentViewController:previewController animated:YES completion:nil];
+                }
+            }
         }];
     }
     else if ([title isEqualToString:@"照片拍摄模式"]) {
@@ -517,6 +536,11 @@ static NSString *const LMainFooterID = @"LMainFooterView";
             [LHUD showText:[NSString stringWithFormat:@"获取媒体播放音量10 %@", error]];
         }];
     }
+    else if ([title isEqualToString:@"获取设备状态"]) {
+        [LGlassesKit getDeviceStatusWithCallback:^(LDeviceStatusModel * _Nullable statusModel, NSError * _Nullable error) {
+            [LHUD showText:[NSString stringWithFormat:@"获取设备状态 %@", error]];
+        }];
+    }
 }
 
 - (void)musicControlWithCallback:(void (^)(LMusicControl control))callback
@@ -593,6 +617,18 @@ static NSString *const LMainFooterID = @"LMainFooterView";
     
     //显示
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - QLPreviewControllerDataSource
+
+- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller
+{
+    return 1;
+}
+
+- (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index
+{
+    return self.previewUrl;
 }
 
 #pragma mark - LGlassesKitDelegate

@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.1.1 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.1.2 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -32,9 +32,13 @@
 
 #### 支持 `iOS 14.0 及以上操作系统`
 
-### [⚠️请仔细阅读 `README` 集成SDK；参考提供的示例 `Demo`，以帮助您更好地理解 `API` 的使用！](#NOTE)
+#### [⚠️请仔细阅读 `README` 集成SDK；参考提供的示例 `Demo`，以帮助您更好地理解 `API` 的使用！](#NOTE)
 
-### [提供的示例 `Demo` 片段仅供演示用途，并未经过严格测试，不要作为商用目的使用！](#NOTE)
+#### [🎈提供的示例 `Demo` 片段仅供演示用途，并未经过严格测试，不要作为商用目的使用！](#NOTE)
+
+#### [‼️设备有多个 `系列`，为确保能够正常交互，连接成功后需要设置该设备属于哪个 `系列`，API详参：](#NOTE)
+`LGlassesKit` 设置设备系列 `+ (void)setDeviceSeries:(LDeviceSeries)series;`
+
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -84,12 +88,12 @@ Access Wi-Fi Information
 Hotspot
 ```
 
-##### 3. 扩展虚拟地址（可选）
+##### 3. 扩展虚拟地址 `（可选）`
 ```objective-c
 Extended Virtual Addressing
 ```
 
-##### 4. 后台模式`Background Modes`勾选
+##### 4. 后台模式 `Background Modes` 勾选
 ```objective-c 
 Uses Bluetooth LE accessories
 ```
@@ -662,11 +666,22 @@ Uses Bluetooth LE accessories
 + (void)setDeviceVolume:(int)volume type:(LVolumeType)type callback:(LResultCallback _Nonnull)callback;
 ```
 
+##### 获取设备状态
+```ruby
+/**
+ 获取设备状态
+ */
++ (void)getDeviceStatusWithCallback:(LDeviceStatusCallback _Nonnull)callback;
+```
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 # 版本记录🚀
 ```ruby
+ project    2026-09-02  Version:1.1.2   Build:2026090201
+            1.新增获取设备状态 详@link（LGlassesKit）getDeviceStatusWithCallback:
+
  project    2026-07-14  Version:1.1.1   Build:2026071401
             1.新增委托代理方法 详@link LDelegate
                 通知设备导入状态 notifyDeviceImportingStatus:

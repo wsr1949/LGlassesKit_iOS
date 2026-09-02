@@ -96,4 +96,11 @@ typedef void(^LDeviceVoiceCmdControlCallback)(NSNumber * _Nullable control, NSEr
  */
 typedef void(^LDeviceVolumeCallback)(LVolumeModel * _Nullable volumeModel, NSError * _Nullable error);
 
+/**
+ 设备状态回调
+ @param statusModel         设备状态
+ @param error               错误
+ */
+typedef void(^LDeviceStatusCallback)(LDeviceStatusModel * _Nullable statusModel, NSError * _Nullable error);
+
 #endif /* LCallback_h */

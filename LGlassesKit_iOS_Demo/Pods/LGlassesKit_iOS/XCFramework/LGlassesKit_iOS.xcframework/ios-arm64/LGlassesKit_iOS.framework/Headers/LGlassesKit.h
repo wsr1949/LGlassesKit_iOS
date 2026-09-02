@@ -281,6 +281,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)setDeviceVolume:(int)volume type:(LVolumeType)type callback:(LResultCallback _Nonnull)callback;
 
+/**
+ 获取设备状态
+ */
++ (void)getDeviceStatusWithCallback:(LDeviceStatusCallback _Nonnull)callback;
+
 @end
 
 NS_ASSUME_NONNULL_END

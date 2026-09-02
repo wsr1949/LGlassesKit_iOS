@@ -23,6 +23,9 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-09-02  Version:1.1.2   Build:2026090201
+            1.新增获取设备状态 详@link（LGlassesKit）getDeviceStatusWithCallback:
+ 
  project    2026-07-14  Version:1.1.1   Build:2026071401
             1.新增委托代理方法 详@link LDelegate
                 通知设备导入状态 notifyDeviceImportingStatus:
@@ -111,6 +114,7 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
 #import <LGlassesKit_iOS/LDeviceVersionModel.h>
 #import <LGlassesKit_iOS/LDeviceControlParamModel.h>
 #import <LGlassesKit_iOS/LVolumeModel.h>
+#import <LGlassesKit_iOS/LDeviceStatusModel.h>
 
 #import <LGlassesKit_iOS/LCallback.h>
 #import <LGlassesKit_iOS/LDelegate.h>

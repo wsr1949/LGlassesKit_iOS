@@ -34,36 +34,6 @@
             endingLineNumber = "626"
             landmarkName = "-centralBluetoothStatus:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D2294C8C-1551-45CC-967C-D39647A2078C - b362d19a74399310"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__46-[LMainViewController centralBluetoothStatus:]_block_invoke"
-                  moduleName = "LGlassesKit_iOS_Demo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "626"
-                  endingLineNumber = "626">
-               </Location>
-               <Location
-                  uuid = "D2294C8C-1551-45CC-967C-D39647A2078C - 9307d0fe6c301133"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__46-[LMainViewController centralBluetoothStatus:]_block_invoke_2"
-                  moduleName = "LGlassesKit_iOS_Demo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "628"
-                  endingLineNumber = "628">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -80,6 +50,36 @@
             endingLineNumber = "559"
             landmarkName = "-volumeControlWithCallback:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3FC18CA0-342A-49AB-8A70-3CB296B0485E - 90cd749d34430671"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LMainViewController musicControlWithCallback:]"
+                  moduleName = "LGlassesKit_iOS_Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "559"
+                  endingLineNumber = "559">
+               </Location>
+               <Location
+                  uuid = "3FC18CA0-342A-49AB-8A70-3CB296B0485E - 250d1fc553487b15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[LMainViewController musicControlWithCallback:]_block_invoke.265"
+                  moduleName = "LGlassesKit_iOS_Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "560"
+                  endingLineNumber = "560">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -96,6 +96,36 @@
             endingLineNumber = "569"
             landmarkName = "-volumeControlWithCallback:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "030ABA69-525C-4BB3-A076-E57336FE532D - 90cd749d344305bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LMainViewController musicControlWithCallback:]"
+                  moduleName = "LGlassesKit_iOS_Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "569"
+                  endingLineNumber = "569">
+               </Location>
+               <Location
+                  uuid = "030ABA69-525C-4BB3-A076-E57336FE532D - 5a09344e8d44e648"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[LMainViewController musicControlWithCallback:]_block_invoke_3"
+                  moduleName = "LGlassesKit_iOS_Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "570"
+                  endingLineNumber = "570">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
