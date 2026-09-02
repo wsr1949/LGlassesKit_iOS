@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.1.1 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.1.2 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -666,11 +666,22 @@ Uses Bluetooth LE accessories
 + (void)setDeviceVolume:(int)volume type:(LVolumeType)type callback:(LResultCallback _Nonnull)callback;
 ```
 
+##### 获取设备状态
+```ruby
+/**
+ 获取设备状态
+ */
++ (void)getDeviceStatusWithCallback:(LDeviceStatusCallback _Nonnull)callback;
+```
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 # 版本记录🚀
 ```ruby
+ project    2026-09-02  Version:1.1.2   Build:2026090201
+            1.新增获取设备状态 详@link（LGlassesKit）getDeviceStatusWithCallback:
+
  project    2026-07-14  Version:1.1.1   Build:2026071401
             1.新增委托代理方法 详@link LDelegate
                 通知设备导入状态 notifyDeviceImportingStatus:
