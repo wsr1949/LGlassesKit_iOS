@@ -42,6 +42,9 @@ typedef NS_ENUM(NSUInteger, LCorner) {
 /// 主窗口
 + (UIWindow *)keyWindow;
 
+/// 创建一个指定size和圆角的纯色UIImage
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius;
+
 @end
 
 NS_ASSUME_NONNULL_END

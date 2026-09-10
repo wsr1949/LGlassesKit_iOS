@@ -14,6 +14,9 @@
 		2086B63892D3DEFBCA88A810 /* Pods-LGlassesKit_iOS_Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGlassesKit_iOS_Demo.release.xcconfig"; path = "Target Support Files/Pods-LGlassesKit_iOS_Demo/Pods-LGlassesKit_iOS_Demo.release.xcconfig"; sourceTree = "<group>"; };
 		5934C3272EAF74B200B1A91B /* iOS_LWAIGCKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOS_LWAIGCKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59459AFF2E7CF987002AA3FF /* LGlassesKit_iOS_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGlassesKit_iOS_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5969907630513A7100DA14A5 /* LGlassesKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LGlassesKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5969907A30513A8600DA14A5 /* iOS_LWAIGCKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOS_LWAIGCKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5969908930514F4F00DA14A5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		59BB3A5D2E867F48003505EA /* LGlassesKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LGlassesKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BE9AA62EE014630027B734 /* LGlassesKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LGlassesKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BE9AAA2EE014660027B734 /* iOS_LWAIGCKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOS_LWAIGCKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +89,9 @@
 		EBA32F5D1D141479E2A46AB2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5969908930514F4F00DA14A5 /* AudioToolbox.framework */,
+				5969907A30513A8600DA14A5 /* iOS_LWAIGCKit.framework */,
+				5969907630513A7100DA14A5 /* LGlassesKit_iOS.framework */,
 				59BE9AAA2EE014660027B734 /* iOS_LWAIGCKit.framework */,
 				59BE9AA62EE014630027B734 /* LGlassesKit_iOS.framework */,
 				59E395732ECDDA2500494729 /* iOS_LWAIGCKit.framework */,
@@ -230,7 +236,11 @@
 				CURRENT_PROJECT_VERSION = 2026010501;
 				DEVELOPMENT_TEAM = 45GY6NDXXV;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LGlassesKit_iOS_Demo/Other",
+					"$(PROJECT_DIR)/LGlassesKit_iOS_Demo/Other/IJKMediaFramework-iOS",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LGlassesKit_iOS_Demo/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LGlassesKit_iOS_Demo/Info.plist;
@@ -317,6 +327,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LGlassesKit_iOS_Demo/SDK",
+					"$(PROJECT_DIR)/LGlassesKit_iOS_Demo/Other",
+					"$(PROJECT_DIR)/LGlassesKit_iOS_Demo/Other/IJKMediaFramework-iOS",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LGlassesKit_iOS_Demo/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;

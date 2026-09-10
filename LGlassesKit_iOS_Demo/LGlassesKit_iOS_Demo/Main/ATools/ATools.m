@@ -142,4 +142,21 @@
     return windowScene.windows.firstObject;
 }
 
+/// 创建一个指定size和圆角的纯色UIImage
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius
+{
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:size];
+    
+    UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        CGRect rect = CGRectMake(0, 0, size.width, size.height);
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:cornerRadius];
+        [path addClip];
+        
+        [color setFill];
+        UIRectFill(rect);
+    }];
+    
+    return image;
+}
+
 @end

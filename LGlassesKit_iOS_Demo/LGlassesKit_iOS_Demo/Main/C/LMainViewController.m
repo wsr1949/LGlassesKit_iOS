@@ -13,6 +13,7 @@
 #import "LAIAgentViewController.h"
 #import "LDeviceSeriesPopoverController.h"
 #import <QuickLook/QuickLook.h>
+#import "LLivePreviewViewController.h"
 
 @interface LMainViewController () <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, QLPreviewControllerDataSource>
 
@@ -228,6 +229,7 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         @"获取设备音量",
         @"设置设备音量",
         @"获取设备状态",
+        @"📸直播预览（部分设备支持）",
     ];
 }
 
@@ -540,6 +542,10 @@ static NSString *const LMainFooterID = @"LMainFooterView";
         [LGlassesKit getDeviceStatusWithCallback:^(LDeviceStatusModel * _Nullable statusModel, NSError * _Nullable error) {
             [LHUD showText:[NSString stringWithFormat:@"获取设备状态 %@", error]];
         }];
+    }
+    else if ([title isEqualToString:@"📸直播预览（部分设备支持）"]) {
+        LLivePreviewViewController *vc = [LLivePreviewViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

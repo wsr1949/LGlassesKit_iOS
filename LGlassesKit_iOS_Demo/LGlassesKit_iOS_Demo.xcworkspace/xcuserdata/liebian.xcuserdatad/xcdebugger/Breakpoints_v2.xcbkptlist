@@ -52,7 +52,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "3FC18CA0-342A-49AB-8A70-3CB296B0485E - 90cd749d34430671"
+                  uuid = "3FC18CA0-342A-49AB-8A70-3CB296B0485E - 90cd749d34430696"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -62,22 +62,22 @@
                   urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "559"
-                  endingLineNumber = "559">
+                  startingLineNumber = "560"
+                  endingLineNumber = "560">
                </Location>
                <Location
-                  uuid = "3FC18CA0-342A-49AB-8A70-3CB296B0485E - 250d1fc553487b15"
+                  uuid = "3FC18CA0-342A-49AB-8A70-3CB296B0485E - af06d92456ffe7b3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__48-[LMainViewController musicControlWithCallback:]_block_invoke.265"
+                  symbolName = "__48-[LMainViewController musicControlWithCallback:]_block_invoke"
                   moduleName = "LGlassesKit_iOS_Demo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "560"
-                  endingLineNumber = "560">
+                  startingLineNumber = "561"
+                  endingLineNumber = "561">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -98,7 +98,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "030ABA69-525C-4BB3-A076-E57336FE532D - 90cd749d344305bf"
+                  uuid = "030ABA69-525C-4BB3-A076-E57336FE532D - 90cd749d344305dc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -108,22 +108,22 @@
                   urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "569"
-                  endingLineNumber = "569">
+                  startingLineNumber = "570"
+                  endingLineNumber = "570">
                </Location>
                <Location
-                  uuid = "030ABA69-525C-4BB3-A076-E57336FE532D - 5a09344e8d44e648"
+                  uuid = "030ABA69-525C-4BB3-A076-E57336FE532D - 5a09344e8d44e662"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__48-[LMainViewController musicControlWithCallback:]_block_invoke_3"
+                  symbolName = "__48-[LMainViewController musicControlWithCallback:]_block_invoke_2"
                   moduleName = "LGlassesKit_iOS_Demo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liebian/Desktop/LGlassesKit_iOS_Dev/GitHub/LGlassesKit_iOS/LGlassesKit_iOS_Demo/LGlassesKit_iOS_Demo/Main/C/LMainViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "570"
-                  endingLineNumber = "570">
+                  startingLineNumber = "571"
+                  endingLineNumber = "571">
                </Location>
             </Locations>
          </BreakpointContent>

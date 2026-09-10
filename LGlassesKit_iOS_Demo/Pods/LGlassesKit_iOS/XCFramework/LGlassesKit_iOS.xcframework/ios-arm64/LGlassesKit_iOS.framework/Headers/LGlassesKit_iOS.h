@@ -23,6 +23,10 @@ FOUNDATION_EXPORT const unsigned char LGlassesKit_iOSVersionString[];
  
  版本记录：
  
+ project    2026-09-10  Version:1.1.3   Build:2026091001
+            1.新增进入直播模式（部分设备支持） 详@link（LGlassesKit）enterLiveStreamModeWithCallback:
+            2.新增退出直播模式（部分设备支持） 详@link（LGlassesKit）exitLiveStreamModeWithCallback:
+ 
  project    2026-09-02  Version:1.1.2   Build:2026090201
             1.新增获取设备状态 详@link（LGlassesKit）getDeviceStatusWithCallback:
  
