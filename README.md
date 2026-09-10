@@ -3,7 +3,7 @@
 <p align="left">
 
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
-    <img src="https://img.shields.io/badge/Release-1.1.2 -Green.svg">
+    <img src="https://img.shields.io/badge/Release-1.1.3 -Green.svg">
 </a>
 <a href="https://github.com/wsr1949/LGlassesKit_iOS.git">
     <img src="https://img.shields.io/badge/Support-iOS14.0+ -blue.svg">
@@ -674,11 +674,32 @@ Uses Bluetooth LE accessories
 + (void)getDeviceStatusWithCallback:(LDeviceStatusCallback _Nonnull)callback;
 ```
 
+##### 进入直播模式（部分设备支持）
+```ruby
+/**
+ 进入直播模式（部分设备支持）
+ @note 回调rtsp拉流地址，应用层自行拉流播放
+ */
++ (void)enterLiveStreamModeWithCallback:(LLivePreviewCallback _Nonnull)callback;
+```
+
+##### 退出直播模式（部分设备支持）
+```ruby
+/**
+ 退出直播模式（部分设备支持）
+ */
++ (void)exitLiveStreamModeWithCallback:(LResultCallback _Nonnull)callback;
+```
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 # 版本记录🚀
 ```ruby
+ project    2026-09-10  Version:1.1.3   Build:2026091001
+            1.新增进入直播模式（部分设备支持） 详@link（LGlassesKit）enterLiveStreamModeWithCallback:
+            2.新增退出直播模式（部分设备支持） 详@link（LGlassesKit）exitLiveStreamModeWithCallback:
+
  project    2026-09-02  Version:1.1.2   Build:2026090201
             1.新增获取设备状态 详@link（LGlassesKit）getDeviceStatusWithCallback:
 
