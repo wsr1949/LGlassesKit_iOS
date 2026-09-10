@@ -252,21 +252,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  设置离线语音语种
+ @param language    语种
  */
 + (void)setOfflineVoiceLanguage:(LOfflineVoiceLanguage)language callback:(LResultCallback _Nonnull)callback;
 
 /**
  音乐控制
+ @param control     控制状态
  */
 + (void)setupMusicControls:(LMusicControl)control callback:(LResultCallback _Nonnull)callback;
 
 /**
  音量控制
+ @param control     控制状态
  */
 + (void)setupVolumeControls:(LVolumeControl)control callback:(LResultCallback _Nonnull)callback;
 
 /**
  通话控制
+ @param control     控制状态
  */
 + (void)setupCallControls:(LCallControl)control callback:(LResultCallback _Nonnull)callback;
 
@@ -285,6 +289,17 @@ NS_ASSUME_NONNULL_BEGIN
  获取设备状态
  */
 + (void)getDeviceStatusWithCallback:(LDeviceStatusCallback _Nonnull)callback;
+
+/**
+ 进入直播模式（部分设备支持）
+ @note 回调rtsp拉流地址，应用层自行拉流播放
+ */
++ (void)enterLiveStreamModeWithCallback:(LLivePreviewCallback _Nonnull)callback;
+
+/**
+ 退出直播模式（部分设备支持）
+ */
++ (void)exitLiveStreamModeWithCallback:(LResultCallback _Nonnull)callback;
 
 @end
 

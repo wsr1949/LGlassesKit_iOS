@@ -103,4 +103,11 @@ typedef void(^LDeviceVolumeCallback)(LVolumeModel * _Nullable volumeModel, NSErr
  */
 typedef void(^LDeviceStatusCallback)(LDeviceStatusModel * _Nullable statusModel, NSError * _Nullable error);
 
+/**
+ 设备实时预览回调
+ @param rtsp                拉流地址
+ @param error               错误
+ */
+typedef void(^LLivePreviewCallback)(NSString * _Nullable rtsp, NSError * _Nullable error);
+
 #endif /* LCallback_h */
