@@ -1,5 +1,4 @@
-![LOGO](https://github.com/wsr1949/LGlassesKit_iOS/blob/main/Resources/000.jpg)
-![LOGO](https://github.com/wsr1949/LGlassesKit_iOS/blob/main/Resources/0000.gif)
+![LOGO](https://github.com/wsr1949/LGlassesKit_iOS/blob/main/Resources/000.gif)
 
 <p align="left">
 
